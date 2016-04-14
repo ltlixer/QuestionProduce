@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="com.swu.question.entity.Student" />
+        <mapping class="com.swu.question.entity.Teacher" />
+        <mapping class="com.swu.question.entity.Text" /> 
+        <mapping class="com.swu.question.entity.Assignment" /> 
+        <mapping class="com.swu.question.entity.Course" /> 
+        <mapping class="com.swu.question.entity.ScoreAssignment" /> 
+        <mapping class="com.swu.question.entity.Question" /> 
+        <mapping class="com.swu.question.entity.QuestionType" /> 
+        <mapping class="com.swu.question.entity.Answer" /> 
+        <mapping class="com.swu.question.entity.Evaluate"/>
+        <mapping class="com.swu.question.entity.Distracter"/>
+        <mapping class="com.swu.question.entity.NewWords"/>
+        <mapping class="com.swu.question.entity.Word"/>
+        <mapping class="com.swu.question.entity.Log"/>
+    </session-factory>
+	    
+</hibernate-configuration>

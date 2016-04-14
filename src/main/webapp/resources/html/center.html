@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My JSP 'center.jsp' starting page</title>
+    <link rel="stylesheet" type="text/css" href="../css/page.css"/>
+    <script type="text/javascript">
+    	function showOrDisplay(){
+    		var ele=parent.document.getElementById("centerSet");
+    		if(ele.cols=="208,8,*"){
+    			ele.cols="0,8,*";
+    			document.getElementById("img").src="../images/yctiaoB.gif";
+    		}else{
+    			ele.cols="208,8,*";
+    			document.getElementById("img").src="../images/yctiaoA.gif";
+    		}
+    	}
+    </script>
+
+  </head>
+  
+  <body class="center">
+    <img id="img" src="../images/yctiaoA.gif" onClick="showOrDisplay()"/>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>欢迎使用系统</title>
+<link rel="stylesheet" type="text/css" href="../css/page.css" />
+<script type="text/javascript" src="../js/time.js"></script>
+<script type="text/javascript" src="../js/exit.js"></script>
+<script type="text/javascript" src="../jQuery/jquery-1.7.2.js"></script>
+<script language="javascript">
+	$(function() {
+		//显示用户姓名
+		var url = location.href;
+		var name = url.substring(url.indexOf("=") + 1, url.length);
+		$("#userName").text(decodeURI(name));
+	});
+</script>
+</head>
+<body>
+<div class="top">
+		<img src="../images/split.jpg" /> <br>
+		<br>
+		<div style="float: left; margin: 0px 0px 0px 20px;">
+			<font style="font-family: 微软雅黑; font-weight: bold;" color="#f8f9fc"
+				size="5">中 文 智 能 提 问 系 统</font><br>
+			<br>
+		</div>
+		<div style="float: right">
+			<font color="#f8f9fc" size="4"> <label id="userName"></label>同学,你好！
+		</font> <font color="#f8f9fc" size="3">
+			&nbsp;&nbsp; <img src="../images/off.png" />&nbsp;<a
+			href="/question/exit" target="_top" onclick="return m()"><font
+				color="#5480e7" size="4">退出</font></a> &nbsp;&nbsp;<b><a id="infor"
+				href="/question/linkStuUpdatePassword" target="mainFrame"><img
+					src="../images/info.png" /><font color="#5480e7" size="4">密码修改</font></a>&nbsp;&nbsp;</b>
+		</font>
+		</div>
+</div>
+</body>
+</html>

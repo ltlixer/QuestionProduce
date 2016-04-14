@@ -1,0 +1,209 @@
+body {
+ background-color: #f0f0f0; 
+ font-family: "Lucida Grande", Lucida Sans Unicode, Hiragino Sans GB, "Lucida Grande", Lucida Sans Unicode, Hiragino Sans GB, "微软雅黑", Verdana, Aril, sans-serif, Verdana, Aril, sans-serif;
+ -webkit-font-smoothing: antialiased;
+}
+#questions{
+    border-left: dashed 1px;
+}
+.sentence{
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 6px;
+}
+.sentence-selected{
+    background-color: #d9edf7;
+    color: #23527c;
+}
+
+.btn {
+    margin-bottom: 10px;
+}
+.min {
+  margin-top: -40px;
+}
+
+.row {
+  margin-bottom: 35px;
+}
+textarea {
+  resize: vertical;
+}
+.navbar-brand {
+  padding: 15px 40px;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-inverse {
+  background-color: #2e3138;
+}
+.banner {
+  margin: 0;
+  margin-bottom: 35px;
+  padding: 0;
+  background-color: white;
+  height: 100px;
+  width: 100%;
+  color: #333;
+  overflow: hidden;
+  border: 1px solid rgba(153, 153, 153, 0.3);
+}
+.lead {
+  position: relative;
+  top: 25px;
+  left: 50px;
+}
+.content {
+  position: relative;
+  left: 20px;
+  top: 7px;
+}
+.bgw {
+  padding: 15px 5px;
+  background-color: white;
+  border: 1px solid rgba(153, 153, 153, 0.3);
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+#fileRead {
+  display: block;
+  width: 80px;
+  height: 40px;
+  position: relative;
+  top: 40px;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  filter:alpha(opacity = 0);
+}
+
+#csvRead {
+  display: inline-block;
+  vertical-align: top;
+  width: 110px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  filter:alpha(opacity = 0);
+}
+
+.easyRead {
+  float: right;
+  position: relative;
+  margin-right: 10px;
+  top: 8px;
+}
+
+.hover {
+  color:#333;
+  background-color:#e6e6e6;
+  border-color:#adadad
+}
+
+
+.modify {
+  display: block;
+  float: right;
+  color: #fff;
+  line-height: 50px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+.modify:visited {
+  color: #fff;
+}
+.modify:hover {
+  color: #f0f0f0;
+}
+
+
+.intro {
+  padding: 10px;
+  font-size: 20px;
+  color: #0775BE;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-input {
+  margin: 20px 0 0 40px;
+}
+.security {
+  width: 400px;
+  height: 200px;
+  background-color: #fff;
+  box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: -20%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 1020;
+  border-radius: 6px;
+  transition: all .5s ease;
+}
+
+.control {
+  width: 100%;
+  height: 60px;
+  border-top: 1px solid #ddd;
+  background-color: #f5f5f5;
+  position: absolute;
+  bottom: 0;
+  padding: 5px;
+  border-radius: 0 0 6px 6px
+}
+
+.control .btn {
+  float: right;
+  margin: 8px;
+
+}
+
+.mask {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1010;
+  background-color: #000000;
+  transition: all .5s ease;
+}
+
+.sub-confirm {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #F70424;
+}
+
+.titleType {
+  margin-top: 10px;
+}
+
+.typeCheck {
+  margin-right: 5px;
+}
+
+@media (max-width: 1200px) {
+  .btn {
+    margin-bottom: 0px;
+  }
+  .min {
+    margin-top: -30px;
+  }
+  .easyRead {
+    top: 0;
+    left: -110px;
+  }
+}

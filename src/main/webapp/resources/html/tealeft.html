@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My JSP 'left.jsp' starting page</title>
+    <link rel="stylesheet" type="text/css" href="../css/page.css"/>
+    <script type="text/javascript" src="../jQuery/jquery-1.7.2.js"></script>
+  	<script type="text/javascript" >
+  	$(function(){
+  	// 菜单收起展开
+  		$("ul.mul").hide();
+  		$("div.menu1").click(function() {
+  			$("ul.mul").hide();
+  			if ($("ul[id=" + this.id + "]").is(":hidden")) {
+  				$("ul[id=" + this.id + "]").show(200);
+  			} else {
+  				$("ul[id=" + this.id + "]").hide(200);
+  			}
+  		});
+  	})
+  	</script>
+  </head>
+  
+  <body class="left">
+ <div class="left_div">
+ <div id="menu" class="left">
+			<div class="menu1" id="m1">基本信息</div>
+			<ul id="m1" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp;
+				 <a class="a" href="/question/course/manageCourse" target="mainFrame">添加课程信息</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/queryStudentByteaId" target="mainFrame">录入学生信息</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/linkUpdateTeacher" target="mainFrame">修改个人信息</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/linkTeaUpdatePassword" target="mainFrame">密 码 重 置</a></li>
+			</ul>
+			<div id="m2" class="menu1">发布作业</div>
+			<ul id="m2" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/text/linkAddText" target="mainFrame">上传课文</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/text/queryText/1" target="mainFrame">布置作业</a></li>
+			</ul>
+			<div id="m3" class="menu1">作业管理</div>
+			<ul id="m3" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/queryAssignment/1" target="mainFrame">管理作业</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/queryScoreAssignment/1" target="mainFrame">修改成绩</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/showScoreAssignment/1" target="mainFrame">查看成绩</a></li>
+			</ul>
+			<div class="menu1" id="m4">评估结果</div>
+			<ul id="m4" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryEvaluated" target="mainFrame">打分评估结果</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryLogTea" target="mainFrame">出题时间跟踪</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryLogStu" target="mainFrame">做题时间跟踪</a></li>
+			</ul>
+			<div class="menu1">菜单收起</div>
+		</div>
+   </div>
+  </body>
+</html>

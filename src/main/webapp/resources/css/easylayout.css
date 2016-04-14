@@ -1,0 +1,319 @@
+
+ .div_ul {
+	margin: 0 auto;
+	width: 450px;
+	height:280px;
+	font: 13px arial;
+}
+
+.div_ul ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	vertical-align: middle;
+}
+
+.div_ul ul li {
+	padding: 3px 0 3px 50px;
+	border-bottom: dotted 1px #eff2f7;   
+	height:28px;
+	line-height:28px;
+	vertical-align: middle;
+}
+
+.div_ul ul li label {
+	display: block;
+	width: 100px;
+	margin-right:10px;
+	float: left;
+	font-size: 14px;
+	font-family: 微软雅黑,Tohoma;
+	background:  #ebf3ff;
+	vertical-align: middle;
+}
+
+.div_ul ul li textarea,.div_ul ul li .setinput {
+	width: 580px;
+	font-size: 13px;
+	font-family: Arial;
+}
+
+.div_ul ul li img.ShowImg {
+	margin-left: 160px;
+}
+
+
+#titlefont{
+	font-size:large;
+	font-weight: bold;
+	
+}
+
+.alldialog{
+	
+	padding: 5px;
+	width:500px !important;
+	height:300px !important;
+}
+.div_inlineBlock{
+	display:inline-block;
+}
+.div_grid{
+	position: absolute;
+	width:100%;
+}
+
+#addReset{
+	display: none;
+}
+
+
+
+body, input, textarea, select, button 
+{
+		font-family: 微软雅黑,Tohoma;
+}
+
+
+input
+{
+	font-size:13px;
+	border:1px solid #cccccc;
+	 background: #fafafa; 
+	height: 24px;
+	padding-left:2px;
+	border-radius: 2px; 
+}
+
+/* 以下是按钮样式  */
+/*适合2~3个汉字*/
+.btn
+{
+ background-color: #1abc9c;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:24px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;
+}
+
+.btnBig {
+    padding: 0 40px 0 40px;
+    padding-top: 0px;
+	height: 45px;
+	width:120px;
+	text-transform: uppercase;
+	font: bold 20px/22px Arial, sans-serif;
+	}
+/*适合6个汉字*/
+.btnLong {
+    padding-top: 0px;
+	height: 30px;
+	width:100px;
+	text-transform: uppercase;
+	
+	}
+/*适合10个汉字*/
+.btnMediumlong {
+    padding-top: 0px;
+	height: 30px;
+	width:150px;
+	text-transform: uppercase;
+	
+	}
+/*适合16个汉字*/
+.btnOverlong {
+    padding-top: 0px;
+	height: 30px;
+	width:200px;
+	text-transform: uppercase;
+	
+	}
+/*蓝色按钮*/
+.btnBlue
+{
+ background-color: #3498db;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:30px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;;
+ 
+}
+.btnSmallBlue
+{
+ background-color: #3498DB;
+ padding: 1px 5px;
+font-size: 12px;
+line-height: 1.0;
+border-radius: 3px;
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;
+ 
+}
+/*灰色按钮*/
+.btnGray
+{
+ background-color: #bdc3c7;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:24px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;;
+
+}
+/*浅绿按钮*/
+.btnPaleGreen
+{
+ background-color: #2ecc71;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:24px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;;
+
+}
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+    color: #FFF;
+    background-color: #1ABC9C;
+    border: thin solid #1ABC9C;
+    outline: 0px none;
+}
+.btn-primary {
+    color: #1ABC9C;
+    background-color: transparent;
+    border: thin solid #1ABC9C;
+    cursor:pointer;
+    border-radius: 3px; 
+    height:30px;
+}
+
+/* 以上是按钮样式  */
+
+/* 以下是select样式  */
+select 
+{
+	height: 28px;
+	line-height: 28px;
+	vertical-align: middle;
+	border-radius: 2px;
+	border:1px solid #cccccc;
+	padding-top: 5px;
+	/*margin-left: 2px;*/
+	
+	
+}
+select.input-sm {
+    height: 30px;
+    line-height: 30px;
+}
+select[multiple], select[size] {
+    height: auto;
+    font-family: 微软雅黑,Tohoma;
+}
+.form-control {
+    color: #717171;
+    outline: 0px none;
+    padding: 5px 9px;
+    line-height: 18px;
+    font-size: 13px;
+    background-color: #FAFAFA;
+    min-height: 36px;
+    filter: none !important;
+    box-shadow: none !important;
+    border-radius: 3px;
+    transition: all 0.2s linear 0s;
+    display: block;
+    border: 1px solid #CCC;
+    font-family: 微软雅黑,Tohoma;
+}
+optgroup
+{
+	color: #3399cc;
+	
+	font-weight:bold;
+font-style: normal;
+
+margin: 0px;
+font-family: 微软雅黑,Tohoma;
+}
+
+.input-sm {
+    height: 28px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/* 以上是select样式  */
+.redStar
+{
+	color:#ff0000;
+	font-size: 11pt;
+}
+
+
+
+.div_table {
+	margin: 0 auto;
+	width: 500px;
+	font: 13px arial;
+}
+
+.div_table table tr {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	vertical-align: middle;
+}
+
+.div_table table td {
+	padding: 3px 0 3px 50px;
+	border-bottom: dotted 1px #eff2f7;   
+	height:28px;
+	line-height:28px;
+	vertical-align: middle;
+}
+
+.div_table table td label {
+	display: block;
+	width: 100px;
+	margin-right:5px;
+	float: left;
+	font-size: 14px;
+	font-family: 微软雅黑,Tohoma;
+	background:  #ebf3ff;
+	vertical-align: middle;
+}
+
+.div_table table td textarea,.div_ul ul li .setinput {
+	width: 580px;
+	font-size: 13px;
+	font-family: Arial;
+}
+
+.div_table table td img.ShowImg {
+	margin-left: 160px;
+}
+
+

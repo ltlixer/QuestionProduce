@@ -1,0 +1,80 @@
+html, body {
+	font-family: Source Code Pro,Consolas,'微软雅黑', sans-serif;
+}
+
+textarea {
+	margin: 20px;
+}
+
+.addModelName {
+	display: inline-block;
+	position: relative;
+}
+.input-content {
+	display: none;
+	position: absolute;
+	z-index: 10;
+	top: 31px;
+	left: -5px;
+	width: 253px;
+	height: 86px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #eaeaea;
+}
+
+.input-content .input {
+	margin: 5px 0 10px 0;
+}
+.input-content .btn {
+	float: right;
+	margin: 0 8px;
+}
+
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	line-height: 1.5;
+	padding: 4px 15px;
+	font-size: 12px;
+	border-radius: 3px;
+	transition: all .3s cubic-bezier(.645, .045, .355, 1);
+	color: #fff;
+	background-color: #2db7f5;
+	border-color: #2db7f5;
+}
+.btn:hover {
+	color: #fff;
+	background-color: #57c5f7;
+	border-color: #57c5f7;
+}
+
+#modelList, #fileList {
+	width: 160px;
+	padding: 4px;
+}
+
+.fileModify {
+	float: right;
+}
+
+.fileName {
+	font-size: 16px;
+	color: #E6DB74;
+	background-color: #272A32;
+	display: inline-block;
+	padding: 4px;
+	border-radius: 4px;
+}
+.mirror {
+	width: 49%;
+	height: 85%;
+	display: inline-block;
+}

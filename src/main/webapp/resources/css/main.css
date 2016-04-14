@@ -1,0 +1,262 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0px;
+	font-size: 12px;
+	border-left: 1px solid #7B96B4;
+}
+
+.listBody {
+	background: #A7C6E5;
+}
+
+.mainBody {
+	background: url(../images/loginbg.png) repeat-x 50% top;
+}
+
+.registerBody {
+	background-color: #E3F1FE;
+}
+
+.bodyDiv {
+	margin: 10px 10px 10px 10px;
+}
+
+.div1 {
+	background-color: #E3F1FE;
+	line-height: 30px;
+	height: 30px;
+}
+
+.div1 img {
+	margin-left: 10px;
+}
+
+.div1 * {
+	vertical-align: middle;
+}
+
+.div2 {
+	background-color: #E3F1FE;
+	height: 45px;
+	margin-top: 10px;
+}
+
+.div2 table {
+	margin-left: 20px;
+}
+
+.div2 td {
+	height: 40px;
+	line-height: 45px;
+}
+
+.inputText_1 {
+	border: 1px solid silver;
+}
+
+.div3 {
+	background-color: #E3F1FE;
+	margin-top: 10px;
+	height: 45px;
+	line-height: 45px;
+	padding-left: 10px;
+	border-bottom: 1px solid #B5BCC2;
+}
+
+.div3 input {
+	margin-left: 6px;
+}
+
+.div4 {
+	background-color: white;
+	overflow: hidden;
+	border-bottom: 1px solid #B5BCC2;
+}
+
+.div4 table {
+	width: 98%;
+	margin: 10px;
+	border: 1px solid #BEC9CB;
+	border-collapse: collapse;
+}
+
+.div4 th, .div4 td {
+	border: 1px solid #BEC9CB;
+	font-size: 13px
+}
+
+.div4 th {
+	background: url("../images/Right_bg.jpg") repeat-x;
+	height: 33px;
+}
+
+.div4 td {
+	height: 30px;
+}
+
+.tr_1 {
+	background-color: #EFF9FB;
+}
+
+.div4 tr:hover {
+	background-color: #C9F6FF;
+}
+
+.div5 {
+	background-color: #E3F1FE;
+	height: 36px;
+	line-height: 36px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.div5 a:link {
+	color: #000;
+	text-decoration: none;
+}
+
+.div5 a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+.div5 a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+.div6 {
+	background-color: #E3F1FE;
+	height: 28px;
+	margin-top: 10px;
+}
+/*按钮*/
+.btn1 {
+	background: url("../images/btn1.jpg") no-repeat;
+	width: 58px;
+	height: 24px;
+	line-height: 24px;
+	border: 0px;
+}
+
+.btn2 {
+	background: url("../images/btn2.jpg") no-repeat;
+	width: 71px;
+	height: 24px;
+	line-height: 24px;
+	border: 0px;
+}
+.btnPaleGreen
+{
+ background-color: #2ecc71;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:24px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;;
+
+}
+/*灰色按钮*/
+.btnGray
+{
+ background-color: #bdc3c7;
+ width:60px; 
+ height:30px;
+ border-radius: 5px; 
+ line-height:24px; 
+ text-align:center; 
+ color:#fff;
+ font-size:13px;
+ cursor:pointer;
+ border:1px solid transparent;;
+
+}
+
+/*编辑界面*/
+.editTab {
+	width: 98%;
+	margin: 10px;
+	border: 1px solid #D8E2F4;
+	border-collapse: collapse;
+}
+
+.editTab td {
+	border: 1px solid #D8E2F4;
+	height: 30px;
+	padding: 3px;
+}
+
+.text {
+	border: 1px solid #ABADB3;
+	height: 22px;
+	line-height: 20px;
+	width: 200px;
+}
+
+.login {
+	width: 150px;
+	height: 30px;
+	color: #ABADB3;
+	font-size: 18;
+	font: bold;
+	font-family: sans-serif;
+}
+
+.inputText_2 {
+	border: 1px solid #ABADB3;
+	height: 22px;
+	line-height: 22px;
+	width: 200px;
+}
+
+.select_2 {
+	border: 1px solid #ABADB3;
+	height: 22px;
+	line-height: 22px;
+	width: 200px;
+}
+
+.operationBtn {
+	text-align: center;
+}
+
+.p_title {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.inputText_3 {
+	border: 1px solid #ABADB3;
+	height: 22px;
+	line-height: 22px;
+	width: 80px;
+}
+
+.inputText_4 {
+	border: 1px solid white;
+	height: 22px;
+	line-height: 22px;
+	width: 80px;
+	border-bottom: 1px dashed #ABADB3;
+}
+/*弹出层*/
+#showCar {
+	border: 1px solid green;
+	position: absolute;
+	display: none;
+	background-color: white;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#showCar li:hover {
+	background-color: silver;
+	cursor: pointer;
+}
