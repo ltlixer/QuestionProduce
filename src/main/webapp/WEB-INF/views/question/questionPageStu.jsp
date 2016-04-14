@@ -300,6 +300,7 @@ $(function() {
 </script>
 </head>
 <body>
+	<c:if test="${MultiplechoiceSize==0}">
 	<div class="div3">
 		<font size="4">阅读<label>课文《${textTitle}》回答下列问题 </label>
 		</font>
@@ -313,6 +314,7 @@ $(function() {
 			</c:forEach>
 		</font>
 	</div>
+	</c:if>
 	<div class="div3">
 		<font size="4"><label>问题（共${questionsize}小题）</label></font>
 		<div style="float: right;"><font size="4" color="red">测试总时间：${assTime}分钟

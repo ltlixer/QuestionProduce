@@ -81,13 +81,20 @@ public class AssignmentServiceImpl implements AssignmentService {
 		try {
 			date = format.parse(startDate);
 			Text text = textDAO.queryText(Integer.parseInt(textId));
-			Assignment assignment = new Assignment();
-			assignment.setAssTime(Integer.parseInt(assTime));
-			assignment.setStartDate(date);
-			assignment.setCreateTime(new Date());
-			assignment.setTeacher(teacher);
-			assignment.setText(text);
-			boolean b = assignmentDAO.addAssignment(assignment);
+			Assignment assignment1 = new Assignment();
+			Assignment assignment2 = new Assignment();//选择题作业
+			assignment1.setAssTime(Integer.parseInt(assTime));
+			assignment1.setStartDate(date);
+			assignment1.setCreateTime(new Date());
+			assignment1.setTeacher(teacher);
+			assignment1.setText(text);
+			assignment2.setAssTime(Integer.parseInt(assTime));
+			assignment2.setStartDate(date);
+			assignment2.setCreateTime(new Date());
+			assignment2.setTeacher(teacher);
+			assignment2.setText(text);
+			boolean b = assignmentDAO.addAssignment(assignment1);
+			b = assignmentDAO.addAssignment(assignment2);
 			if(b==false)
 				return false;
 			for (int index = 0; index < contents.size(); index++) {
@@ -109,17 +116,20 @@ public class AssignmentServiceImpl implements AssignmentService {
 				}else{
 					question.setQuestionType("factoid");
 				}
-				question.setAssignment(assignment);
-				
-				if(map.get("distracter")!=null && !"".equals(map.get("distracter"))){
-					JSONArray json=JSONArray.fromObject(map.get("distracter"));
-					Object[] distracters = json.toArray();
-					Set<Distracter> distracterSet = new HashSet<Distracter>();
-					for (int i = 0; i < distracters.length; i++) {
-						distracterSet.add(new Distracter(distracters[i].toString(),question));
+				if(question.getQuestionType()=="multiplechoice"){
+					question.setAssignment(assignment2);
+					if(map.get("distracter")!=null && !"".equals(map.get("distracter"))){
+						JSONArray json=JSONArray.fromObject(map.get("distracter"));
+						Object[] distracters = json.toArray();
+						Set<Distracter> distracterSet = new HashSet<Distracter>();
+						for (int i = 0; i < distracters.length; i++) {
+							distracterSet.add(new Distracter(distracters[i].toString(),question));
+						}
+						distracterSet.add(new Distracter(answer,question));
+						question.setDistracter(distracterSet);
 					}
-					distracterSet.add(new Distracter(answer,question));
-					question.setDistracter(distracterSet);
+				}else{
+					question.setAssignment(assignment1);
 				}
 				
 				isSuccess = questionDAO.addQuestion(question);
@@ -132,7 +142,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String multiplechoiceEndTime = logs.get(0).get("multiplechoiceEndTime");
 				if(!multiplechoiceStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment);
+					log.setAssignment(assignment2);
 					log.setStartTime(format.parse(multiplechoiceStartTime));
 					log.setEndTime(format.parse(multiplechoiceEndTime));
 					log.setQuestionType("multiplechoice");
@@ -144,7 +154,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String factoidEndTime = logs.get(0).get("factoidEndTime");
 				if(!factoidStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment);
+					log.setAssignment(assignment1);
 					log.setStartTime(format.parse(factoidStartTime));
 					log.setEndTime(format.parse(factoidEndTime));
 					log.setQuestionType("factoid");
@@ -156,7 +166,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String deeperEndTime = logs.get(0).get("deeperEndTime");
 				if(!deeperStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment);
+					log.setAssignment(assignment1);
 					log.setStartTime(format.parse(deeperStartTime));
 					log.setEndTime(format.parse(deeperEndTime));
 					log.setQuestionType("deeper");
@@ -168,7 +178,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String originalEndTime = logs.get(0).get("originalEndTime");
 				if(!originalStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment);
+					log.setAssignment(assignment1);
 					log.setStartTime(format.parse(originalStartTime));
 					log.setEndTime(format.parse(originalEndTime));
 					log.setQuestionType("original");
