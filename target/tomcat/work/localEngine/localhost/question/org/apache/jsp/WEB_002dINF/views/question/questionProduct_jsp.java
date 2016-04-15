@@ -171,7 +171,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("\t\t\tshowMultiplechoice();\r\n");
       out.write("\t\t\tmultiplechoiceStartTime=new Date().format(\"yyyy-MM-dd hh:mm:ss\");\r\n");
       out.write("\t\t} else if (factoid != \"\") {\r\n");
-      out.write("\t\t\tshowFactiod();\r\n");
+      out.write("\t\t\tshowFactoid();\r\n");
       out.write("\t\t\t factoidStartTime=new Date().format(\"yyyy-MM-dd hh:mm:ss\");\r\n");
       out.write("\t\t} else if (deeper != \"\") {\r\n");
       out.write("\t\t\tdeeperStartTime=new Date().format(\"yyyy-MM-dd hh:mm:ss\");\r\n");
@@ -291,10 +291,15 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("\t\tvar checkId = 0;\r\n");
       out.write("\t\tvar count = 0;\r\n");
       out.write("\t\tvar textId = $(\"input[name='textId']\").val();\r\n");
+      out.write("\t\tvar assName = $(\"input[name='assName']\").val();\r\n");
+      out.write("\t\tif(assName==null||assName==\"\"){\r\n");
+      out.write("\t\t\t$.messager.alert('提示', '你未添加作业标题');\r\n");
+      out.write("\t\t\treturn false;\r\n");
+      out.write("\t\t}\r\n");
       out.write("\t\tvar assTime = $(\"select[name='assTime']\").val();\r\n");
       out.write("\t\tvar startDate = $(\"input[name='startDate']\").val();\r\n");
       out.write("\t\tvar str1 = \"[{'textId':'\" + textId + \"','assTime':'\" + assTime\r\n");
-      out.write("\t\t\t\t+ \"','startDate':'\" + startDate + \"'}]\";\r\n");
+      out.write("\t\t\t+ \"','startDate':'\" + startDate + \"','assName':'\" + assName + \"'}]\";\r\n");
       out.write("\t\tvar str2 = \"\";\r\n");
       out.write("\t\tstr2 = \"[\";\r\n");
       out.write("\t\tfor (var i = 0; i < cks.length; i++) {\r\n");
@@ -507,14 +512,16 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("\t\t\t</table>\r\n");
       out.write("\r\n");
       out.write("\t\t\t<p id=\"submitClick\" align=\"center\">\r\n");
-      out.write("\t\t\t\t设置作业限时：<select class=\"text\" name=\"assTime\">\r\n");
+      out.write("\t\t\t\t设置作业标题：<input type=\"text\" name=\"assName\" style=\"width: 200px\"><font color=\"red\">* 必填</font><br><br>\r\n");
+      out.write("\t\t\t\t设置作业限时：<select class=\"text\" name=\"assTime\" style=\"width: 200px\">\r\n");
       out.write("\t\t\t\t\t<option value=\"10\">10分钟</option>\r\n");
       out.write("\t\t\t\t\t<option value=\"6\">5分钟</option>\r\n");
       out.write("\t\t\t\t\t<option value=\"15\">15分钟</option>\r\n");
       out.write("\t\t\t\t\t<option value=\"20\">20分钟</option>\r\n");
       out.write("\t\t\t\t\t<option value=\"30\">25分钟</option>\r\n");
       out.write("\t\t\t\t\t<option value=\"30\">30分钟</option>\r\n");
-      out.write("\t\t\t\t</select> <input type=\"button\" onclick=\"return addQuestion('questionNum')\"\r\n");
+      out.write("\t\t\t\t</select> <font color=\"red\">* 必填</font><br><br>\r\n");
+      out.write("\t\t\t\t<input type=\"button\" onclick=\"return addQuestion('questionNum')\"\r\n");
       out.write("\t\t\t\t\tclass=\"btnPaleGreen\" name=\"submit\" value=\"布置作业\"\r\n");
       out.write("\t\t\t\t\tstyle=\"width: 100px\"> <input type=\"button\"\r\n");
       out.write("\t\t\t\t\tonclick=\"linkText()\" class=\"btnGray\" value=\"返回课文\"\r\n");
@@ -754,10 +761,10 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f0.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(301,18) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(306,18) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f0.setVar("sentence");
-    // /WEB-INF/views/question/questionProduct.jsp(301,18) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fforEach_005f0.setItems(new org.apache.jasper.el.JspValueExpression("/WEB-INF/views/question/questionProduct.jsp(301,18) '${sentences}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${sentences}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /WEB-INF/views/question/questionProduct.jsp(306,18) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fforEach_005f0.setItems(new org.apache.jasper.el.JspValueExpression("/WEB-INF/views/question/questionProduct.jsp(306,18) '${sentences}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${sentences}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int[] _jspx_push_body_count_c_005fforEach_005f0 = new int[] { 0 };
     try {
       int _jspx_eval_c_005fforEach_005f0 = _jspx_th_c_005fforEach_005f0.doStartTag();
@@ -796,7 +803,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f9 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f9.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f9.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(310,21) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(315,21) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f9.setValue("/resources/images/loading.gif");
     int _jspx_eval_c_005furl_005f9 = _jspx_th_c_005furl_005f9.doStartTag();
     if (_jspx_th_c_005furl_005f9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -815,7 +822,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f10 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f10.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f10.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(330,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(335,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f10.setValue("/resources/question/js/multiple-choice/question-generator.js");
     int _jspx_eval_c_005furl_005f10 = _jspx_th_c_005furl_005f10.doStartTag();
     if (_jspx_th_c_005furl_005f10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -834,7 +841,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f11 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f11.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f11.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(402,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(409,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f11.setValue("/resources/question/js/common.js");
     int _jspx_eval_c_005furl_005f11 = _jspx_th_c_005furl_005f11.doStartTag();
     if (_jspx_th_c_005furl_005f11.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -853,7 +860,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f12 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f12.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f12.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(403,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(410,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f12.setValue("/resources/question/js/pos.js");
     int _jspx_eval_c_005furl_005f12 = _jspx_th_c_005furl_005f12.doStartTag();
     if (_jspx_th_c_005furl_005f12.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -872,7 +879,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f13 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f13.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f13.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(404,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(411,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f13.setValue("/resources/question/js/srl.js");
     int _jspx_eval_c_005furl_005f13 = _jspx_th_c_005furl_005f13.doStartTag();
     if (_jspx_th_c_005furl_005f13.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -891,7 +898,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f14 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f14.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f14.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(405,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(412,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f14.setValue("/resources/question/js/last.js");
     int _jspx_eval_c_005furl_005f14 = _jspx_th_c_005furl_005f14.doStartTag();
     if (_jspx_th_c_005furl_005f14.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -910,7 +917,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f15 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f15.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f15.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(406,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(413,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f15.setValue("/resources/question/js/mq.js");
     int _jspx_eval_c_005furl_005f15 = _jspx_th_c_005furl_005f15.doStartTag();
     if (_jspx_th_c_005furl_005f15.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -929,7 +936,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f16 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f16.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f16.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(408,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(415,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f16.setValue("/resources/question/js/wipeNeedlessComponent.js");
     int _jspx_eval_c_005furl_005f16 = _jspx_th_c_005furl_005f16.doStartTag();
     if (_jspx_th_c_005furl_005f16.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -948,7 +955,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f17 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f17.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f17.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(410,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(417,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f17.setValue("/resources/question/js/questionGenerator.js");
     int _jspx_eval_c_005furl_005f17 = _jspx_th_c_005furl_005f17.doStartTag();
     if (_jspx_th_c_005furl_005f17.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -967,7 +974,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f18 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f18.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f18.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(411,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(418,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f18.setValue("/resources/question/js/causeResult.js");
     int _jspx_eval_c_005furl_005f18 = _jspx_th_c_005furl_005f18.doStartTag();
     if (_jspx_th_c_005furl_005f18.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -986,7 +993,7 @@ public final class questionProduct_jsp extends org.apache.jasper.runtime.HttpJsp
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f19 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f19.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f19.setParent(null);
-    // /WEB-INF/views/question/questionProduct.jsp(412,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/question/questionProduct.jsp(419,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f19.setValue("/resources/question/js/how.js");
     int _jspx_eval_c_005furl_005f19 = _jspx_th_c_005furl_005f19.doStartTag();
     if (_jspx_th_c_005furl_005f19.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {

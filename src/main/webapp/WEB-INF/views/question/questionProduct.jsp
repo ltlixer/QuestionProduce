@@ -65,7 +65,7 @@
 			showMultiplechoice();
 			multiplechoiceStartTime=new Date().format("yyyy-MM-dd hh:mm:ss");
 		} else if (factoid != "") {
-			showFactiod();
+			showFactoid();
 			 factoidStartTime=new Date().format("yyyy-MM-dd hh:mm:ss");
 		} else if (deeper != "") {
 			deeperStartTime=new Date().format("yyyy-MM-dd hh:mm:ss");
@@ -181,10 +181,15 @@
 		var checkId = 0;
 		var count = 0;
 		var textId = $("input[name='textId']").val();
+		var assName = $("input[name='assName']").val();
+		if(assName==null||assName==""){
+			$.messager.alert('提示', '你未添加作业标题');
+			return false;
+		}
 		var assTime = $("select[name='assTime']").val();
 		var startDate = $("input[name='startDate']").val();
 		var str1 = "[{'textId':'" + textId + "','assTime':'" + assTime
-				+ "','startDate':'" + startDate + "'}]";
+			+ "','startDate':'" + startDate + "','assName':'" + assName + "'}]";
 		var str2 = "";
 		str2 = "[";
 		for (var i = 0; i < cks.length; i++) {
@@ -383,14 +388,16 @@
 			</table>
 
 			<p id="submitClick" align="center">
-				设置作业限时：<select class="text" name="assTime">
+				设置作业标题：<input type="text" name="assName" style="width: 200px"><font color="red">* 必填</font><br><br>
+				设置作业限时：<select class="text" name="assTime" style="width: 200px">
 					<option value="10">10分钟</option>
 					<option value="6">5分钟</option>
 					<option value="15">15分钟</option>
 					<option value="20">20分钟</option>
 					<option value="30">25分钟</option>
 					<option value="30">30分钟</option>
-				</select> <input type="button" onclick="return addQuestion('questionNum')"
+				</select> <font color="red">* 必填</font><br><br>
+				<input type="button" onclick="return addQuestion('questionNum')"
 					class="btnPaleGreen" name="submit" value="布置作业"
 					style="width: 100px"> <input type="button"
 					onclick="linkText()" class="btnGray" value="返回课文"

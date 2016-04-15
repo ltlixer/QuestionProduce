@@ -59,14 +59,15 @@
 			<form action="/question/assignment/submitCorrect">
 				<table class="editTab" border="3">
 					<tr>
-						<th colspan="9" align="center">待批改的作业</th> 
+						<th colspan="10" align="center">待批改的作业</th> 
 					</tr>
 					<tr>
-					<th align="center" width="15%">课文标题</th>
+					<th align="center" width="10%">课文标题</th>
 					<th align="center" width="10%">科目</th>
+					<th align="center" width="10%">作业标题</th>
 					<th align="center" width="10%">限时</th>
 					<th align="center" width="10%">实际用时</th>
-					<th align="center" width="15%">学生提交作业时间</th>
+					<th align="center" width="10%">学生提交作业时间</th>
 					<th align="center" width="10%">成绩</th>
 					<th align="center" width="10%">学生姓名</th>
 					<th align="center" width="10%">批改状态</th>
@@ -76,6 +77,7 @@
 					<tr>
 						<td align="center">${correctAssignment.assignment.text.textTitle}</td>
 						<td align="center">${correctAssignment.assignment.text.course.courseName}</td>
+						<td align="center">${correctAssignment.assignment.assName}</td>
 						<td align="center">${correctAssignment.assignment.assTime}分钟</td>
 						<td align="center">${correctAssignment.useTime}分钟</td>
 						<td align="center">${correctAssignment.createTime}</td>

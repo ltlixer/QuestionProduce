@@ -87,7 +87,7 @@ $(function(){
 })
 
 function showLoad(textId){
-	var questionTypes = document.getElementsByName("questionTypes");
+	var questionTypes = document.getElementsByName("questionTypes"+textId);
 		var types="";
 		for(var i = 0;i<questionTypes.length;i++){
 			if (questionTypes[i].checked) {
@@ -98,6 +98,7 @@ function showLoad(textId){
 			$.messager.alert('提示', '请选择题型');
 		}else{
 			$("img#"+textId).show();
+			console.log(types);
 			 location.href="/question/text/productQuestion/"+textId+"?types="+types;
 		}
 		
@@ -196,7 +197,7 @@ function select(){
 							<td align="center"><a href="/question/text/lookText/${texts.teacher.teaNum}?textName=${texts.textName}">查看原文</a></td>
 							<td align="left">
 							<c:forEach var="questionTypes" items="${questionTypes}">
-								<input name="questionTypes" type="checkbox" value="${questionTypes.questionType}" checked="true"><font size="1">${questionTypes.questionTypeName}</font><br/>
+								<input name="questionTypes${texts.textId}" type="checkbox" value="${questionTypes.questionType}" checked="checked"><font size="1">${questionTypes.questionTypeName}</font><br/>
 							</c:forEach>
 							</td><td align="center">
 							<a href="#" onclick='return showLoad(${texts.textId})'>产生问题</a>

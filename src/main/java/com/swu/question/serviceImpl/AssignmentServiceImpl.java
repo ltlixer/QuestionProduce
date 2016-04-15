@@ -76,6 +76,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 		String textId = ass.get(0).get("textId");
 		String assTime = ass.get(0).get("assTime");
 		String startDate = ass.get(0).get("startDate");
+		String assName = ass.get(0).get("assName");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 Date date = null;
 		try {
@@ -83,11 +84,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 			Text text = textDAO.queryText(Integer.parseInt(textId));
 			Assignment assignment1 = new Assignment();
 			Assignment assignment2 = new Assignment();//选择题作业
+			assignment1.setAssName(assName+"-选择题");
 			assignment1.setAssTime(Integer.parseInt(assTime));
 			assignment1.setStartDate(date);
 			assignment1.setCreateTime(new Date());
 			assignment1.setTeacher(teacher);
 			assignment1.setText(text);
+			assignment2.setAssName(assName+"-填空题");
 			assignment2.setAssTime(Integer.parseInt(assTime));
 			assignment2.setStartDate(date);
 			assignment2.setCreateTime(new Date());

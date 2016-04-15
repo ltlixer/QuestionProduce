@@ -75,12 +75,13 @@ function select(){
 				
 			</tr>
 				<tr>
-					<th align="center" width="20%">课文标题</th>
-					<th align="center" width="20%">科目</th>
+					<th align="center" width="15%">课文标题</th>
+					<th align="center" width="15%">作业标题</th>
+					<th align="center" width="15%">科目</th>
 					<th align="center" width="10%">限时</th>
-					<th align="center" width="20%">发布时间</th>
-					<th align="center" width="10%">发布教师</th>
-					<th align="center" width="10%">点击开始</th>
+					<th align="center" width="15%">发布时间</th>
+					<th align="center" width="15%">发布教师</th>
+					<th align="center" width="15%">点击开始</th>
 				</tr>
 					<c:if test="${infor=='no'}">
 					<tr><td colspan="7" align="center"><font color="red" size="4"> 老师还没有布置作业</font></td></tr>
@@ -88,6 +89,7 @@ function select(){
 				<c:forEach var="ass" items="${assignments}">
 					<tr>
 						<td align="center">${ass.text.textTitle}</td>
+						<td align="center">${ass.assName}</td>
 						<td align="center">${ass.text.course.courseName}</td>
 						<td align="center">${ass.assTime}分钟</td>
 						<td align="center">${ass.createTime}</td>

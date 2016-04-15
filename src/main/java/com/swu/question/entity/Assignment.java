@@ -18,8 +18,11 @@ public class Assignment {
 	@Column(name = "ASSID")
 	@GeneratedValue
 	private Integer assId;
+	@Column(name = "ASSNAME", nullable = false)
+	private String assName;
 	@Column(name = "ASSTIME", nullable = false)
 	private Integer assTime;
+	
 	//开始出题开始时间
 	@Column(name = "startDate", nullable = false)
 	private Date startDate;
@@ -35,6 +38,14 @@ public class Assignment {
 	private Teacher teacher;
 	public Integer getAssId() {
 		return assId;
+	}
+
+	public String getAssName() {
+		return assName;
+	}
+
+	public void setAssName(String assName) {
+		this.assName = assName;
 	}
 
 	public void setAssId(Integer assId) {

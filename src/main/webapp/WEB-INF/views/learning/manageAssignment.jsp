@@ -54,21 +54,23 @@ $(function(){
 		<div class="div4">
 			<table border="1" class="editTab">
 	<tr>
-	<th colspan="7" align="center">已发布的作业</th>
+	<th colspan="8" align="center">已发布的作业</th>
 	</tr>
 			<tr>
 				<th align="center" width="15%">课文标题</th>
 				<th align="center" width="10%">科目</th>
+				<th align="center" width="15%">作业标题</th>
 				<th align="center" width="10%">限时</th>
 				<th align="center" width="15%">创建时间</th>
-				<th align="center" width="15%">发布教师</th>
+				<th align="center" width="10%">发布教师</th>
 				<th align="center" width="15%">查看问题</th>
-				<th align="center" width="15%">删除作业</th>
+				<th align="center" width="10%">删除作业</th>
 			</tr>
 			<c:forEach var="ass" items="${list}">
 			<tr>
 				<td align="center">${ass.text.textTitle}</td>
 				<td align="center">${ass.text.course.courseName}</td>
+				<td align="center">${ass.assName}</td>
 				<td align="center">${ass.assTime}分钟</td>
 				<td align="center">${ass.createTime}</td> 
 				<td align="center">${ass.teacher.teaName}</td>

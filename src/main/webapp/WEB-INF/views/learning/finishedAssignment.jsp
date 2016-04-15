@@ -56,11 +56,12 @@ $(function(){
 				</tr>
 				
 				<tr>
-					<th align="center" width="20%">课文标题</th>
+					<th align="center" width="15%">课文标题</th>
 					<th align="center" width="10%">科目</th>
-					<th align="center" width="15%">限时</th>
+					<th align="center" width="15%">作业标题</th>
+					<th align="center" width="10%">限时</th>
 					<th align="center" width="15%">实际用时</th>
-					<th align="center" width="20%">提交时间</th>
+					<th align="center" width="15%">提交时间</th>
 					<th align="center" width="10%">发布教师</th>
 					<th align="center" width="10%">状态</th>
 				</tr>
@@ -68,6 +69,7 @@ $(function(){
 					<tr>
 						<td align="center">${finishAssignment.assignment.text.textTitle}</td>
 						<td align="center">${finishAssignment.assignment.text.course.courseName}</td>
+						<td align="center">${finishAssignment.assignment.assName}</td>
 						<td align="center">${finishAssignment.assignment.assTime}分钟</td>
 						<td align="center">${finishAssignment.useTime}分钟</td>
 						<td align="center">${finishAssignment.createTime}</td>
