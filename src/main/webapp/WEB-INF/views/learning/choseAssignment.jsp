@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -29,9 +30,9 @@ function select(){
 <body>
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：在线作业>>查询作业</span>
+			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="onlineAss"/>>><spring:message code="queryAss"/></span>
 		</div>
-		<h2>查询作业</h2>
+		<h2><spring:message code="queryAss"/></h2>
 		<input id="link" type="hidden" value="${link}">
 		<form action="/question/assignment/queryAssignmentByCourseId">
 		
@@ -39,63 +40,63 @@ function select(){
 			<c:if test="${courseSize=='0'}">
 			<td ></td>
 			<tr><td colspan="4" align="center">
-					<font size="4">请先选课，在进行学习。<button  onclick="return select()" class="btnPaleGreen">去选课</button></font>
+					<font size="4"><spring:message code="courseSelectThenLearn"/><button  onclick="return select()" class="btnPaleGreen"><spring:message code="toCourseSelect"/></button></font>
 			</td>
 			</tr>
 			</c:if>
 			
 					<tr id="query">
 					<td align="right"></td>
-						<td align="right"><font size="4">请选择课程:</font>
+						<td align="right"><font size="4"><spring:message code="pleaseSelectCourse"/>:</font>
 						<select name="course" style="width: 200px">
 					<c:if test="${not empty courses}">
 						<c:forEach var ="course" items="${courses}">
-							<option value="${course.courseId}">${course.year}级${course.courseName}</option>
+							<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
 						</c:forEach>
 					</c:if>
 			</select></td>
-						<td align="right">请输入关键词</td>
+						<td align="right"><spring:message code="pleaseEnterKeyword"/></td>
 						<td>
-						<input type="text" id="findAss" name="findAss" style="width: 200px" value="${findAss}"/><font color="red">（可空）</font></td>
-						<td><input type="submit" id="query" style="width: 150px"  class="btnPaleGreen" value="查询作业"   /></td>
+						<input type="text" id="findAss" name="findAss" style="width: 200px" value="${findAss}"/><font color="red"><spring:message code="nullable"/></font></td>
+						<td><input type="submit" id="query" style="width: 150px"  class="btnPaleGreen" value="<spring:message code='queryAss'/>"   /></td>
 				</tr>
 				</table>
 		</form>
 				<hr color="#00aaff">
 		<div class="div4" id="div4">
-		<center>查看已完成的作业：<a
-				href="/question/assignment/finishedAssignment/1">查看
+		<center><spring:message code="lookFinishedAss"/>：<a
+				href="/question/assignment/finishedAssignment/1"><spring:message code="look"/>
 			</a></center>
 			<table border="1" class="editTab">
 				<tr>
-					<th colspan="7">新的作业题</th>
+					<th colspan="7"><spring:message code="newAss"/></th>
 				</tr>
 				
 				<tr>
 				
 			</tr>
 				<tr>
-					<th align="center" width="15%">课文标题</th>
-					<th align="center" width="15%">作业标题</th>
-					<th align="center" width="15%">科目</th>
-					<th align="center" width="10%">限时</th>
-					<th align="center" width="15%">发布时间</th>
-					<th align="center" width="15%">发布教师</th>
-					<th align="center" width="15%">点击开始</th>
+					<th align="center" width="15%"><spring:message code="textTitle"/></th>
+					<th align="center" width="15%"><spring:message code="assTitle"/></th>
+					<th align="center" width="15%"><spring:message code="courseName"/></th>
+					<th align="center" width="10%"><spring:message code="limited"/></th>
+					<th align="center" width="15%"><spring:message code="publishTime"/></th>
+					<th align="center" width="15%"><spring:message code="publishTeacher"/></th>
+					<th align="center" width="15%"><spring:message code="clickBegin"/></th>
 				</tr>
 					<c:if test="${infor=='no'}">
-					<tr><td colspan="7" align="center"><font color="red" size="4"> 老师还没有布置作业</font></td></tr>
+					<tr><td colspan="7" align="center"><font color="red" size="4"> <spring:message code="teacherHasNoAss"/></font></td></tr>
 					</c:if>
 				<c:forEach var="ass" items="${assignments}">
 					<tr>
 						<td align="center">${ass.text.textTitle}</td>
 						<td align="center">${ass.assName}</td>
 						<td align="center">${ass.text.course.courseName}</td>
-						<td align="center">${ass.assTime}分钟</td>
+						<td align="center">${ass.assTime}<spring:message code="minute"/></td>
 						<td align="center">${ass.createTime}</td>
 						<td align="center">${ass.teacher.teaName}</td>
 						<td align="center"><a
-							href="/question/question/stulinkQuestionPage/${ass.assId}">开始做本次作业
+							href="/question/question/stulinkQuestionPage/${ass.assId}"><spring:message code="beginAss"/>
 						</a></td>
 					</tr>
 				</c:forEach>

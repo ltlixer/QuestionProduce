@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -46,29 +47,29 @@ $(function(){
 <body >
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：学生成绩管理&gt;&gt;课外作业成绩</span>
+			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="scoreManagement"/>&gt;&gt;<spring:message code="homeworkScore"/></span>
 		</div>
-		<h2>课外作业成绩</h2>
+		<h2><spring:message code="homeworkScore"/></h2>
 		<div class="div4">
 			<table class="editTab" border="3">
 					<tr>
-					<th align="center" width="15%">课文标题</th>
-					<th align="center" width="15%">科目</th>
-					<th align="center" width="10%">学生</th>
-					<th align="center" width="10%">实际用时</th>
-					<th align="center" width="10%">作业得分</th>
-					<th align="center" width="30%">评价</th>
-					<th align="center" width="10%">查看详细</th>
+					<th align="center" width="15%"><spring:message code="textTitle"/></th>
+					<th align="center" width="15%"><spring:message code="courseName"/></th>
+					<th align="center" width="10%"><spring:message code="stu"/></th>
+					<th align="center" width="10%"><spring:message code="actualHours"/></th>
+					<th align="center" width="10%"><spring:message code="assScore"/></th>
+					<th align="center" width="30%"><spring:message code="evaluation"/></th>
+					<th align="center" width="10%"><spring:message code="viewDetail"/></th>
 					</tr>
 					<c:forEach var="list" items="${list}">
 					<tr>
 					<td align="center" >${list.assignment.text.textTitle}</td>
 					<td align="center">${list.assignment.text.course.courseName}</td>
 					<td align="center">${list.student.stuName }</td>
-					<td align="center">${list.useTime }分钟</td>
-					<td align="center"><fmt:formatNumber value="${list.score}" pattern="#0.0"/>分</td>
+					<td align="center">${list.useTime }<spring:message code="minute"/></td>
+					<td align="center"><fmt:formatNumber value="${list.score}" pattern="#0.0"/></td>
 					<td align="center">${list.evaluate}</td>
-					<td align="center"><a href="/question/answer/showAnswer/${list.saId}">查看</a></td>
+					<td align="center"><a href="/question/answer/showAnswer/${list.saId}"><spring:message code="look"/></a></td>
 					</tr>
 					</c:forEach>
 			</table>
@@ -78,17 +79,17 @@ $(function(){
 						
 								<tr  height=20>
 									<td height="20" align="center" valign="middle" nowrap>
-									<span>共-${sumCount}-页  &nbsp;&nbsp;第-${pageNow}-页
-									</span>&nbsp;
-									<a href="${pageContext.request.contextPath}" id="first">首页</a>&nbsp; 
+									<span><spring:message code="total"/>:${sumCount} &nbsp;&nbsp;<spring:message code="currentPage"/>：${pageNow}
+									</span>&nbsp; 
+									<a href="${pageContext.request.contextPath}" id="first"><spring:message code="firstPage"/></a>&nbsp; 
 									<c:if test="${pageNow>1}">
-										<a href="${pageContext.request.contextPath}" id="forwrad">上一页</a>&nbsp;
+										<a href="${pageContext.request.contextPath}" id="forwrad"><spring:message code="previous"/></a>&nbsp;
 									</c:if>
 									<c:if test="${pageNow<sumCount}">
-										<a	href="${pageContext.request.contextPath}" id="next">下一页</a>&nbsp; 
+										<a	href="${pageContext.request.contextPath}" id="next"><spring:message code="next"/></a>&nbsp; 
 									</c:if>
-									<a href="${pageContext.request.contextPath}" id="end">尾页</a>&nbsp; 
-									<span>跳转到</span>
+									<a href="${pageContext.request.contextPath}" id="end"><spring:message code="lastPage"/></a>&nbsp; 
+									<span><spring:message code="goto"/></span>
 										<select name="select" id="changePage" style="WIDTH: 40px">
 										<c:if test="${sumCount>0}">
 										<option value="${pageNow}">${pageNow}</option>

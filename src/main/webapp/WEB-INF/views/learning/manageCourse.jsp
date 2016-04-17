@@ -2,6 +2,7 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page import="java.text.*"%>
 <html>
 <head>
@@ -24,7 +25,7 @@
 	});
 	function addCourse() {
 		if($.trim($("#courseName").val())==""){
-			$("label#addCourseInfor").text("课程名不能为空");
+			$("label#addCourseInfor").text("<spring:message code='courseNameCannotNull'/>");
 			return false;
 		}else{
 			return true;
@@ -35,16 +36,16 @@
 <body>
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>"/>&nbsp;<span>位置：基本信息管理&gt;&gt;课程管理</span>
+			<img src="<c:url value='/resources/images/icon.png'/>"/>&nbsp;<span><spring:message code="site"/>：<spring:message code="imformationManagement"/>&gt;&gt;<spring:message code="courseManagement"/></span>
 		</div>
-		<h2>课程管理</h2>
+		<h2><spring:message code="courseManagement"/></h2>
 		<!-- <div class="div3"> -->
 			<form:form action="/question/course/addCourse" method="post" commandName="course">
 				<input type="hidden" name="method" value="query">
 				
 				<table>
 					<tr>
-						<td><b>添加课程:</b>请你输入课程名</td>
+						<td><b><spring:message code="addCourse"/>:</b><spring:message code="pleaseEnterCourseName"/></td>
 						<td>
 						<form:input type="text" id="courseName" path="courseName"/></td>
 						<td>
@@ -53,12 +54,12 @@
 									.format(new Date()));
 							for (int i = year; i >= year - 10; i--) {%>
 							
-							<option value="<%=i%>"><%=i%>级</option>
+							<option value="<%=i%>"><%=i%></option>
 							
 							<%}%>
 						</form:select>
 						</td>
-						<td><input type="submit" value="添加"  onclick="return addCourse()"  class="btnPaleGreen" /></td><td><label id="addCourseInfor" style="color: red"></label></td>
+						<td><input type="submit" value="<spring:message code='add'/>"  onclick="return addCourse()"  class="btnPaleGreen" /></td><td><label id="addCourseInfor" style="color: red"></label></td>
 				</tr>
 				</table>
 			</form:form>
@@ -68,18 +69,18 @@
 				<form action="" method="post" name="form1">
 					<table>
 						<tr>
-							<th>课程名</th>
-							<th>年级</th>
-							<th>教师</th>
-							<th>删除</th>
+							<th><spring:message code="courseName"/></th>
+							<th><spring:message code="grade"/></th>
+							<th><spring:message code="teacher"/></th>
+							<th><spring:message code="delete"/></th>
 						</tr>
 						<tr>
 						<c:forEach var="courses" items="${courses }">
 							<tr>
 							<td align="center">${courses.courseName}</td>
-							<td align="center">${courses.year}级</td>
+							<td align="center">${courses.year}</td>
 							<td align="center">${courses.teacher.teaName}</td>
-							<td align="center"><a href="/question/course/deleteCourse/${courses.courseId}" onclick='return deleteItem()'>删除</a></td>
+							<td align="center"><a href="/question/course/deleteCourse/${courses.courseId}" onclick='return deleteItem()'><spring:message code="delete"/></a></td>
 						</tr>
 						</c:forEach>
 					</table>

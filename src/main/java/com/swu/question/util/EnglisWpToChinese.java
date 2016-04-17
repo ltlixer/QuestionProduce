@@ -21,6 +21,14 @@ public class EnglisWpToChinese{
           content = matcher.group(1) + "“" + matcher.group(2) + "”" + matcher.group(3);
           matcher = pattern.matcher(content);
       }
+      String regex1 = "(.*)\'(.*)\'(.*)";
+      Pattern pattern1 = Pattern.compile(regex1);
+      Matcher matcher1 = pattern1.matcher(content);
+      while(matcher1.find()){
+          content = matcher1.group(1) + "‘" + matcher1.group(2) + "’" + matcher1.group(3);
+          matcher = pattern1.matcher(content);
+      }
+      content = content.replaceAll("'", "’");
       return content;
   }
 }

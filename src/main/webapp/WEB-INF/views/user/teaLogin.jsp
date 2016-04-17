@@ -2,6 +2,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp" %>
 <html>
 <head>
@@ -83,13 +84,13 @@ document.onkeypress = function esckey() {
 							<td width="31%">&nbsp;</td>
 						</tr>
 						<tr>
-							<td height="40" align="right">用户名<strong>&nbsp;</strong></td>
+							<td height="40" align="right"><spring:message code="userName"/><strong>&nbsp;</strong></td>
 							<td><form:input type="text" id="account" class="login_input"
 									path="teaNum" /></td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<td height="40" align="right">密&nbsp;&nbsp;码&nbsp;</td>
+							<td height="40" align="right"><spring:message code="password"/></td>
 							<td><form:input id="password" type="password"
 									class="login_input" path="teaPassword" />
 							<td>&nbsp;</td>
@@ -104,7 +105,7 @@ document.onkeypress = function esckey() {
 						</tr>
 						<tr>
 							<td align="right">&nbsp; <b><a
-									href="javascript:return false;" onclick="openDialog('userAdd')">注册账号</a></b>
+									href="javascript:return false;" onclick="openDialog('userAdd')"><spring:message code="regisLabel"/></a></b>
 							</td>
 							<td align="center"><font color="red"><label
 									id="errorInfor">${teaLoginInfor}</label></font></td>
@@ -126,27 +127,27 @@ document.onkeypress = function esckey() {
 			<br>
 			<div class="div_ul">
 				<ul>
-					<li><label> 登录账号： </label> <form:input class="text"
+					<li><label> <spring:message code="count"/>： </label> <form:input class="text"
 							name="teaNum" id="teaNum1" path="teaNum" /> <span
 						style="color: red"> * </span> <span
 						style="font-size: 12px; color: red" id="teaNum"></span></li>
-					<li><label> 登录密码： </label> <form:password class="text"
+					<li><label> <spring:message code="loginpassword"/>： </label> <form:password class="text"
 							name="teaPassword" id="teaPasswordText" path="teaPassword" /> <span
 						style="color: red"> * </span> <span
 						style="font-size: 12px; color: red" id="teaPassword"></span></li>
-					<li><label> 确认密码： </label> <input class="text"
+					<li><label> <spring:message code="repassword"/>： </label> <input class="text"
 						name="repassword" type="password" /> <span style="color: red">
 							* </span><span style="font-size: 12px; color: red" id="repassword"></span></li>
-					<li><label> 真实姓名： </label> <form:input class="text"
+					<li><label> <spring:message code="realName"/>： </label> <form:input class="text"
 							name="teaName" path="teaName" /><span style="color: red">
 							* </span> <span style="font-size: 12px; color: red" id="teaName"></span>
 
 					</li>
-					<li><label>班级课程： </label> <form:input class="text"
+					<li><label><spring:message code="major"/>： </label> <form:input class="text"
 							name="teaMajor" path="teaMajor" /> <span style="color: red">
 							* </span> <span id="teaMajor" style="font-size: 12px; color: red"></span>
 					</li>
-					<li><label> 电子邮箱： </label> <form:input class="text"
+					<li><label> <spring:message code="email"/>： </label> <form:input class="text"
 							teaName="teaEmail" path="teaEmail" /> <span style="color: red">
 							* </span> <span id="teaEmail" style="font-size: 12px; color: red"></span>
 					</li>
@@ -154,10 +155,10 @@ document.onkeypress = function esckey() {
 					</li>
 					<li
 						style="text-align: center; padding: 0px; height: 40px; line-height: 40px;">
-						&nbsp; <input type="submit" value="确认" class="btnPaleGreen"
+						&nbsp; <input type="submit" value="<spring:message code='ok'/>" class="btnPaleGreen"
 						onclick="return check()" />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset"
-						value="重置" class="btnGray" />
+						value="<spring:message code='cancel'/>" class="btnGray" />
 					</li>
 				</ul>
 
@@ -167,7 +168,7 @@ document.onkeypress = function esckey() {
 	<script type="text/javascript">
 	/* 注册验证 */
 		$(function() {
-			createDialog('userAdd', '账号注册');
+			createDialog('userAdd', '<spring:message code="regisLabel"/>');
 			closeDialog('userAdd');
 			
 			//文本框获取焦点 失去焦点变色

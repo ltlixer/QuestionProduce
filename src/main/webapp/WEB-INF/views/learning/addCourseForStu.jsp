@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -41,28 +42,28 @@ $(function(){
 	
 })
 </script>
-<title>选择课程</title>
+<title><spring:message code="courseSelect"/></title>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/selectAll.js' />"></script>
 </head>
 <body>
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：选择老师</span>
+			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="courseSelect"/></span>
 		</div>
-		<h2>选择课程</h2>
+		<h2><spring:message code="courseSelect"/></h2>
 		<div class="div4">
-		<center> <a href="/question/checkedCourse">查看已选择的课程
+		<center> <a href="/question/checkedCourse"><spring:message code="lookSelectedCourse"/>
 		</a> </center> 
 			<form action="/question/selectCourse" method="post">
 				<table class="editTab" border="1">
 					<tr>
-						<th colspan="4">可选择的课程</th>
+						<th colspan="4"><spring:message code="optionaCourses"/></th>
 					</tr>
 					<tr>
-						<th align="center"><font size="4"><b>课程名</b></font></th>
-						<th align="center"><font size="4" ><b>年级</b></font></th>
-						<th align="center"><font size="4"><b>授课教师</b></font></th>
+						<th align="center"><font size="4"><b><spring:message code="courseName"/></b></font></th>
+						<th align="center"><font size="4" ><b><spring:message code="grade"/></b></font></th>
+						<th align="center"><font size="4"><b><spring:message code="teacher"/></b></font></th>
 						<th align="center"><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
@@ -79,7 +80,7 @@ $(function(){
 					</c:if>
 				</table>
 				<p class="operationBtn">
-					<input type="submit" value="选课" class="btnPaleGreen"
+					<input type="submit" value="<spring:message code='selectCourse'/>" class="btnPaleGreen"
 						onclick="return add('courseIds')" />&nbsp;&nbsp;
 				</p>
 			</form>
@@ -90,14 +91,14 @@ $(function(){
 
 				<tr height=20>
 					<td height="20" align="center" valign="middle" nowrap>
-					<span>共-${sumCount}-页 &nbsp;&nbsp;第-${pageNow}-页 </span>&nbsp; <a
-						href="${pageContext.request.contextPath}" id="first">首页</a>&nbsp;
+					<span><spring:message code="total"/>:${sumCount} &nbsp;&nbsp;<spring:message code="currentPage" />:${pageNow} </span>&nbsp; <a
+						href="${pageContext.request.contextPath}" id="first"><spring:message code="firstPage"/></a>&nbsp;
 						<c:if test="${pageNow>1}">
-							<a href="${pageContext.request.contextPath}" id="forwrad">上一页</a>&nbsp;
+							<a href="${pageContext.request.contextPath}" id="forwrad"><spring:message code="previous"/></a>&nbsp;
 									</c:if> <c:if test="${pageNow<sumCount}">
-							<a href="${pageContext.request.contextPath}" id="next">下一页</a>&nbsp; 
-									</c:if> <a href="${pageContext.request.contextPath}" id="end">尾页</a>&nbsp;
-						<span>跳转到</span> <select name="select" id="changePage"
+							<a href="${pageContext.request.contextPath}" id="next"><spring:message code="next"/></a>&nbsp; 
+									</c:if> <a href="${pageContext.request.contextPath}" id="end"><spring:message code="lastPage"/></a>&nbsp;
+						<span><spring:message code="goto"/></span> <select name="select" id="changePage"
 						style="WIDTH: 40px">
 							<c:if test="${sumCount>0}">
 								<option value="${pageNow}">${pageNow}</option>

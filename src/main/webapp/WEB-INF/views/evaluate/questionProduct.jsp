@@ -20,17 +20,20 @@
 <script type="text/javascript">
 	$(function() {
 		/*调用问题产生的算法 产生问题 开始*/
-		var contentText = "${content}";
+		var contentText ="${content}";
 		var content = [];
 		content[0] = "${tittle}";
 		content[1] = contentText;
 		analyze(content);
 		/*调用问题产生的算法 产生问题 结束*/
+		$("#submitLoad").hide();
 	});
 	function linkText() {
 		location.href = "/question/evaluate/stuLinklistText";
 	}
 	function addEvaluate() {
+		$("#submitLoad").show();
+		$("#submitResult").attr('disabled', 'disabled');
 		var json = {};
 		json.evaluates = eval("(" + jsonstr + "])");
 		for (var i = 1; i <= jsonIndex; i++) {
@@ -57,6 +60,7 @@
 					location.href = "/question/evaluate/queryTextListEvaluated/1";
 				} else {
 					$.messager.alert('消息反馈', '评估提交失败！');
+					$("#submitResult").removeAttr("disabled");
 				}
 			});
 		return false;
@@ -98,9 +102,11 @@
 
 				</tr>
 			</table>
-			 <div style="margin-left: 100px;"><input type="button" onclick="return addEvaluate()"
-				class="btnPaleGreen" name="submit" style="width: 200px" value="提交评估结果"> <input
-				type="button" onclick="linkText()" style="width: 200px" class="btnGray" value="返回课文">
+			 <div  style="margin-left: 100px;"><input type="button" onclick="return addEvaluate()"
+				class="btnPaleGreen" name="submit" id="submitResult" style="width: 200px" value="提交评估结果" > 
+				<img id="submitLoad" width="20px"
+			src="<c:url value='/resources/images/loading.gif'/>">
+				<input type="button" onclick="linkText()" style="width: 200px" class="btnGray" value="返回课文">
 			</div><br> <br>
 		</form>
 	</div>

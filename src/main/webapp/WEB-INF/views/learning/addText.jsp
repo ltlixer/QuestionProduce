@@ -2,6 +2,7 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
@@ -28,17 +29,17 @@ $(function(){
 
 function addText() {
 	if($.trim($("#textTitle").val())==""){
-		$("label#textTitleInfor").text("课文标题不能为空");
+		$("label#textTitleInfor").text("<spring:message code='courseTitleNotNull'/>");
 		return false;
 	} else if($("#texFile").val()==""){
-		$("label#textFileInfor").text("课文文件不能为空");
+		$("label#textFileInfor").text("<spring:message code='courseResourceNotNull'/>");
 		return false;
 	} else{
 		$("#img").show();
 		var val = $("#texFile").val();
 		if(val.indexOf(".doc")==-1&&val.indexOf(".docx")==-1){
 			$("#img").hide();
-			$("label#textFileInfor").text("课文文件不是word文档");
+			$("label#textFileInfor").text("<spring:message code='courseResourceNotDOC'/>");
 			return false;
 		}
 		return true;
@@ -50,26 +51,26 @@ function addText() {
 <body>
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>"/>&nbsp;<span>位置：发布作业&gt;&gt;上传学习资料</span>
+		<img src="<c:url value='/resources/images/icon.png'/>"/>&nbsp;<span><spring:message code="site"/>：<spring:message code="postAss"/>&gt;&gt;<spring:message code="uploadLearningResources"/></span>
 		</div>
 			<div class="div2" align="center">
 			<form:form action="/question/text/uploadText" enctype="multipart/form-data" method="post" commandName="text">
 				<table align="center">
-					<tr><td colspan="3"><h2>上传学习材料</h2></td></tr>
-					<tr><td width="30%" align="center">上传教师</td>
+					<tr><td colspan="3"><h2><spring:message code="uploadLearningResources"/></h2></td></tr>
+					<tr><td width="30%" align="center"><spring:message code="uploadTeacher"/></td>
 						<td width="40%">${teaName}</td>
 						<td width="30%"></td>
 					</tr>
-					<tr><td align="center">课文标题</td>
+					<tr><td align="center"><spring:message code="courseTitle"/></td>
 						<td><form:input type="text" id="textTitle" class="text" path="textTitle"/><font color="red">*</font></td>
 						<td><label style="color: red" id="textTitleInfor"></label></td>
 					</tr>
-					<tr><td align="center">选择课程</td>
+					<tr><td align="center"><spring:message code="courseSelect"/></td>
 						<td>
 						<select id="brand" class="text" name="courseId">
 							<c:if test="${not empty listCourse}">
 									<c:forEach var ="course" items="${listCourse}">
-										<option value="${course.courseId}">${course.year}级${course.courseName}</option>
+										<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
 									</c:forEach>
 							</c:if>
 						</select><font color="red">*</font>
@@ -91,7 +92,7 @@ function addText() {
 						<form:input type="text" class="text" path="textTime"/></td>
 						<td></td>
 					</tr> --%>
-					<tr><td align="center">上传课文</td>
+					<tr><td align="center"><spring:message code="uploadText"/></td>
 						<td><input type="file" id="texFile" name="files" ><font color="red">* （*.doc/*.docx）</font></td>
 						<td><label style="color: red" id="textFileInfor">${infor}</label></td>
 					</tr>
@@ -105,13 +106,13 @@ function addText() {
 					<td></td>
 					</tr> -->
 					<tr><td align="right"><img width="20px" id="img" src="<c:url value='/resources/images/loading.gif'/>"></td>
-						<td><input type="submit" onclick="return addText()" class="btnPaleGreen" value="上传">
+						<td><input type="submit" onclick="return addText()" class="btnPaleGreen" value="<spring:message code='upload'/>">
 						</td>
 						<td></td>
 					</tr>
-					<tr><td align="center">提示</td>
-						<td>1、标有*的为必填项；<br>
-						    2、课文文件仅支持word文件（*.doc/*.docx）；<br>
+					<tr><td align="center"><spring:message code="prompt"/></td>
+						<td><spring:message code="prompt1"/><br>
+						    <spring:message code="prompt2"/><br>
 							</td>
 						<td></td>
 					</tr>

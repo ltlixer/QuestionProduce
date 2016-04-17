@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -48,36 +49,36 @@ $(function(){
 <body>
 	<div class="bodyDiv">
 		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：学习资料管理>>课外作业管理</span>
+			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="learningResourceManagement"/>>><spring:message code="homeworkManagement"/></span>
 		</div>
-		<h2>课外作业管理</h2>
+		<h2><spring:message code="homeworkManagement"/></h2>
 		<div class="div4">
 			<table border="1" class="editTab">
 	<tr>
-	<th colspan="8" align="center">已发布的作业</th>
+	<th colspan="8" align="center"><spring:message code="publishedAss"/></th>
 	</tr>
 			<tr>
-				<th align="center" width="15%">课文标题</th>
-				<th align="center" width="10%">科目</th>
-				<th align="center" width="15%">作业标题</th>
-				<th align="center" width="10%">限时</th>
-				<th align="center" width="15%">创建时间</th>
-				<th align="center" width="10%">发布教师</th>
-				<th align="center" width="15%">查看问题</th>
-				<th align="center" width="10%">删除作业</th>
+				<th align="center" width="15%"><spring:message code="textTitle"/></th>
+				<th align="center" width="10%"><spring:message code="courseName"/></th>
+				<th align="center" width="15%"><spring:message code="assTitle"/></th>
+				<th align="center" width="10%"><spring:message code="limited"/></th>
+				<th align="center" width="15%"><spring:message code="createTime"/></th>
+				<th align="center" width="10%"><spring:message code="publishTeacher"/></th>
+				<th align="center" width="15%"><spring:message code="lookQuestion"/></th>
+				<th align="center" width="10%"><spring:message code="deleteAss"/></th>
 			</tr>
 			<c:forEach var="ass" items="${list}">
 			<tr>
 				<td align="center">${ass.text.textTitle}</td>
 				<td align="center">${ass.text.course.courseName}</td>
 				<td align="center">${ass.assName}</td>
-				<td align="center">${ass.assTime}分钟</td>
+				<td align="center">${ass.assTime}<spring:message code="minute"/></td>
 				<td align="center">${ass.createTime}</td> 
 				<td align="center">${ass.teacher.teaName}</td>
 				<td align="center"><a
-					href="/question/question/tealinkQuestionPage/${ass.assId}">查看详细</a></td>
+					href="/question/question/tealinkQuestionPage/${ass.assId}"><spring:message code="viewDetail"/></a></td>
 			<td align="center"><a
-					href="/question/assignment/deleteAssignment/${ass.assId}" onclick='return deleteItem()'>删除 </a></td>
+					href="/question/assignment/deleteAssignment/${ass.assId}" onclick='return deleteItem()'><spring:message code="delete"/> </a></td>
 		
 			</tr>
 		</c:forEach>
@@ -89,17 +90,17 @@ $(function(){
 						
 								<tr  height=20>
 									<td height="20" align="center" valign="middle" nowrap>
-									<span>共-${sumCount}-页  &nbsp;&nbsp;第-${pageNow}-页
+									<span><spring:message code="total"/>:${sumCount} &nbsp;&nbsp;<spring:message code="currentPage"/>：${pageNow}
 									</span>&nbsp; 
-									<a href="${pageContext.request.contextPath}" id="first">首页</a>&nbsp; 
+									<a href="${pageContext.request.contextPath}" id="first"><spring:message code="firstPage"/></a>&nbsp; 
 									<c:if test="${pageNow>1}">
-										<a href="${pageContext.request.contextPath}" id="forwrad">上一页</a>&nbsp;
+										<a href="${pageContext.request.contextPath}" id="forwrad"><spring:message code="previous"/></a>&nbsp;
 									</c:if>
 									<c:if test="${pageNow<sumCount}">
-										<a	href="${pageContext.request.contextPath}" id="next">下一页</a>&nbsp; 
+										<a	href="${pageContext.request.contextPath}" id="next"><spring:message code="next"/></a>&nbsp; 
 									</c:if>
-									<a href="${pageContext.request.contextPath}" id="end">尾页</a>&nbsp; 
-									<span>跳转到</span>
+									<a href="${pageContext.request.contextPath}" id="end"><spring:message code="lastPage"/></a>&nbsp; 
+									<span><spring:message code="goto"/></span>
 										<select name="select" id="changePage" style="WIDTH: 40px">
 										<c:if test="${sumCount>0}">
 										<option value="${pageNow}">${pageNow}</option>

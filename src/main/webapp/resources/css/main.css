@@ -102,7 +102,10 @@ body {
 .div4 tr:hover {
 	background-color: #C9F6FF;
 }
-
+.div4 a:hover {
+	color: red;
+	text-decoration: underline;
+}
 .div5 {
 	background-color: #E3F1FE;
 	height: 36px;
@@ -160,6 +163,20 @@ body {
  cursor:pointer;
  border:1px solid transparent;;
 
+}
+.btnPaleGreen:hover {
+    background:  #4682B4;
+}
+.btnPaleGreen:active {
+    color: #f47c20;
+    font-weight: bold;
+}
+.btnGray:hover {
+    background: #778899;
+}
+.btnGray:active {
+	font-weight: bold;
+    color: #F0E68C;
 }
 /*灰色按钮*/
 .btnGray

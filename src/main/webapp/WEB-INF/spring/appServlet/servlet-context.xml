@@ -34,8 +34,8 @@
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="UTF-8" />
-		<!-- 指定所上传文件的总大小不能超过3M。maxUploadSize属性的限制是所有文件的容量之和 -->                        <!-- 1024*1024*3 --> 
-		<beans:property name="maxUploadSize" value="3145728" />  
+		<!-- 指定所上传文件的总大小不能超过3M。maxUploadSize属性的限制是所有文件的容量之和 -->                        <!-- 1024*1024*3 -->
+		<beans:property name="maxUploadSize" value="3145728" />
 	</beans:bean>
 	<beans:bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -44,10 +44,18 @@
 				<!-- 遇到异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
 				<beans:prop
 					key="org.springframework.web.multipart.MaxUploadSizeExceededException">
-					error_fileupload</beans:prop>
+					error_fileupload
+				</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
-	
+	<!-- 配置国际化资源文件路径 -->
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!-- 定义消息资源文件的相对路径 -->
+		<beans:property name="basename" value="messages.message" />
+	</beans:bean>
+	<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
 </beans:beans>

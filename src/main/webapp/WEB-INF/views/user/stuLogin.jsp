@@ -2,6 +2,7 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp" %>
 <html>
 <head>
@@ -27,7 +28,7 @@ document.onkeypress = function esckey() {
 </head>
 <body id="userlogin_body">
 	<p align="center">
-	<font style="font-family: 微软雅黑;font-weight: bold;" color="#626636" size="6">中 文 智 能 提 问 系 统</font><br><br>
+	<font style="font-family: 微软雅黑;font-weight: bold;" color="#626636" size="6"><spring:message code="systemName"/></font><br><br>
 	</p>
 	<div id="user_login">
 		<dl>
@@ -47,13 +48,13 @@ document.onkeypress = function esckey() {
 
 							<div class=user_main_box>
 								<ul>
-									<li class=user_main_text><form:label path="stuNum">用户名</form:label>
+									<li class=user_main_text><form:label path="stuNum"><spring:message code="userName"/></form:label>
 									</li>
 									<li class=user_main_input><form:input
 											class="TxtUserNameCssClass" path="stuNum" /></li>
 								</ul>
 								<ul>
-									<li class=user_main_text><form:label path="stuPassword">密码</form:label></li>
+									<li class=user_main_text><form:label path="stuPassword"><spring:message code="password"/></form:label></li>
 									<li class=user_main_input><form:password
 											class="TxtPasswordCssClass" path="stuPassword" /></li>
 								</ul>
@@ -62,7 +63,7 @@ document.onkeypress = function esckey() {
 	   			            </c:forEach> <img alt=""
 							src="<c:url value="/resources/images/edit_add.png"/>" width="10"
 							height="10" /> <b><a href="javascript:return false;"
-								onclick="openDialog('userAdd')">注册账号</a></b> <br> <c:if
+								onclick="openDialog('userAdd')"><spring:message code="regisLabel"/></a></b> <br> <c:if
 								test="${not empty stuLoginInfor}">
 								<c:forEach begin="1" end="10">
 	   			            	&nbsp;
@@ -97,24 +98,24 @@ document.onkeypress = function esckey() {
 			<div class="div_ul">
 				<ul>
 
-					<li><label> 登录账号： </label> <form:input class="text"
+					<li><label> <spring:message code="count"/>： </label> <form:input class="text"
 							id="stuNum1" name="stuNum" path="stuNum" /> <span
 						style="color: red"> * </span> <span
 						style="font-size: 12px; color: red" id="stuNum"></span> <!-- <font color="red"><label id="stuNum"></label></font> --></li>
-					<li><label> 登录密码： </label> <form:password class="text"
+					<li><label> <spring:message code="loginpassword"/>： </label> <form:password class="text"
 							name="stuPassword" id="stuPasswordText" path="stuPassword" /> <span
 						style="color: red"> * </span> <span
 						style="font-size: 12px; color: red" id="stuPassword"></span></li>
-					<li><label> 确认密码： </label> <input class="text"
+					<li><label> <spring:message code="repassword"/>： </label> <input class="text"
 						name="repassword" id="repasswordText" type="password" /> <span
 						style="color: red"> * </span><span
 						style="font-size: 12px; color: red" id="repassword"></span></li>
-					<li><label> 真实姓名： </label> <form:input class="text"
+					<li><label><spring:message code="realName"/>： </label> <form:input class="text"
 							name="stuName" path="stuName" /><span style="color: red">
 							* </span> <span style="font-size: 12px; color: red" id="stuName"></span>
 
 					</li>
-					<li><label> 电子邮箱： </label> <form:input class="text"
+					<li><label> <spring:message code="email"/>： </label> <form:input class="text"
 							stuName="stuEmail" path="stuEmail" /> <span style="color: red">
 							* </span> <span id="stuEmail" style="font-size: 12px; color: red"></span>
 					</li>
@@ -122,10 +123,10 @@ document.onkeypress = function esckey() {
 					</li>
 					<li
 						style="text-align: center; padding: 0px; height: 40px; line-height: 40px;">
-						&nbsp; <input type="submit" value="确认" class="btnPaleGreen"
+						&nbsp; <input type="submit" value="<spring:message code='ok'/>" class="btnPaleGreen"
 						onclick="return checkInfo()" /> <!-- onclick="return addCheck()"  -->
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset"
-						value="重置" class="btnGray" />
+						value="<spring:message code='cancel'/>" class="btnGray" />
 					</li>
 				</ul>
 
@@ -135,7 +136,7 @@ document.onkeypress = function esckey() {
 	<script type="text/javascript">
 	<!-- 注册对话框 -->
 		$(function() {
-			createDialog('userAdd', '增添数据');
+			createDialog('userAdd', '<spring:message code="regisLabel"/>');
 			closeDialog('userAdd');
 
 			//文本框获取焦点 失去焦点变色
