@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My JSP 'left.jsp' starting page</title>
+    <link rel="stylesheet" type="text/css" href="../css/page.css"/>
+    <script type="text/javascript" src="../jQuery/jquery-1.7.2.js"></script>
+  	<script type="text/javascript" >
+  	$(function(){
+  	// 菜单收起展开
+  		$("ul.mul").hide();
+  		$("div.menu1").click(function() {
+  			$("ul.mul").hide();
+  			if ($("ul[id=" + this.id + "]").is(":hidden")) {
+  				$("ul[id=" + this.id + "]").show(200);
+  			} else {
+  				$("ul[id=" + this.id + "]").hide(200);
+  			}
+  		});
+  	})
+  	</script>
+  </head>
+  
+  <body class="left">
+ <div class="left_div">
+ <div id="menu_en" class="left">
+			<div class="menu1" id="m1">Basic Information</div>
+			<ul id="m1" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp;
+				 <a class="a" href="/question/course/manageCourse" target="mainFrame">add course</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/queryStudentByteaId" target="mainFrame">add student</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/linkUpdateTeacher" target="mainFrame">personal information</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/linkTeaUpdatePassword" target="mainFrame">change password</a></li>
+			</ul>
+			<div id="m2" class="menu1">Assigning Homework</div>
+			<ul id="m2" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/text/linkAddText" target="mainFrame">upload  text</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/text/queryText/1" target="mainFrame">assigning homework</a></li>
+			</ul>
+			<div id="m3" class="menu1">Manage Homework</div>
+			<ul id="m3" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/queryAssignment/1" target="mainFrame">homework</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/queryScoreAssignment/1" target="mainFrame">modify grades</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a  class="a" href="/question/assignment/showScoreAssignment/1" target="mainFrame">view grades</a></li>
+			</ul>
+			<div class="menu1" id="m4">Evaluation Results</div>
+			<ul id="m4" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryEvaluated" target="mainFrame">marking result</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryLogTea" target="mainFrame">assignment homework</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/evaluate/linkqueryLogStu" target="mainFrame">doing homework </a></li>
+			</ul>
+			<div class="menu1">Menu Hidden</div>
+		</div>
+   </div>
+  </body>
+</html>

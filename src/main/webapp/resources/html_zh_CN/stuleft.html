@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>My JSP 'left.jsp' starting page</title>
+<link rel="stylesheet" type="text/css" href="../css/page.css" />
+<script type="text/javascript" src="../jQuery/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+	$(function() {
+		// 菜单收起展开
+		$("ul.mul").hide();
+		$("div.menu1").click(function() {
+			$("ul.mul").hide();
+			if ($("ul[id=" + this.id + "]").is(":hidden")) {
+				$("ul[id=" + this.id + "]").show(200);
+			} else {
+				$("ul[id=" + this.id + "]").hide(200);
+			}
+		});
+	})
+</script>
+</head>
+
+<body class="left">
+	<div class="left_div">
+		<div id="menu_cn" class="left">
+		<div id="m3" class="menu1">数据评估</div>
+			<ul id="m3" class="mul" style="display: block;">
+			<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/evaluate/stuLinklistText" target="mainFrame">数据评估</a></li>
+					<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/evaluate/queryTextListEvaluated/1" target="mainFrame">已评估的数据</a></li>
+			</ul>
+			<div id="m1" class="menu1">基本信息</div>
+			<ul id="m1" class="mul" style="display: block;">
+			<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/queryCourse/1" target="mainFrame">选择课程</a></li>
+					<li><img src="../images/Center_06.jpg" />&nbsp; 
+				<a class="a" href="/question/linkUpdateStudent" target="mainFrame">修改邮箱</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/linkStuUpdatePassword" target="mainFrame">密码重置</a></li>
+			</ul>
+			<div id="m2" class="menu1">在线作业</div>
+			<ul id="m2" class="mul" style="display: block;">
+				<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/text/stuLinklistText" target="mainFrame">课 程 学 习</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/assignment/stulinkqueryAssignment"
+					target="mainFrame">开始在线作业</a></li>
+				<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/assignment/queryScoreAssignmentBystuId/1"
+					target="mainFrame">查看作业成绩</a></li>
+					<li><img src="../images/Center_06.jpg" />&nbsp; <a class="a"
+					href="/question/assignment/finishedAssignment/1" target="mainFrame">完成的作业</a></li>
+			</ul>
+			<div class="menu1">菜单收起</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp"%>
 <html>
 <head>
@@ -74,7 +75,7 @@
 			originalStartTime=new Date().format("yyyy-MM-dd hh:mm:ss");
 			showOriginal();
 			$('#loading').hide();
-			$('#infor').html('请添加问题！点击【发布作业】进行作业布置');
+			$('#infor').html("<spring:message code='sendAssLabel'/>");
 		}
 
 	})
@@ -183,7 +184,7 @@
 		var textId = $("input[name='textId']").val();
 		var assName = $("input[name='assName']").val();
 		if(assName==null||assName==""){
-			$.messager.alert('提示', '你未添加作业标题');
+			$.messager.alert("<spring:message code='tip'/>", "<spring:message code='sendAssTip1'/>");
 			return false;
 		}
 		var assTime = $("select[name='assTime']").val();
@@ -274,11 +275,11 @@
 			var question = $("textarea.question[name='add" +count+ "']").val();
 			var answer = $("textarea.answer[name='add" +count+ "']").val();
 			if(question==""){
-				$.messager.alert('提示', '请输入问题');
+				$.messager.alert("<spring:message code='tip'/>", "<spring:message code='sendAssTip3'/>");
 				return ;
 			}
 			if(answer==""){
-				$.messager.alert('提示', '请输入参考答案');
+				$.messager.alert("<spring:message code='tip'/>", "<spring:message code='sendAssTip4'/>");
 				return ;
 			}
 			count++;
@@ -289,7 +290,7 @@
 			"<td style='display: none' id='sentence"+id+"'></td>" +
 			"<td align=center colspan=2><textarea rows='3' cols='80%' class='question' name='"+id+"'></textarea></td>" +
 			"<td align=center><textarea rows='3' cols='50%' class='answer' name='"+id+"' ></textarea></td>" +
-			"<td style='display: none' id='label"+id+"'>原始问题</td>" +
+			"<td style='display: none' id='label"+id+"'><spring:message code='originalQuestion'/></td>" +
 			"</tr>";
 			original.append(html);
 	}
@@ -297,9 +298,9 @@
 </head>
 <body>
 	<div class="div3">
-		<font size="4"><label>课文标题：</label>${tittle}</font>
+		<font size="4"><label><spring:message code='textTittle'/></label>${tittle}</font>
 		<div style="float: right">
-			<font size="4">课程名：${courseName}&nbsp;</font>
+			<font size="4"><spring:message code='courseName'/>：${courseName}&nbsp;</font>
 		</div>
 	</div>
 	<div style="width: 98%; padding-left: 20px">
@@ -320,87 +321,87 @@
 				type="hidden" name="startDate" value="${startDate}">
 			<table border="1" class="editTab" id="multiplechoiceShowQuestion">
 				<tr>
-					<th colspan="5" align="left">选择题
+					<th colspan="5" align="left"><spring:message code='selectQuestion'/>
 					</th>
 				</tr>
 				<tr>
 					<th width="3%"><input type="checkbox" id="selectAllMultipleChoice"
 						onclick="checkEvent('multiplechoice','selectAllMultipleChoice')" /></th>
-					<th width="35%">句子</th>
-					<th width="35%">问题</th>
-					<th width="22%">候选项</th>
-					<th width="8%">答案</th>
+					<th width="35%"><spring:message code='sentence'/></th>
+					<th width="35%"><spring:message code='question'/></th>
+					<th width="22%"><spring:message code='refAnswer'/></th>
+					<th width="8%"><spring:message code='questionType'/></th>
 				</tr>
 			</table>
 			<script src="<c:url value='/resources/question/js/multiple-choice/question-generator.js'/>"></script>
 			<p id="multiplechoiceNextId" align="center">
 				<input type="button" onclick="multiplechoiceNext()" class="btnPaleGreen"
-					style="width: 100px" value="下一题">
+					style="width: 100px" value="<spring:message code='next'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="factoidShowQuestion">
 				<tr>
-					<th colspan="5" align="left">事实类问题
+					<th colspan="5" align="left"><spring:message code='factoidQuestion'/>
 					</th>
 				</tr>
 				<tr>
 					<th width="3%"><input type="checkbox" id="selectAll"
 						onclick="checkEvent('ck','selectAll')" /></th>
-					<th width="42%">句子</th>
-					<th width="35%">问题</th>
-					<th width="12%">参考答案</th>
-					<th width="8%">问题类别</th>
+					<th width="42%"><spring:message code='sentence'/></th>
+					<th width="35%"><spring:message code='question'/></th>
+					<th width="12%"><spring:message code='refAnswer'/></th>
+					<th width="8%"><spring:message code='questionType'/></th>
 				</tr>
 			</table>
 			<p id="factoidNextId" align="center">
 				<input type="button" onclick="factoidNext()" class="btnPaleGreen"
-					style="width: 100px" value="下一题">
+					style="width: 100px" value="<spring:message code='next'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="deeperShowQuestion">
 				<tr>
-					<th colspan="5" align="left">深层次问题
+					<th colspan="5" align="left"><spring:message code='deeperQuestion'/>
 					</th>
 				<tr>
 					<th width="3%"><input type="checkbox" id="selectAll"
 						onclick="checkEvent('ck','selectAll')" /></th>
-					<th width="42%">句子</th>
-					<th width="35%">问题</th>
-					<th width="12%">参考答案</th>
-					<th width="8%">问题类别</th>
+					<th width="42%"><spring:message code='sentence'/></th>
+					<th width="35%"><spring:message code='question'/></th>
+					<th width="12%"><spring:message code='refAnswer'/></th>
+					<th width="8%"><spring:message code='questionType'/></th>
 				</tr>
 			</table>
 			<p id="deeperNextId" align="center">
 				<input type="button" onclick="deeperNext()" class="btnPaleGreen"
-					style="width: 100px" value="下一题">
+					style="width: 100px" value="<spring:message code='next'/>">
 			</p>
 			<table border="1" class="editTab" id="originalShowQuestion">
 				<tr>
-					<th colspan="3" align="left">手动添加问题</th>
+					<th colspan="3" align="left"><spring:message code='originalQuestion'/></th>
 				<tr>
 					<th  width="10%"><input type="button" onclick="addOriginal()" class="btnGray"
 					style="width: 80px" value="添加"></th>
-					<th width="50%">问题</th>
-					<th width="40%">参考答案</th>
+					<th width="50%"><spring:message code='question'/></th>
+					<th width="40%"><spring:message code='refAnswer'/></th>
 				</tr>
 				
 				
 			</table>
 
 			<p id="submitClick" align="center">
-				设置作业标题：<input type="text" name="assName" style="width: 200px"><font color="red">* 必填</font><br><br>
-				设置作业限时：<select class="text" name="assTime" style="width: 200px">
-					<option value="10">10分钟</option>
-					<option value="6">5分钟</option>
-					<option value="15">15分钟</option>
-					<option value="20">20分钟</option>
-					<option value="30">25分钟</option>
-					<option value="30">30分钟</option>
-				</select> <font color="red">* 必填</font><br><br>
-				<input type="button" onclick="return addQuestion('questionNum')"
-					class="btnPaleGreen" name="submit" value="布置作业"
+				<spring:message code='setAssTittle'/><input type="text" name="assName" style="width: 200px"><font color="red">*</font><br><br>
+				<spring:message code='setAssTime'/><select class="text" name="assTime" style="width: 200px">
+					<option value="10">10<spring:message code='minute'/></option>
+					<option value="6">5<spring:message code='minute'/></option>
+					<option value="15">15<spring:message code='minute'/></option>
+					<option value="20">20<spring:message code='minute'/></option>
+					<option value="30">25<spring:message code='minute'/></option>
+					<option value="30">30<spring:message code='minute'/></option>
+				</select> <font color="red">*</font><br><br>
+				<input type="button" onclick="return addQuestion('ckq')"
+					class="btnPaleGreen" name="submit" value="<spring:message code='sendAss'/>"
 					style="width: 100px"> <input type="button"
-					onclick="linkText()" class="btnGray" value="返回课文"
+					onclick="linkText()" class="btnGray" value="<spring:message code='reText'/>"
 					style="width: 100px"> <br> <br>
 			</p>
 		</form>

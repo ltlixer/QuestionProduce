@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
  <%@ include file="../com/easyui.jsp" %> 
 <html>
 <head>
@@ -17,7 +18,7 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/dateFormat.js'/>"></script>
 
-<title>问题产生</title>
+<title>question page</title>
 <script type="text/javascript">
 var multiplechoiceStartTime="";
 var multiplechoiceEndTime="";
@@ -68,12 +69,12 @@ $(function() {
 	var m =${assTime};//分钟
     function timeShow(){
     	secs--
-    	if(min==0&&secs==0){
-    		$("label#timeShow").text("0分0秒");
-    		submitTest();
+    	if(min==0&&secs==0){  		
+    		$("label#timeShow").text("0<spring:message code='min'/>0<spring:message code='second'/>");
+    		submitTip();
     		return;
     	}
-    	 $("label#timeShow").text(min+"分"+secs+"秒");
+    	 $("label#timeShow").text(min+"<spring:message code='min'/>"+secs+"<spring:message code='second'/>");
         if(secs==0){
         	min--;
         	secs=60;
@@ -302,9 +303,9 @@ $(function() {
 <body>
 	<c:if test="${MultiplechoiceSize==0}">
 	<div class="div3">
-		<font size="4">阅读<label>课文《${textTitle}》回答下列问题 </label>
+		<font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/> </label>
 		</font>
-		<span style="float: right;"><font size="3">课程名：${courseName}</font>&nbsp;&nbsp;</span>
+		<span style="float: right;"><font size="3"><spring:message code="courseName"/>${courseName}</font>&nbsp;&nbsp;</span>
 	</div>
 	<br>
 	<div style="width: 98%; padding-left: 20px">
@@ -316,9 +317,9 @@ $(function() {
 	</div>
 	</c:if>
 	<div class="div3">
-		<font size="4"><label>问题（共${questionsize}小题）</label></font>
-		<div style="float: right;"><font size="4" color="red">测试总时间：${assTime}分钟
-		， 剩余时间<label id="timeShow"></label></font>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<font size="4"><label><spring:message code="questionLabel1"/>${questionsize}<spring:message code="questionLabel2"/></label></font>
+		<div style="float: right;"><font size="4" color="red"><spring:message code="timeLabel1"/>${assTime}<spring:message code="timeLabel2"/>
+		<spring:message code="timeLabel3"/><label id="timeShow"></label></font>&nbsp;&nbsp;&nbsp;&nbsp;</div>	
 	</div>
 	<div class="div4" style="width: 98%">
 		<form id="submitFormId" action="/question/answer/submitAnswer" method="post">
@@ -328,18 +329,18 @@ $(function() {
 			<c:if test="${MultiplechoiceSize>0}">
 				<table border="1" class="editTab" id="MultiplechoiceQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left">选择题（共${FactoidSize}小题）</th>
+					<th colspan="3" align="left"><spring:message code="selectLabel"/>共${FactoidSize}<spring:message code="qend"/></th>
 				</tr>
 				<tr>
-					<th width="7%">题号</th>
-					<th width="60%">问题</th>
-					<th width="33%">答案</th>
+					<th width="7%"><spring:message code="qid"/></th>
+					<th width="60%"><spring:message code="question"/></th>
+					<th width="33%"><spring:message code="answer"/></th>
 				</tr>
 					<c:set var="i" value="${0}"/>
 					<c:forEach var="question" items="${MultiplechoiceQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center">问题 ${i}.</td>
+						<td align="center"><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
 						<td class="multiplechoiceAnswer">
 							
@@ -355,7 +356,7 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="multiplechoiceNextId" onclick="multiplechoiceNext()" class="btnPaleGreen" style="width: 100px" value="下一题">
+					<input type="button" id="multiplechoiceNextId" onclick="multiplechoiceNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='next'/>">
 				</td>
 				</tr>
 			</table>
@@ -364,20 +365,20 @@ $(function() {
 			<c:if test="${FactoidSize>0}">
 				<table border="1" class="editTab" id="FactoidQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left">事实类问题（共${FactoidSize}小题）</th>
+					<th colspan="3" align="left"><spring:message code="facotiodLabel"/>${FactoidSize}<spring:message code="qend"/></th>
 				</tr>
 				<tr>
-					<th width="7%">题号</th>
-					<th width="60%">问题</th>
-					<th width="33%">答案</th>
+					<th width="7%"><spring:message code="qid"/></th>
+					<th width="60%"><spring:message code="question"/></th>
+					<th width="33%"><spring:message code="answer"/></th>
 				</tr>
 					<c:set var="i" value="${0}"/>
 					<c:forEach var="question" items="${FactoidQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center">问题 ${i}.</td>
+						<td align="center"><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
-							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="请输入答案"  style='width: 300px'></textarea>
+							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">
 							<input type="hidden" name="answerold" value="${question.answer}">
 							</td>
@@ -385,8 +386,8 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen" style="width: 100px" value="下一题">
-					<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="上一题">
+					<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='next'/>">
+					<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
 				</td>
 				</tr>
 			</table>
@@ -395,20 +396,20 @@ $(function() {
 			<c:if test="${DeeperSize>0}">
 				<table border="1" class="editTab" id="DeeperQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left">深层次问题（共${DeeperSize}小题）</th>
+					<th colspan="3" align="left"><spring:message code="deeperLabel"/>${DeeperSize}<spring:message code="qend"/></th>
 				</tr>
 				<tr>
-					<th width="7%">题号</th>
-					<th width="60%">问题</th>
-					<th width="33%">答案</th>
+					<th width="7%"><spring:message code="qid"/></th>
+					<th width="60%"><spring:message code="question"/></th>
+					<th width="33%"><spring:message code="answer"/></th>
 				</tr>
 					<c:set var="i" value="${0}"/>
 					<c:forEach var="question" items="${DeeperQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center">问题 ${i}.</td>
+						<td align="center"><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
-							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="请输入答案"  style='width: 300px'></textarea>
+							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">
 							<input type="hidden" name="answerold" value="${question.answer}">
 							</td>
@@ -416,8 +417,8 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen" style="width: 100px" value="下一题">
-					<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题">
+					<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='next'/>">
+					<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
 				</td>
 				</tr>
 			</table>
@@ -426,20 +427,20 @@ $(function() {
 			<c:if test="${OriginalSize>0}">
 				<table border="1" class="editTab" id="OriginalQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left">原始问题（共${OriginalSize}小题）</th>
+					<th colspan="3" align="left"><spring:message code="originalLabel"/>${OriginalSize}<spring:message code="qend"/></th>
 				</tr>
 				<tr>
-					<th width="7%">题号</th>
-					<th width="60%">问题</th>
-					<th width="33%">答案</th>
+					<th width="7%"><spring:message code="qid"/></th>
+					<th width="60%"><spring:message code="question"/></th>
+					<th width="33%"><spring:message code="answer"/></th>
 				</tr>
 					<c:set var="i" value="${0}"/>
 					<c:forEach var="question" items="${OriginalQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center">问题 ${i}.</td>
+						<td align="center"><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
-							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="请输入答案"  style='width: 300px'></textarea>
+							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">
 							<input type="hidden" name="answerold" value="${question.answer}">
 							</td>
@@ -447,7 +448,7 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="originalLastId" onclick="originalLast()" class="btnGray" style="width: 100px" value="上一题">
+					<input type="button" id="originalLastId" onclick="originalLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
 				</td>
 				</tr>
 			</table>
@@ -462,8 +463,8 @@ $(function() {
 		<input type="hidden" id="originalEndTime" name="originalEndTime" value="">
 			<p align="center">
 				<input type="submit"  class="btn2"
-				name="submit" id="submitbt" value="提交作业" style="display:none;">
-				<input type="button" id="submitAss" onclick="return submitTip('确认','您确定提交作业吗？')" class="btnPaleGreen" style="width: 100px" value="提交作业">
+				name="submit" id="submitbt"  style="display:none;">
+				<input type="button" id="submitAss" onclick="return submitTip('确认','您确定提交作业吗？')" class="btnPaleGreen" style="width: 100px" value="<spring:message code='submitAss'/>">
 				</p>
 				<br><br>
 		</form>

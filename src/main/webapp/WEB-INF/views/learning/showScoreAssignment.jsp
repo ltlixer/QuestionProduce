@@ -55,7 +55,7 @@ $(function(){
 					<tr>
 					<th align="center" width="15%"><spring:message code="textTitle"/></th>
 					<th align="center" width="15%"><spring:message code="courseName"/></th>
-					<th align="center" width="10%"><spring:message code="stu"/></th>
+					<th align="center" width="10%"><spring:message code="student"/></th>
 					<th align="center" width="10%"><spring:message code="actualHours"/></th>
 					<th align="center" width="10%"><spring:message code="assScore"/></th>
 					<th align="center" width="30%"><spring:message code="evaluation"/></th>

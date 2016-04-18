@@ -2,10 +2,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp"%>
 <html>
 <head>
-<TITLE>Student Register</TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
@@ -70,9 +70,9 @@
 </head>
 <body>
 	<div class="div3">
-		<font size="4"><label>课文标题：</label>${tittle}</font>
+		<font size="4"><label><spring:message code='textTittle'/></label>${tittle}</font>
 		<div style="float: right">
-			<font size="4">课程名：${courseName}&nbsp;</font>
+			<font size="4"><spring:message code='courseName'/>：${courseName}&nbsp;</font>
 		</div>
 	</div>
 	<div style="width: 98%; padding-left: 20px">
@@ -94,19 +94,19 @@
 			<table border="1" class="editTab" id="showEvaluate"
 				style="font-size:">
 				<tr>
-					<th width="4%">序号</th>
-					<th width="36%">句子</th>
-					<th width="37%">问题</th>
-					<th width="13%">评估</th>
-					<th width="10%">错误原因</th>
+					<th width="4%"><spring:message code='xuhao'/></th>
+					<th width="36%"><spring:message code='sentence'/></th>
+					<th width="37%"><spring:message code='question'/></th>
+					<th width="13%"><spring:message code='pinggu'/></th>
+					<th width="10%"><spring:message code='errorwhy'/></th> 
 
 				</tr>
 			</table>
 			 <div  style="margin-left: 100px;"><input type="button" onclick="return addEvaluate()"
-				class="btnPaleGreen" name="submit" id="submitResult" style="width: 200px" value="提交评估结果" > 
+				class="btnPaleGreen" name="submit" id="submitResult" style="width: 200px" value="<spring:message code='submitEvaluate'/>" > 
 				<img id="submitLoad" width="20px"
 			src="<c:url value='/resources/images/loading.gif'/>">
-				<input type="button" onclick="linkText()" style="width: 200px" class="btnGray" value="返回课文">
+				<input type="button" onclick="linkText()" style="width: 200px" class="btnGray" value="<spring:message code='reText'/>">
 			</div><br> <br>
 		</form>
 	</div>

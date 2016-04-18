@@ -3,10 +3,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp" %>
 <html>
 <head>
-<TITLE>Student Register</TITLE>
+<TITLE>Answer Page</TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
@@ -70,9 +71,9 @@
 </head>
 <body>
 	<div class="div3">
-		<font size="4">阅读<label>课文《${textTitle}》回答下列问题 </label>
+		<font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/></label>
 		</font>
-		<div style="float: right"><font size="4">课程名：${courseName}</font>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div style="float: right"><font size="4"><spring:message code="courseName"/>${courseName}</font>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	</div>
 	<div style="width: 98%; padding-left: 20px">
 		<font size="3"> <c:forEach var="sentence" items="${texts}">
@@ -83,8 +84,8 @@
 	</div>
 
 	<div class="div3">
-		<font size="4"><label>问题（共${fn:length(answers)}小题）</label></font>
-		<div style="float: right;"><font size="4">${stuName}同学</font><font size="4" color="red">测试所用时间：${useTime}分钟&nbsp;&nbsp;</font>
+		<font size="4"><label><spring:message code="questionLabel1"/>${fn:length(answers)}<spring:message code="questionLabel2"/></label></font>
+		<div style="float: right;"><font size="4">${stuName}<spring:message code="stu"/></font><font size="4" color="red"><spring:message code="timeLabel1"/>${useTime}<spring:message code="timeLabel2"/>&nbsp;&nbsp;</font>
 		</div>
 	</div>
 	<div class="div4" style="width: 98%">
@@ -93,12 +94,12 @@
 			<table border="1" class="editTab" id="showAnswer" align="center">
 				<tr>
 				<c:if test="${user=='tea'}">
-					<th width="3%">题号</th>
-					<th width="44%">问题</th>
-					<th width="14%">学生答案</th>
-					<th width="14%">参考答案</th>
-					<th width="15%">批改</th>
-					<th width="10%">学生答案和参考答案匹配度</th>
+					<th width="3%"><spring:message code="qid"/></th>
+					<th width="44%"><spring:message code="question"/></th>
+					<th width="14%"><spring:message code="stuAnswer"/></th>
+					<th width="14%"><spring:message code="refAnswer"/></th>
+					<th width="15%"><spring:message code="correct"/></th>
+					<th width="10%"><spring:message code="stuToReAnswer"/></th>
 				</c:if>
 					
 				</tr>
@@ -114,12 +115,12 @@
 							<td>
 							
 							 <c:if test="${answer.tOrF=='T'}">
-								<input   name="answer${i}" type="radio" checked="checked" value="T" /> 正确&nbsp;&nbsp;
-								<input  name="answer${i}"  type="radio" value="F" />错误
+								<input   name="answer${i}" type="radio" checked="checked" value="T" /> <spring:message code="right"/>&nbsp;&nbsp;
+								<input  name="answer${i}"  type="radio" value="F" /><spring:message code="error"/>
 							 </c:if> 
 							<c:if test="${answer.tOrF=='F'}">
-								<input   name="answer${i}" type="radio"  value="T" /> 正确&nbsp;&nbsp;
-								<input  name="answer${i}"  type="radio" checked="checked" value="F" />错误
+								<input   name="answer${i}" type="radio"  value="T" /> <spring:message code="right"/>&nbsp;&nbsp;
+								<input  name="answer${i}"  type="radio" checked="checked" value="F" /><spring:message code="error"/>
 							 </c:if> 
 							
 							</td>
@@ -132,13 +133,13 @@
 				 <c:if test="${user=='tea'}"> 
 				 <tr>
 				 <td colspan="6" align="center" valign="middle">
-				<font size="4"><label>作业评语：</label></font><textarea id="evaluate" name="evaluate" class="easyui-validatebox" data-options="required:true" missingMessage="请对本次作业作一个简要评价"  cols="80" rows="2">${evaluate}</textarea>
+				<font size="4"><label><spring:message code="assEvaluate"/></label></font><textarea id="evaluate" name="evaluate" class="easyui-validatebox" data-options="required:true" missingMessage="请对本次作业作一个简要评价"  cols="80" rows="2">${evaluate}</textarea>
 				</td>
 				</tr>
 				<tr>
 				<td colspan="6" align="center">
-				<input type="button" onclick="return submitTip('确认','您确定提交成绩吗？')" class="btnPaleGreen" style="width: 130px" value="提交作业">
-					<input type="button" onclick="linksAss()" class="btnGray" style="width: 130px" value="返回待批改作业列表">
+				<input type="button" onclick="return submitTip('确认','您确定提交成绩吗？')" class="btnPaleGreen" style="width: 130px" value="<spring:message code="submit"/>">
+					<input type="button" onclick="linksAss()" class="btnGray" style="width: 130px" value="<spring:message code="reAssList"/>">
 				</td>
 				</c:if> 
 				</tr>
@@ -146,6 +147,5 @@
 				<br><br>
 		</form>
 	</div>
-
 </body>
 </html>

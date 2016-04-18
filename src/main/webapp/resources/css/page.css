@@ -14,42 +14,28 @@ img {
 	height: 103px;
 }
 
-.top_left {
-	float: left;
-}
 
-.top_right {
-	float: right;
-	padding-top: 80px;
-}
-
-.top_right a {
+ .top a {
 	margin-right: 20px;
 }
 
-.top_right a * {
-	vertical-align: middle;
-}
 
-.top_right a:link {
-	color: #0D5AA2;
+.top a:link {
+	color: #B9B9FF;
 	text-decoration: none;
 }
 
-.top_right a:visited {
-	color: #0D5AA2;
+.top a:visited {
+	color: #4A4AFF;
 	text-decoration: none;
 }
 
-.top_right a:hover {
+.top a:hover {
 	color: red;
 	text-decoration: underline;
 }
 
-.top_split {
-	background: url("../images/split.jpg") repeat-x;
-	height: 5px;
-}
+ 
 /*left*/
 .left {
 	background-color: #C0DFFE;
@@ -90,9 +76,13 @@ img {
 	margin-left: 10px;
 }
 
-.left a{
+#menu_cn a{
 	font-size: 14px;
 	font-family: 微软雅黑,Tohoma;
+}
+#menu_en a{
+	font-size: 12px;
+	font-family: Times New Roman;
 }
 .left a:link {
 	color: black;

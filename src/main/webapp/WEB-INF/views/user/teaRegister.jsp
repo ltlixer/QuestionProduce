@@ -12,8 +12,8 @@
 <body class="registerBody">
 <div class="bodyDiv">
 	<div id="content" align="center" class="div3">
-		<h1 class="page-header" align="left">教师账号注册失败</h1>
-		<a href="/question/linkTeaLogin">跳转到登录界面</a>
+		<h1 class="page-header" align="left">教师账号注册失败(Teacher account registration failed)</h1>
+		<a href="/question/linkTeaLogin">跳转到登录界面(going to login interface)</a>
 	</div>
 	</div>
 </body>

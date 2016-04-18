@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
  <%@ include file="../com/easyui.jsp" %> 
 <html>
 <head>
@@ -14,7 +15,7 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/dialog.js'/>"></script>
 
-<title>问题产生</title>
+<title>question page</title>
 <script type="text/javascript">
     function linkAss(){
     	location.href ="/question/assignment/queryAssignment/1";
@@ -23,9 +24,9 @@
 </head>
 <body>
 	<div class="div3">
-		<font size="4">阅读<label>课文《${textTitle}》回答下列问题 </label>
+		<font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/> </label>
 		</font>
-		<span style="float: right;"><font size="3">课程名：${courseName}</font>&nbsp;&nbsp;</span>
+		<span style="float: right;"><font size="3"><spring:message code="courseName"/>：${courseName}</font>&nbsp;&nbsp;</span>
 	</div>
 	<br>
 	<div style="width: 98%; padding-left: 20px">
@@ -37,8 +38,8 @@
 	</div>
 
 	<div class="div3">
-		<font size="4"><label>问题（共${fn:length(questions)}小题）</label></font>
-		<div style="float: right;"><font size="4" color="red">测试总时间：${assTime}分钟
+		<font size="4"><label><spring:message code="questionLabel1"/>${fn:length(questions)}<spring:message code="questionLabel2"/></label></font>
+		<div style="float: right;"><font size="4" color="red"><spring:message code="timeLabel1"/>${assTime}<spring:message code="timeLabel2"/>
 		</font>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	</div>
 	<div class="div4" style="width: 98%">
@@ -47,16 +48,16 @@
 			<input type="hidden" id="useTime" name="useTime" value="${assTime}">
 			<table border="1" class="editTab" id="showQuestion" align="center">
 				<tr>
-					<th width="7%">题号</th>
-					<th width="70%">问题</th>
-					<th width="13%">参考答案</th>
-					<th width="10%">问题类别</th>
+					<th width="7%"><spring:message code="qid"/></th>
+					<th width="70%"><spring:message code="question"/></th>
+					<th width="13%"><spring:message code="refAnswer"/></th>
+					<th width="10%"><spring:message code="questionType"/></th>
 				</tr>
 					<c:set var="i" value="${0}"/>
 					<c:forEach var="question" items="${questions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center">问题 ${i}.</td>
+						<td align="center"><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
 						
 							<td>${question.answer}</td>
@@ -65,7 +66,7 @@
 				</c:forEach>
 			<tr>
 				<td colspan="4" align="center">
-					<input type="button" onclick="linkAss()" class="btnPaleGreen" style="width: 100px" value="返回作业列表">
+					<input type="button" onclick="linkAss()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='reAssList1'/>">
 				</td>
 				</tr>
 			</table>

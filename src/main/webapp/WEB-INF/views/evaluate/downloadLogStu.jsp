@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -58,47 +59,45 @@
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div4">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：评估结果-学生完成作业日志</span>
-		</div>
-		<h2>学生完成作业时间日志下载</h2>
+		
+		<h2><spring:message code="stulog"/></h2>
 		<input id="link1" type="hidden" value="${link}">
 		<form action="/question/evaluate/downlogStu">
 		
 		<table  class="editTab" id="table">
 					<tr>
-						<th align="center">课程名</th>
-						<th align="center">年级</th>
+						<th align="center"><spring:message code="courseName"/></th>
+						<th align="center"><spring:message code="className"/></th>
 						<th align="center"><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
 					<c:if test="${not empty courses}">
 						<c:forEach var="course" items="${courses}">
 							<tr>
-								<td align="center">${course.year}级${course.courseName}</td>
+								<td align="center">${course.year}<spring:message code="ji"/>${course.courseName}</td>
 								<td align="center">${course.teacher.teaName}</td>
 								<td align="center"><input type="checkbox" name="courseIds"
 									value="${course.courseId}"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
-					<tr><td colspan="3" align="center"><input type="submit" onclick="return addE('courseIds')" value="下载做题日志" style="width: 100px"
-						class="btnPaleGreen" />&nbsp;&nbsp;<a href="#" onclick="return view('courseIds')">查看明细</a></td></tr>
+					<tr><td colspan="3" align="center"><input type="submit" onclick="return addE('courseIds')" value="<spring:message code="downstulog"/>" style="width: 100px"
+						class="btnPaleGreen" />&nbsp;&nbsp;<a href="#" onclick="return view('courseIds')"><spring:message code="looklist"/></a></td></tr>
 		</table>
 		</form>
 		<hr color="#00aaff">
 		
 		<table border="1" class="editTab" id="viewLog">
 				<tr>
-					<th colspan="6">学生完成作业日志明细</th>
+					<th colspan="6"><spring:message code="stuSendAssList"/></th>
 				</tr>
 				<tr>
-					<th width="20%">课程名</th>
-					<th width="10%">标题</th>
-					<th width="10%">学生姓名</th>
-					<th width="20%">问题类型</th>
-					<th width="20%">开始时间</th>
-					<th width="20%">结束时间</th>
+					<th width="20%"><spring:message code="courseName"/></th>
+					<th width="10%"><spring:message code="title"/></th>
+					<th width="10%"><spring:message code="stuName"/></th>
+					<th width="20%"><spring:message code="questionType"/></th>
+					<th width="20%"><spring:message code="startTime"/></th>
+					<th width="20%"><spring:message code="endTime"/></th>
 				</tr>
 				<tr>
 					<c:if test="${not empty logs}">

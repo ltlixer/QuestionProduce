@@ -16,8 +16,8 @@
 <body class="registerBody">
 <div class="bodyDiv">
 	<div id="content" align="center" class="div3">
-		<h1 class="page-header" align="left">学生账号注册失败</h1>
-		<a href="/question/linkStuLogin">跳转登录界面</a>
+		<h1 class="page-header" align="left">学生账号注册失败(Student account registration failed)</h1>
+		<a href="/question/linkStuLogin">跳转登录界面(going to login interface)</a>
 	</div>
 	</div>
 </body>

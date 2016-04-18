@@ -16,11 +16,11 @@ public class EnglisWpToChinese{
       String regex = "(.*)\"(.*)\"(.*)";
       Pattern pattern = Pattern.compile(regex);
       Matcher matcher = pattern.matcher(content);
-
       while(matcher.find()){
           content = matcher.group(1) + "“" + matcher.group(2) + "”" + matcher.group(3);
           matcher = pattern.matcher(content);
       }
+      
       String regex1 = "(.*)\'(.*)\'(.*)";
       Pattern pattern1 = Pattern.compile(regex1);
       Matcher matcher1 = pattern1.matcher(content);
@@ -29,6 +29,7 @@ public class EnglisWpToChinese{
           matcher = pattern1.matcher(content);
       }
       content = content.replaceAll("'", "’");
+      content = content.replaceAll("\"", "");
       return content;
   }
 }

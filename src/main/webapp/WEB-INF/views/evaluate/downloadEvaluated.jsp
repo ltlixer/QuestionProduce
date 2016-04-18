@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -43,31 +44,28 @@
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div4">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span>位置：材料列表-问题产生</span>
-		</div>
-		<h2>评估结果查询</h2>
+		<h2><spring:message code="queryevaluated"/></h2>
 		<input id="link1" type="hidden" value="${link}">
 		<form action="/question/evaluate/queryEvaluated">
 		
 		<table  class="editTab" id="table">
 					<tr>
-						<th align="center">课程名</th>
-						<th align="center">年级</th>
+						<th align="center"><spring:message code="courseName"/></th>
+						<th align="center"><spring:message code="className"/></th>
 						<th align="center"><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
 					<c:if test="${not empty courses}">
 						<c:forEach var="course" items="${courses}">
 							<tr>
-								<td align="center">${course.year}级${course.courseName}</td>
+								<td align="center">${course.year}<spring:message code="ji"/>${course.courseName}</td>
 								<td align="center">${course.teacher.teaName}</td>
 								<td align="center"><input type="checkbox" name="courseIds"
 									value="${course.courseId}"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
-					<tr><td colspan="3" align="center"><input type="submit" onclick="return addE('courseIds')" value="查询评估结果" style="width: 100px"
+					<tr><td colspan="3" align="center"><input type="submit" onclick="return addE('courseIds')" value="<spring:message code='queryevaluated'/>" style="width: 100px"
 						class="btnPaleGreen" /></td></tr>
 		</table>
 		</form>
@@ -78,13 +76,13 @@
 		<input type="hidden" value="${courseIds}" name="courseIds">
 		<table border="1" class="editTab" id="table">
 				<tr>
-					<th colspan="4">评估明细</th>
+					<th colspan="4"><spring:message code="evaluatedlist"/></th>
 				</tr>
 				<tr>
-					<th width="30%">课程名</th>
-					<th width="30%">教师</th>
-					<th width="20%">发布材料总篇数</th>
-					<th width="20%">已评估材料篇数</th>
+					<th width="30%"><spring:message code="courseName"/></th>
+					<th width="30%"><spring:message code="tealabel"/></th>
+					<th width="20%"><spring:message code="sendTextCounts"/></th>
+					<th width="20%"><spring:message code="evaluatedCounts"/></th>
 				</tr>
 				<tr>
 					<c:if test="${not empty list}">
@@ -99,7 +97,7 @@
 					</c:if>
 					<tr>
 					<td colspan="2" align="center"><a href="#" onclick="return list();">查看已评估的材料明细</a></td>
-					<td colspan="2" align="center"><button onclick="download()" style="width:200px" class="btnPaleGreen">下载已评估的数据</button></td>
+					<td colspan="2" align="center"><button style="width:200px" class="btnPaleGreen">下载已评估的数据</button></td>
 					</tr>
 			</table>
 		</form>
@@ -111,16 +109,17 @@
 					<th colspan="6">已评估的材料 <a href="#" onclick="return hiden()">影藏明细</a></th>
 				</tr>
 				<tr>
-					<th width="20%">标题</th>
-					<th width="20%">课程名</th>
-					<th width="20%">发布教师</th>
+					<th width="20%"><spring:message code="title"/></th>
+					<th width="20%"><spring:message code="courseName"/></th>
+					<th width="20%"><spring:message code="publishTeacher"/></th>
+					
 				</tr>
 				<tr>
 					<c:if test="${not empty texts}">
 						<c:forEach var="texts" items="${texts}">
 							<tr>
 								<td align="center">${texts.textTitle}</td>
-								<td align="center">${texts.course.year}级${texts.course.courseName}</td>
+								<td align="center">${texts.course.year}<spring:message code="ji"/>${texts.course.courseName}</td>
 								<td align="center">${texts.teacher.teaName}</td>
 							</tr>
 						</c:forEach>
