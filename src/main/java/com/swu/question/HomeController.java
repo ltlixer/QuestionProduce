@@ -103,5 +103,40 @@ public class HomeController {
 		}
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping("/languageTea")
+	public String languageTea(HttpServletRequest request,
+			HttpServletResponse response) {
+		String language = request.getParameter("locale");
+		if (language == null || language.equals("")) {
+			resolver.setLocale(request, response, Locale.CHINA);
+		} else {
+			if (language.equals("zh_cn")) {
+				resolver.setLocale(request, response, Locale.CHINA);
+			} else if (language.equals("en")) {
+				resolver.setLocale(request, response, Locale.ENGLISH);
+			} else {
+				resolver.setLocale(request, response, Locale.CHINA);
+			}
+		}
+		return "/user/teaMain";
+	}
+	
+	@RequestMapping("/languageStu")
+	public String languageStu(HttpServletRequest request,
+			HttpServletResponse response) {
+		String language = request.getParameter("locale");
+		if (language == null || language.equals("")) {
+			resolver.setLocale(request, response, Locale.CHINA);
+		} else {
+			if (language.equals("zh_cn")) {
+				resolver.setLocale(request, response, Locale.CHINA);
+			} else if (language.equals("en")) {
+				resolver.setLocale(request, response, Locale.ENGLISH);
+			} else {
+				resolver.setLocale(request, response, Locale.CHINA);
+			}
+		}
+		return "/user/stuMain";
+	}
 }
