@@ -34,6 +34,10 @@
 	var deeperEndTime="";
 	var originalStartTime="";
 	var originalEndTime="";
+	/* 表示是否是第二次点击事实类问题的下一题：当点上一步时记录标注 为true 不计时 */
+	var secondViewMultiplechoice = false;
+	var secondViewFactoid = false;
+	var secondViewDeeper = false;
 	$(function() {
 		$("#multiplechoiceShowQuestion").hide();
 		$("#factoidShowQuestion").hide();
@@ -43,6 +47,9 @@
 		$("#factoidNextId").hide();
 		$("#deeperNextId").hide();
 		$("#submitClick").hide();
+		$("#factoidLastId").hide();
+		$("#deeperLastId").hide();
+		$("#originalLastId").hide();
 		var type = "${types}";
 		console.log(type);
 		var types = type.split("-");//factohibernate.cfg.xmlid deeper original
@@ -79,33 +86,60 @@
 		}
 
 	})
+	
 	function multiplechoiceNext() {
 		multiplechoiceEndTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+		$("#multiplechoiceShowQuestion").hide();
+		$("#multiplechoiceNextId").hide();
 		if (factoid != "") {
-			factoidStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewMultiplechoice){
+				factoidStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewMultiplechoice = true;
 			showFactoid();
 		} else if (deeper != "") {
-			deeperStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewFactoid){
+				deeperStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewFactoid = true;
 			showDeeper();
 		} else if (original != "") {
-			originalStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewDeeper){
+				originalStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewDeeper = true;
 			showOriginal();
 		}
 	}
 	function factoidNext() {
 		factoidEndTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+		$("#factoidShowQuestion").hide();
+		$("#factoidNextId").hide();
+		$("#factoidLastId").hide();
 		if (deeper != "") {
-			deeperStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewFactoid){
+				deeperStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewFactoid = true;
 			showDeeper();
 		} else if (original != "") {
-			originalStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewDeeper){
+				originalStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewDeeper = true;
 			showOriginal();
 		}
 	}
 	function deeperNext() {
 		deeperEndTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+		$("#deeperShowQuestion").hide();
+		$("#deeperNextId").hide();
+		$("#deeperLastId").hide();
 		if (original != "") {
-			originalStartTime=new Date().format("yyyy-MM-dd hh:mm:ss");
+			if(!secondViewDeeper){
+				originalStartTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+			}
+			secondViewDeeper = true;
 			showOriginal();
 		}
 	}
@@ -124,6 +158,9 @@
 		} else {
 			$("#submitClick").show();
 		}
+		if(multiplechoice != ""){
+			$("#factoidLastId").show();
+		} 
 	}
 	function showDeeper() {
 		$("#deeperShowQuestion").show();
@@ -132,11 +169,49 @@
 		} else {
 			$("#submitClick").show();
 		}
+		if(multiplechoice != ""||factoid != ""){
+			$("#deeperLastId").show();
+		} 
 	}
-	function showOriginal(sec) {
+	function showOriginal() {
 		$("#originalShowQuestion").show();
+		if (multiplechoice != "" || factoid != "" || deeper != "") {
+			$("#originalLastId").show();
+		}
 		$("#submitClick").show();
 	}
+	function factoidLast(){
+		$("#factoidShowQuestion").hide();
+		$("#factoidNextId").hide();
+		$("#factoidLastId").hide();
+    	if(multiplechoice!=""){
+    		showMultiplechoice();
+    		
+    	}
+    }
+	function deeperLast(){
+		$("#deeperShowQuestion").hide();
+		$("#deeperNextId").hide();
+		$("#deeperLastId").hide();
+    	if(factoid!=""){
+    		showFactoid();
+    	}else if(multiplechoice!=""){
+    		showMultiplechoice();
+    		
+    	}
+    }
+	function originalLast(){
+		$("#originalShowQuestion").hide();
+		$("#originalLastId").hide();
+		if(deeper!=""){
+    		showDeeper();
+    	}else if(factoid!=""){
+    		showFactoid();
+    	}else if(multiplechoice!=""){
+    		showMultiplechoice();
+    		
+    	}
+    }
 	/* 处理问题类型结束 */
 	
 	/* 产生问题开始 */
@@ -290,7 +365,7 @@
 			"<td style='display: none' id='sentence"+id+"'></td>" +
 			"<td align=center colspan=2><textarea rows='3' cols='80%' class='question' name='"+id+"'></textarea></td>" +
 			"<td align=center><textarea rows='3' cols='50%' class='answer' name='"+id+"' ></textarea></td>" +
-			"<td style='display: none' id='label"+id+"'><spring:message code='originalQuestion'/></td>" +
+			"<td style='display: none' id='label"+id+"'>原始问题</td>" +
 			"</tr>";
 			original.append(html);
 	}
@@ -353,9 +428,10 @@
 					<th width="8%"><spring:message code='questionType'/></th>
 				</tr>
 			</table>
-			<p id="factoidNextId" align="center">
-				<input type="button" onclick="factoidNext()" class="btnPaleGreen"
+			<p align="center">
+				<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen"
 					style="width: 100px" value="<spring:message code='next'/>">
+				<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="deeperShowQuestion">
@@ -371,9 +447,10 @@
 					<th width="8%"><spring:message code='questionType'/></th>
 				</tr>
 			</table>
-			<p id="deeperNextId" align="center">
-				<input type="button" onclick="deeperNext()" class="btnPaleGreen"
+			<p align="center">
+				<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen"
 					style="width: 100px" value="<spring:message code='next'/>">
+				<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
 			</p>
 			<table border="1" class="editTab" id="originalShowQuestion">
 				<tr>
@@ -387,7 +464,9 @@
 				
 				
 			</table>
-
+			<p align="center">
+				<input type="button" id="originalLastId" onclick="originalLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
+			</p>
 			<p id="submitClick" align="center">
 				<spring:message code='setAssTittle'/><input type="text" name="assName" style="width: 200px"><font color="red">*</font><br><br>
 				<spring:message code='setAssTime'/><select class="text" name="assTime" style="width: 200px">
@@ -398,7 +477,7 @@
 					<option value="30">25<spring:message code='minute'/></option>
 					<option value="30">30<spring:message code='minute'/></option>
 				</select> <font color="red">*</font><br><br>
-				<input type="button" onclick="return addQuestion('ckq')"
+				<input type="button" onclick="return addQuestion('questionNum')"
 					class="btnPaleGreen" name="submit" value="<spring:message code='sendAss'/>"
 					style="width: 100px"> <input type="button"
 					onclick="linkText()" class="btnGray" value="<spring:message code='reText'/>"

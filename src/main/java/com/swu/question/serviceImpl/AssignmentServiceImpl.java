@@ -96,10 +96,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 			assignment2.setCreateTime(new Date());
 			assignment2.setTeacher(teacher);
 			assignment2.setText(text);
-			boolean b = assignmentDAO.addAssignment(assignment1);
-			b = assignmentDAO.addAssignment(assignment2);
-			if(b==false)
-				return false;
+			
 			for (int index = 0; index < contents.size(); index++) {
 				Map<String, String> map = contents.get(index);
 				Question question = new Question();
@@ -120,7 +117,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 					question.setQuestionType("factoid");
 				}
 				if(question.getQuestionType()=="multiplechoice"){
-					question.setAssignment(assignment2);
+					assignmentDAO.addAssignment(assignment1);
+					question.setAssignment(assignment1);
 					if(map.get("distracter")!=null && !"".equals(map.get("distracter"))){
 						JSONArray json=JSONArray.fromObject(map.get("distracter"));
 						Object[] distracters = json.toArray();
@@ -132,7 +130,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 						question.setDistracter(distracterSet);
 					}
 				}else{
-					question.setAssignment(assignment1);
+					assignmentDAO.addAssignment(assignment2);
+					question.setAssignment(assignment2);
 				}
 				
 				isSuccess = questionDAO.addQuestion(question);
@@ -145,7 +144,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String multiplechoiceEndTime = logs.get(0).get("multiplechoiceEndTime");
 				if(!multiplechoiceStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment2);
+					log.setAssignment(assignment1);
 					log.setStartTime(format.parse(multiplechoiceStartTime));
 					log.setEndTime(format.parse(multiplechoiceEndTime));
 					log.setQuestionType("multiplechoice");
@@ -157,7 +156,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String factoidEndTime = logs.get(0).get("factoidEndTime");
 				if(!factoidStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment1);
+					log.setAssignment(assignment2);
 					log.setStartTime(format.parse(factoidStartTime));
 					log.setEndTime(format.parse(factoidEndTime));
 					log.setQuestionType("factoid");
@@ -169,7 +168,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String deeperEndTime = logs.get(0).get("deeperEndTime");
 				if(!deeperStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment1);
+					log.setAssignment(assignment2);
 					log.setStartTime(format.parse(deeperStartTime));
 					log.setEndTime(format.parse(deeperEndTime));
 					log.setQuestionType("deeper");
@@ -181,7 +180,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 				String originalEndTime = logs.get(0).get("originalEndTime");
 				if(!originalStartTime.equals("")){
 					Log log = new Log();
-					log.setAssignment(assignment1);
+					log.setAssignment(assignment2);
 					log.setStartTime(format.parse(originalStartTime));
 					log.setEndTime(format.parse(originalEndTime));
 					log.setQuestionType("original");
