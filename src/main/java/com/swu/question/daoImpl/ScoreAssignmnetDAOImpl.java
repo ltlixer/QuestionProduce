@@ -62,7 +62,7 @@ public class ScoreAssignmnetDAOImpl implements ScoreAssignmentDAO {
 			if (null != scoreAssignment) {
 				scoreAssignment.setEvaluate(evaluate);
 				scoreAssignment.setScore(score);
-				scoreAssignment.setCorrect(1);//ÒÑÅú¸Ã
+				scoreAssignment.setCorrect(1);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				sessionFactory.getCurrentSession().update(scoreAssignment);
 			}
 			return true;
@@ -95,7 +95,7 @@ public class ScoreAssignmnetDAOImpl implements ScoreAssignmentDAO {
 		Query q = sessionFactory
 				.getCurrentSession()
 				.createQuery(
-						"from ScoreAssignment s where s.assignment.teacher.teaId = ? and s.correct>=0");
+						"from ScoreAssignment s where s.assignment.teacher.teaId = ?");
 		q.setParameter(0, teaId);
 		int sumCount = q.list().size();
 		DivideHibernateUtil dividePage = new DivideHibernateUtil();

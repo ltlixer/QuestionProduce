@@ -2,6 +2,8 @@ package com.swu.question.util;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,6 +29,12 @@ public class Clauses {
 	 */
 	public static String[] getClauses(String content){
 		String txt = content.replace("<br/>", "").trim();
+		/*try {
+			URLEncoder.encode(txt, "utf-8");
+		} catch (UnsupportedEncodingException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		String xmlString = HttpRequest.sendGet("http://api.ltp-cloud.com/analysis/", "api_key=n2T5b2L8XA0sMuSEJlQwZZqNxtDkdxJIEccA9Ree&text="+txt+"&pattern=all&format=xml");
 		StringReader sr = new StringReader(xmlString);  
 		InputSource is = new InputSource(sr);   
@@ -55,8 +63,11 @@ public class Clauses {
 		String[] scentence = new String[ele.getLength()];
 		for(int i=0;i<ele.getLength();i++){
 			scentence[i]=ele.item(i).getAttributes().getNamedItem("cont").getTextContent().toString();
-		}
+		}*/
+		String scentence[] = content.split("。");
+		
 		return scentence;
 	}
+	
 	
 }

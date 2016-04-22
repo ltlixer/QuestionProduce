@@ -28,6 +28,8 @@ public class Word {
 	private String bh;	//笔画
 	@Column(name = "PY")
 	private String py;	//拼音
+	@Column(name = "HSK")
+	private String hsk;	//拼音
 //	@Column(name = "FREQUENCY")
 //	private String frequency;	//频率
 //	@Column(name = "SD")
@@ -89,5 +91,11 @@ public class Word {
 	}
 	public void setJg(String jg) {
 		this.jg = jg;
+	}
+	public String getHsk() {
+		return hsk;
+	}
+	public void setHsk(String hsk) {
+		this.hsk = hsk;
 	}
 }

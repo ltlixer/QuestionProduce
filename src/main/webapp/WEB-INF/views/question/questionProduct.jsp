@@ -291,7 +291,7 @@
 					} else {
 						str2 += ",{'sentence':'" + sentence + "','question':'"
 								+ question + "','answer':'" + answer
-								+ "','questiontype':'multiplechoice','distracter':[";
+								+ "','questiontype':'选择题','distracter':[";
 						for(var n = 0; n < disp.length; n++){
 							if(n==0)
 								str2 += "'"+disp[n].value + "'";
@@ -411,7 +411,7 @@
 			<script src="<c:url value='/resources/question/js/multiple-choice/question-generator.js'/>"></script>
 			<p id="multiplechoiceNextId" align="center">
 				<input type="button" onclick="multiplechoiceNext()" class="btnPaleGreen"
-					style="width: 100px" value="<spring:message code='next'/>">
+					style="width: 100px" value="<spring:message code='nextQuestion'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="factoidShowQuestion">
@@ -420,8 +420,8 @@
 					</th>
 				</tr>
 				<tr>
-					<th width="3%"><input type="checkbox" id="selectAll"
-						onclick="checkEvent('ck','selectAll')" /></th>
+					<th width="3%"><input type="checkbox" id="selectAll1"
+						onclick="checkEvent('ck1','selectAll1')" /></th>
 					<th width="42%"><spring:message code='sentence'/></th>
 					<th width="35%"><spring:message code='question'/></th>
 					<th width="12%"><spring:message code='refAnswer'/></th>
@@ -430,8 +430,8 @@
 			</table>
 			<p align="center">
 				<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen"
-					style="width: 100px" value="<spring:message code='next'/>">
-				<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
+					style="width: 100px" value="<spring:message code='nextQuestion'/>">
+				<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="deeperShowQuestion">
@@ -439,8 +439,8 @@
 					<th colspan="5" align="left"><spring:message code='deeperQuestion'/>
 					</th>
 				<tr>
-					<th width="3%"><input type="checkbox" id="selectAll"
-						onclick="checkEvent('ck','selectAll')" /></th>
+					<th width="3%"><input type="checkbox" id="selectAll2"
+						onclick="checkEvent('ck2','selectAll2')" /></th>
 					<th width="42%"><spring:message code='sentence'/></th>
 					<th width="35%"><spring:message code='question'/></th>
 					<th width="12%"><spring:message code='refAnswer'/></th>
@@ -449,8 +449,8 @@
 			</table>
 			<p align="center">
 				<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen"
-					style="width: 100px" value="<spring:message code='next'/>">
-				<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
+					style="width: 100px" value="<spring:message code='nextQuestion'/>">
+				<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 			</p>
 			<table border="1" class="editTab" id="originalShowQuestion">
 				<tr>
@@ -465,7 +465,7 @@
 				
 			</table>
 			<p align="center">
-				<input type="button" id="originalLastId" onclick="originalLast()" class="btnGray" style="width: 100px" value="<spring:message code='last'/>">
+				<input type="button" id="originalLastId" onclick="originalLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 			</p>
 			<p id="submitClick" align="center">
 				<spring:message code='setAssTittle'/><input type="text" name="assName" style="width: 200px"><font color="red">*</font><br><br>

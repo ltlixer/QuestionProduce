@@ -23,6 +23,7 @@ import com.swu.question.entity.Answer;
 import com.swu.question.entity.Assignment;
 import com.swu.question.entity.ScoreAssignment;
 import com.swu.question.entity.Student;
+import com.swu.question.entity.Teacher;
 import com.swu.question.service.AnswerService;
 import com.swu.question.service.AssignmentService;
 import com.swu.question.service.ScoreAssignmentService;
@@ -114,7 +115,7 @@ public class AnswerController {
 
 	@RequestMapping("/showAnswer/{saId}")
 	public String linkShowAnswer(ModelMap model,
-			@PathVariable("saId") Integer saId){
+			@PathVariable("saId") Integer saId,HttpSession session){
 		logger.info("tealinkAnswerPage.");
 		List<Answer> listanswers = answerService.queryAnswerByscoreAssId(saId);
 		ScoreAssignment scoreAssignment = scoreAssignmentService.findscoreAssignment(saId);
@@ -131,7 +132,13 @@ public class AnswerController {
 		model.addAttribute("saId", saId);
 		model.addAttribute("answers", listanswers);
 		model.addAttribute("texts", listTexts);
-		model.addAttribute("user", "tea");
+		Teacher tea =(Teacher) session.getAttribute("tea");
+		Student stu = (Student) session.getAttribute("stu");
+		if(tea!=null){
+			model.addAttribute("user", "tea");
+		}else if(stu!=null){
+			model.addAttribute("user", "stu");
+		}
 		return "/question/showAnswer";
 	}
 	

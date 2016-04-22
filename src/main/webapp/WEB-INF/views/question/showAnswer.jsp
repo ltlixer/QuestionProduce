@@ -22,6 +22,9 @@
     function linksAss(){
     	location.href ="/question/assignment/showScoreAssignment/1";
     }
+    function linksAssStu(){
+    	location.href ="/question/assignment/queryScoreAssignmentBystuId/1";
+    }
 </script>
 </head>
 <body>
@@ -86,6 +89,9 @@
 				<td colspan="5" align="center">
 				<c:if test="${user=='tea'}"> 
 					<input type="button" onclick="linksAss()" class="btnGray" style="width: 100px" value="<spring:message code='back'/>">
+				</c:if>
+				<c:if test="${user=='stu'}"> 
+					<input type="button" onclick="linksAssStu()" class="btnGray" style="width: 100px" value="<spring:message code='back'/>">
 				</c:if>
 				</td>
 				</tr>

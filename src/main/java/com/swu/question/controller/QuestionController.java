@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.swu.question.HomeController;
 import com.swu.question.entity.Assignment;
 import com.swu.question.entity.Question;
+import com.swu.question.entity.Word;
 import com.swu.question.service.AssignmentService;
 import com.swu.question.service.MultipleChoiceQuestionService;
 import com.swu.question.service.QuestionService;
 import com.swu.question.service.TextService;
+import com.swu.question.util.WordExcel;
 
 @Controller
 @RequestMapping("/question")
@@ -36,7 +38,14 @@ public class QuestionController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
-
+	
+	@RequestMapping("/addHsk")
+	public void addHsk(ModelMap model,HttpServletRequest request) {
+		//根据文章id获取选择题列表
+		String path = "C:/Users/ltlix/Desktop/HSK.xls";
+		multipleChoiceQuestionService.addHsk(path);
+	}
+	
 	/**
 	 * 教师链接到 作业 问题页面
 	 * 

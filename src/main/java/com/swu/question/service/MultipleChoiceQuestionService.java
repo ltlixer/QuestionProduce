@@ -13,5 +13,7 @@ public interface MultipleChoiceQuestionService {
 	 */
 	public List<Question> createMultipleChoiceQuestion(int textId,String path);
 
+	public void addHsk(String path);
+
 	
 }

@@ -31,11 +31,14 @@ public class WordExcel {
 				HSSFCell jg = hssfRow.getCell(3);
 				HSSFCell bh = hssfRow.getCell(4);
 				HSSFCell py = hssfRow.getCell(5);
+				HSSFCell hsk = hssfRow.getCell(6);
+				
 				word.setWord(getValue(word1));
 				word.setPy(getValue(py));
 				word.setBs(getValue(bs));
 				word.setBh(getValue(bh));
 				word.setJg(getValue(jg));
+				word.setHsk(getValue(hsk));
 				wordList.add(word);
 			}
 		} catch (Exception e) {

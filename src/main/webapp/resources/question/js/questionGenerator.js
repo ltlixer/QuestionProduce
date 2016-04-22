@@ -222,7 +222,7 @@ function resultQuestionsFun(sentence,question,answer,label,id){
 		var deeper = $("#deeperShowQuestion");
 		if(outLabel(label)>=9){//深层次问题
 			var deeperhtml="<tr>" +
-			"<td align=center><input type='checkbox' class='questionNum' name='ck' value='"+id+"'></td>" +
+			"<td align=center><input type='checkbox' class='questionNum' name='ck2' value='"+id+"'></td>" +
 			"<td id='sentence"+id+"'>"+sentence+"</td>" +
 			"<td><textarea rows='2' cols='60' class='question' name='"+id+"'>"+question+"</textarea></td>" +
 			"<td><textarea rows='2' cols='16' class='answer' name='"+id+"' >" +answer+"</textarea></td>" +
@@ -230,7 +230,7 @@ function resultQuestionsFun(sentence,question,answer,label,id){
 			"</tr>";
 		}else{//事实类问题
 			var factoidhtml="<tr>" +
-			"<td align=center><input type='checkbox' class='questionNum' name='ck' value='"+id+"'></td>" +
+			"<td align=center><input type='checkbox' class='questionNum' name='ck1' value='"+id+"'></td>" +
 			"<td id='sentence"+id+"'>"+sentence+"</td>" +
 			"<td><textarea rows='2' cols='60' class='question' name='"+id+"'>"+question+"</textarea></td>" +
 			"<td><textarea rows='2' cols='16' class='answer' name='"+id+"' >" +answer+"</textarea></td>" +

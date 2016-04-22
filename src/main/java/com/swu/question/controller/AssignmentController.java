@@ -261,6 +261,7 @@ public class AssignmentController {
 			model.addAttribute("sumCount", resumPage);
 		}
 		model.addAttribute("list", list);
+		
 		return "/learning/showScoreAssignment";
 	}
 	

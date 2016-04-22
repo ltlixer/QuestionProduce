@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp" %>
 <html>
 <head>
@@ -15,7 +16,7 @@
 
 <script type="text/javascript">
 $(function(){
-	 createDialog('content','修改邮箱');
+	 createDialog('content',"<spring:message code='changeEmail'/>");
 });
 function close(){
 	closeDialog('content');
@@ -39,10 +40,10 @@ function close(){
 	function update(){
 		var regs=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 		if($("input[name='stuEmail']").val()==""){
-			 $("label#error").text("请填写邮箱账号");
+			 $("label#error").text("<spring:message code='pleaseEnterEmail'/>");
 			 return false;
 		 }else if((regs.test($("input[name='stuEmail']").val()) == false)){
-			 $("span#stuEmail").text("邮箱格式不正确");
+			 $("span#stuEmail").text("<spring:message code='emailError'/>");
 			 return false;
 		 }else {
 			 $("span#stuEmail").text("");
@@ -53,26 +54,26 @@ function close(){
 </head>
 <body>
 		<div class="div4" id="content" align="center">
-		<label style="font-family: 微软雅黑;" ><font size="4">邮箱修改</font></label>
+		<label style="font-family: 微软雅黑;" ><font size="4"><spring:message code="changeEmail"/></font></label>
 		<form:form method="post" action="/question/updateStudent" onsubmit="return checkInfo()" name="form" modelAttribute="student">
 			<form:input path="stuId" type="hidden"/>
 			<div class="div_table">
 			<br><br>
 			<table class="editTab">
 				<tr align="center">
-					<td><label>学号</label> </td>
+					<td><label><spring:message code="stuNum"/></label> </td>
 					<td><form:input class="text" onfocus="this.blur()" name="stuNum" path="stuNum" />
 					</td>
 					<td><font id="fcolor" color="red"><span id="stuNum"></span></font></td>
 				</tr>
 				
 				<tr align="center">
-					<td><label>姓名</label></td>
+					<td><label><spring:message code="name"/></label></td>
 					<td><form:input class="text" onfocus="this.blur()" name="stuName" path="stuName" /></td>
 					<td><font color="red"><span id="stuName"></span></font></td>
 				</tr>
 				<tr align="center">
-					<td><label>电子邮箱</label></td>
+					<td><label><spring:message code="email"/></label></td>
 					<td><form:input  class="text" name="stuEmail" path="stuEmail" /></td>
 					<td><font color="red"><span id="stuEmail"></span>
 					</font></td>

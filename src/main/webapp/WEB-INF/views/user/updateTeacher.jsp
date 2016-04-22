@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../com/easyui.jsp" %>
 <html>
 <head>
@@ -39,7 +40,7 @@ function close(){
 		$("input[name='submit']").click(function(){
 			var regs=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 			if((regs.test($("input[name='teaEmail']").val()) == false)){
-				 $("span#teaEmail").text("邮箱格式不正确");
+				 $("span#teaEmail").text("<spring:message code='emailError'/>");
 				 return false;
 			 }else if( $("input[name='teaName']").val()==""||
 					 $("input[name='teaEmail']").val()==""||

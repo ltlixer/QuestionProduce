@@ -38,6 +38,27 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 	@Autowired
 	private TextService textService;
 	
+	public void addHsk(String path){
+		List<Word> hskList = new WordExcel().readWrodExcel(path);
+		List<Word> wordList = wordDao.getWordList();
+		for(Word w:wordList){
+			for(Word hw:hskList){
+				System.out.println(w.getWord()+" "+hw.getWord().split(" ")[0]);
+				if(w.getWord().equals(hw.getWord().split(" ")[0]))
+					w.setHsk("1");
+				else if(w.getWord().equals(hw.getBs().split(" ")[0]))
+					w.setHsk("2");
+				else if(w.getWord().equals(hw.getJg().split(" ")[0]))
+					w.setHsk("3");
+				else if(w.getWord().equals(hw.getBh().split(" ")[0]))
+					w.setHsk("4");
+				else if(w.getWord().equals(hw.getPy().split(" ")[0]))
+					w.setHsk("5");
+				else if(w.getWord().equals(hw.getHsk().split(" ")[0]))
+					w.setHsk("6");
+			}
+		}
+	}
 	/**
 	 * 获取有生字的句子
 	 * @return
@@ -154,7 +175,8 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 				String word_jg = word.getJg();
 				for (Word w : wordList) {
 					if (w.getBs().equals(word_bs) && !(w.getWord().equals(newWord))) {
-						bs.add(w);
+						if(w.getHsk().equals(word.getHsk()))
+							bs.add(w);
 						System.out.println("bs:" + bs.size() + "--->" + newWord
 								+ "-->" + w.getWord());
 					}
