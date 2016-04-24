@@ -6,16 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +35,8 @@ import com.swu.question.service.CourseService;
 import com.swu.question.service.StudentService;
 import com.swu.question.service.TeacherService;
 import com.swu.question.util.Paging;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class TeacherController {

@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.swu.question.HomeController;
 import com.swu.question.entity.Assignment;
 import com.swu.question.entity.Question;
-import com.swu.question.entity.Word;
 import com.swu.question.service.AssignmentService;
 import com.swu.question.service.MultipleChoiceQuestionService;
 import com.swu.question.service.QuestionService;
 import com.swu.question.service.TextService;
-import com.swu.question.util.WordExcel;
 
 @Controller
 @RequestMapping("/question")
