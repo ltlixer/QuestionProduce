@@ -2,6 +2,8 @@ package com.swu.question.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.swu.question.entity.Teacher;
@@ -92,5 +94,13 @@ public interface TeacherService {
      * @param teacher
      * @return
      */
-    public String addStudents(MultipartFile file,String savePath,Teacher teacher);
+    public String addStudents(MultipartFile file,String savePath,Teacher teacher,String courseId);
+    /**
+     * 下载学生信息模板
+     * @param response
+     * @param path
+     * @param fileName
+     * @return
+     */
+    public String  downloadStudentExcel(HttpServletResponse response, String path,String fileName);
 }

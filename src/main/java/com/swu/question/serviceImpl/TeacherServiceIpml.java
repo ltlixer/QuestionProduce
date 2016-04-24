@@ -4,13 +4,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.swu.question.dao.CourseDAO;
 import com.swu.question.dao.StudentDAO;
 import com.swu.question.dao.TeacherDAO;
+import com.swu.question.entity.Course;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Teacher;
 import com.swu.question.service.TeacherService;
@@ -29,6 +33,8 @@ public class TeacherServiceIpml implements TeacherService {
 	private TeacherDAO teacherDAO;
 	@Autowired
 	private StudentDAO studentDAO;
+	@Autowired
+	private CourseDAO courseDAO;
 
 	@Override
 	@Transactional
@@ -128,23 +134,12 @@ public class TeacherServiceIpml implements TeacherService {
 	public boolean removeStudentBystuId(int teaId, int stuId) {
 		// TODO Auto-generated method stub
 		try {
-			/*// 查询需要的学生
+			// 查询需要的学生
 			Student student = studentDAO.selectStudent(stuId).get(0);
-			// 得到当前学生所选的老师
-			Set<Teacher> teachers = student.getTeachers();
-			Set<Teacher> temTeachers = new HashSet<Teacher>();
-			Iterator<Teacher> tea = teachers.iterator();// 先迭代出来
-			while (tea.hasNext()) {// 遍历
-				Teacher teacher = (Teacher) tea.next();
-				if (teacher.getTeaId() != teaId) {
-					temTeachers.add(teacher);
-				}
-			}
-			System.out.println(temTeachers.size());
-			if (temTeachers != null) {
-				studentDAO.updateStudentForSelectTea(stuId, temTeachers);*/
+			Set<Course> courses = new HashSet<Course>();
+			 studentDAO.updateStudentForSelectCouse(student.getStuId(),courses);
 				studentDAO.deleteStudent(stuId);
-			/*}*/
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -177,7 +172,7 @@ public class TeacherServiceIpml implements TeacherService {
 	@Override
 	@Transactional
 	public String addStudents(MultipartFile file, String savePath,
-			Teacher teacher) {
+			Teacher teacher,String courseId) {
 		// TODO Auto-generated method stub
 		try {
 			UploadDownloadFile uploadFile = new UploadDownloadFile();
@@ -200,8 +195,12 @@ public class TeacherServiceIpml implements TeacherService {
 					 Set<Teacher> teachers = new HashSet<Teacher>();
 						teachers.add(teacher);
 						if(list.size()>0){
-						 for(int i = 0;i<list.size();i++){
+							Course course = courseDAO.selectCourseById(Integer.parseInt(courseId));
+							Set<Course> courses = new HashSet<Course>();
+							courses.add(course);
+							for(int i = 0;i<list.size();i++){
 							 Student stu = list.get(i);
+							 stu.setCourse(courses);
 							/* stu.setTeachers(teachers);*/
 							boolean d= studentDAO.addStudent(stu);
 							if(d){
@@ -227,6 +226,22 @@ public class TeacherServiceIpml implements TeacherService {
 			return "Error";
 		}
 		//return null;
+	}
+
+	@Override
+	public String downloadStudentExcel(HttpServletResponse response,
+			String path, String fileName) {
+		// TODO Auto-generated method stub
+		UploadDownloadFile uploadFile = new UploadDownloadFile();
+		try {
+			String re =  uploadFile.download(response,path, fileName);
+			System.out.println("下载StudentExcelTem："+re);
+			return re;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error";
 	}
 
 }

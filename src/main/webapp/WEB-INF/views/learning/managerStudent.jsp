@@ -140,9 +140,19 @@
 	<table id="userSelTable" title="<spring:message code='stuManagementList'/>" width="100%"
 		iconCls="icon-edit"></table>
 	<div id="toolbar">
+		<a href="/question/downloadStudentTem" style="float: right;"><spring:message code='downStudentExcell'/></a>
+	<br>
 		<font size="2"> <form:form
 				action="/question/addStudentByExcell" enctype="multipart/form-data"
 				method="post">
+			<spring:message code="defaultCourse"/>：	
+			<select  class="text" name="courseId">
+							<c:if test="${not empty listCourse}">
+									<c:forEach var ="course" items="${listCourse}">
+										<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
+									</c:forEach>
+							</c:if>
+						</select><br>
 			<spring:message code="addStuFromExcel"/>：<input type="file" id="file" name="file"
 					value="<spring:message code='selectFile'/>">
 				<input type="submit" class="btnPaleGreen" onclick="return addExcell()" value="<spring:message code='add'/>">

@@ -12,7 +12,6 @@ import com.jacob.com.Variant;
 import com.swu.question.entity.Evaluate;
 import com.swu.question.entity.Log;
 import com.swu.question.entity.Student;
-import com.swu.question.entity.Word;
 
 public class ExcelBean {
 	private static ActiveXComponent xl = null; // Excel对象(防止打开多个)
@@ -245,7 +244,11 @@ public class ExcelBean {
 					Variant variantName = excellBean.getValue(nameCellName,
 							sheet);
 					Student student = new Student();
-					student.setStuNum(variantStuid.toString());
+					String stunum = variantStuid.toString();
+					if(stunum.lastIndexOf(".")!=-1){
+						stunum = stunum.substring(0,stunum.lastIndexOf("."));
+					}
+					student.setStuNum(stunum);
 					student.setStuPassword(new ChineseToEnglish()
 							.getPingYin(variantName.toString()));
 					student.setStuName(variantName.toString());
@@ -263,7 +266,7 @@ public class ExcelBean {
 		}
 		return list;
 	}
-	
+
 	public String setValues(String path,String filename,List<Evaluate> list){
 			ExcelBean excellBean = new ExcelBean();
 			excellBean.setVisible(false);//可见

@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +32,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.swu.question.HomeController;
+import com.swu.question.entity.Course;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Teacher;
+import com.swu.question.service.CourseService;
 import com.swu.question.service.StudentService;
 import com.swu.question.service.TeacherService;
 import com.swu.question.util.Paging;
-
-import net.sf.json.JSONObject;
 
 @Controller
 public class TeacherController {
@@ -42,6 +46,8 @@ public class TeacherController {
 	private TeacherService teacherService;
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private CourseService courseService;
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
@@ -208,7 +214,10 @@ public class TeacherController {
 
 	@RequestMapping("/queryStudentByteaId")
 	public String queryStudentByteaId(ModelMap model, HttpSession session) {
-		
+		Teacher teacher = (Teacher)session.getAttribute("tea");
+		List<Course> listCourse = courseService.listCourseByTeaId(teacher
+				.getTeaId());
+		model.addAttribute("listCourse", listCourse);
 		return "/learning/managerStudent";
 	}
 	
@@ -279,13 +288,16 @@ public class TeacherController {
 	
 	@RequestMapping(value = "/addStudentByExcell", method = RequestMethod.POST)
 	public String addStudentByExcell(ModelMap model,HttpServletRequest request, HttpSession session,@RequestParam MultipartFile file) {
-		
+		String courseId = request.getParameter("courseId");
 		Teacher teacher = (Teacher) request.getSession().getAttribute("tea");
 		String teaNum = teacher.getTeaNum();
 		String savePath = request.getSession().getServletContext()
 				.getRealPath("/resources/uploadStudent/" + teaNum);
-			String str = teacherService.addStudents(file, savePath, teacher);
+			String str = teacherService.addStudents(file, savePath, teacher,courseId);
 			model.addAttribute("infor", str);
+			List<Course> listCourse = courseService.listCourseByTeaId(teacher
+					.getTeaId());
+			model.addAttribute("listCourse", listCourse);
 		return "/learning/managerStudent";
 	}
 	
@@ -295,6 +307,8 @@ public class TeacherController {
 		Teacher sessionTeacher = (Teacher) session.getAttribute("tea");
 		int teaId = sessionTeacher.getTeaId();
 		teacherService.removeStudentBystuId(teaId, stuId);
+		List<Course> listCourse = courseService.listCourseByTeaId(teaId);
+		model.addAttribute("listCourse", listCourse);
 		return "/learning/managerStudent";
 	}
 
@@ -311,7 +325,19 @@ public class TeacherController {
 				teacherService.removeStudentBystuId(teaId, stuId);
 			}
 		}
+		List<Course> listCourse = courseService.listCourseByTeaId(teaId);
+		model.addAttribute("listCourse", listCourse);
 		return "/learning/managerStudent";
+	}
+	
+	@RequestMapping("/downloadStudentTem")
+	public String downloadStudentTem(ModelMap model, HttpServletRequest request,
+			HttpServletResponse response) {
+		String fileName = "studentInformation.xlsx";
+		String path = request.getSession().getServletContext()
+				.getRealPath("/resources/help/");
+		 teacherService.downloadStudentExcel(response, path, fileName);
+		return null;
 	}
 
 }
