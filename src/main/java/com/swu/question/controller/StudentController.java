@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.support.RequestContext;
 
 import com.swu.question.HomeController;
 import com.swu.question.entity.Course;
@@ -70,8 +71,10 @@ public class StudentController {
 	@RequestMapping(value = "/stuLogin", method = RequestMethod.POST)
 	public String stuLogin(ModelMap model,
 			@Valid @ModelAttribute("student") Student student,
-			BindingResult result, HttpSession session) {
+			BindingResult result, HttpSession session,HttpServletRequest request) {
 		logger.info("Student Login.");
+		RequestContext requestContext = new RequestContext(request);
+        model.addAttribute("language", requestContext.getMessage("language"));
 		// 如果有验证错误 返回到form页面
 		if (result.hasErrors()) {
 			return "/user/stuLogin";

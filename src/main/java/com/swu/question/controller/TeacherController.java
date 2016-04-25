@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContext;
 
 import com.swu.question.HomeController;
 import com.swu.question.entity.Course;
@@ -70,8 +71,11 @@ public class TeacherController {
 	 */
 	@RequestMapping(value = "/teaLogin", method = RequestMethod.POST)
 	public String teaLogin(@ModelAttribute("teacher") Teacher teacher,
-			ModelMap model, BindingResult result, HttpSession session) {
+			ModelMap model, BindingResult result, HttpSession session,HttpServletRequest request) {
 		logger.info("Teacher Login.");
+		//从后台代码获取国际化信息
+        RequestContext requestContext = new RequestContext(request);
+        model.addAttribute("language", requestContext.getMessage("language"));
 		if (result.hasErrors()) {
 			return "/user/teaLogin";
 		}

@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.support.RequestContext;
 
 /**
  * Handles requests for the application home page.
@@ -105,7 +107,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/languageTea")
-	public String languageTea(HttpServletRequest request,
+	public String languageTea(ModelMap model,HttpServletRequest request,
 			HttpServletResponse response) {
 		String language = request.getParameter("locale");
 		if (language == null || language.equals("")) {
@@ -119,11 +121,13 @@ public class HomeController {
 				resolver.setLocale(request, response, Locale.CHINA);
 			}
 		}
+		RequestContext requestContext = new RequestContext(request);
+        model.addAttribute("language", requestContext.getMessage("language"));
 		return "/user/teaMain";
 	}
 	
 	@RequestMapping("/languageStu")
-	public String languageStu(HttpServletRequest request,
+	public String languageStu(ModelMap model,HttpServletRequest request,
 			HttpServletResponse response) {
 		String language = request.getParameter("locale");
 		if (language == null || language.equals("")) {
@@ -137,6 +141,8 @@ public class HomeController {
 				resolver.setLocale(request, response, Locale.CHINA);
 			}
 		}
+		RequestContext requestContext = new RequestContext(request);
+        model.addAttribute("language", requestContext.getMessage("language"));
 		return "/user/stuMain";
 	}
 }
