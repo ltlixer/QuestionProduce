@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.swu.question.dao.AnswerDAO;
 import com.swu.question.dao.CourseDAO;
+import com.swu.question.dao.ScoreAssignmentDAO;
 import com.swu.question.dao.StudentDAO;
 import com.swu.question.dao.TeacherDAO;
+import com.swu.question.entity.Answer;
 import com.swu.question.entity.Course;
+import com.swu.question.entity.ScoreAssignment;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Teacher;
 import com.swu.question.service.TeacherService;
@@ -35,6 +39,10 @@ public class TeacherServiceIpml implements TeacherService {
 	private StudentDAO studentDAO;
 	@Autowired
 	private CourseDAO courseDAO;
+	@Autowired
+	private ScoreAssignmentDAO scoreAssignmentDAO;
+	@Autowired
+	private AnswerDAO answerDAO;
 
 	@Override
 	@Transactional
@@ -136,6 +144,17 @@ public class TeacherServiceIpml implements TeacherService {
 		try {
 			// 查询需要的学生
 			Student student = studentDAO.selectStudent(stuId).get(0);
+			List<ScoreAssignment> scoreAssignments = scoreAssignmentDAO.listScoreAssignmentBystuId(stuId);
+			if(null != scoreAssignments){
+				for(ScoreAssignment sa:scoreAssignments){
+					List<Answer> answers = answerDAO.queryAnswerByscoreAssId(sa.getSaId());
+					for(Answer a:answers)
+						answerDAO.deleteAnswer(a.getAsswerId());
+					scoreAssignmentDAO.deleteScoreAssignment(sa.getSaId());
+					//scoreAssignments.remove(sa);
+				}
+			}
+			
 			Set<Course> courses = new HashSet<Course>();
 			 studentDAO.updateStudentForSelectCouse(student.getStuId(),courses);
 				studentDAO.deleteStudent(stuId);
@@ -205,6 +224,9 @@ public class TeacherServiceIpml implements TeacherService {
 							boolean d= studentDAO.addStudent(stu);
 							if(d){
 								count++;
+							}else{
+								Student s = studentDAO.getStudentByNum(stu.getStuNum()).get(0);
+								s.getCourse().add(course);
 							}
 						 }
 					 }else{

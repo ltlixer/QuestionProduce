@@ -76,4 +76,5 @@ public interface  StudentDAO {
      * @return
      */
    /* public Set<Teacher> listTeachers(Integer stuId);*/
+    public List<Student> getStudentByNum(String stuNum);
 }

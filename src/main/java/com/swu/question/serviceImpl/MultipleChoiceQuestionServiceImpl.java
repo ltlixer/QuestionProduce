@@ -17,14 +17,12 @@ import com.swu.question.entity.DistanceAndWord;
 import com.swu.question.entity.Distracter;
 import com.swu.question.entity.NewWords;
 import com.swu.question.entity.Question;
-import com.swu.question.entity.QuestionType;
 import com.swu.question.entity.Text;
 import com.swu.question.entity.Word;
 import com.swu.question.service.MultipleChoiceQuestionService;
 import com.swu.question.service.TextService;
 import com.swu.question.util.Clauses;
 import com.swu.question.util.Distance;
-import com.swu.question.util.ExcelBean;
 import com.swu.question.util.WordExcel;
 
 @Service
@@ -275,7 +273,7 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 					Collections.sort(bh_distance);
 					bh_rank = bh_distance;
 					for (int i = 0; i < bh_rank.size(); i++) {
-						if (i <= 4) {
+						if (i < 4) {
 							DistanceAndWord daw = bh_rank.get(i);
 							temp.add(daw.getWord());
 						} else {
@@ -288,8 +286,8 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 				
 				//如果产生候选项个数小于5时，差的候选项随机产生
 				Random random = new Random();
-				if(temp.size()<5){
-					for(int indexnum=temp.size();indexnum<5;indexnum++){
+				if(temp.size()<4){
+					for(int indexnum=temp.size();indexnum<4;indexnum++){
 						boolean myflags = true;
 						while(myflags){
 							Word randomWord = wordList.get(Math.abs(random.nextInt())%(wordList.size()));

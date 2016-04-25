@@ -148,4 +148,14 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 	}
 
+	@Override
+	public List<Student> getStudentByNum(String stuNum) {
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery("from Student stu where stu.stuNum=?");
+		q.setString(0, stuNum);
+		@SuppressWarnings("unchecked")
+		List<Student> list = q.list();
+		return list;
+	}
+
 }

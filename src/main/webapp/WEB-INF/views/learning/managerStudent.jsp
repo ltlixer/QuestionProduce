@@ -17,10 +17,12 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		ajaxTable();
+		var courseId = document.getElementById("courseList").options[0].value;
+		console.log(courseId);
+		ajaxTable(courseId);
 	})
-	function ajaxTable() {
-		var url = "/question/ajaxStudentByteaId";
+	function ajaxTable(courseId) {
+		var url = "/question/ajaxGetTeaCourseStu/"+courseId;
 		//加载表格
 		$('#userSelTable').datagrid({
 			url : url,
@@ -75,6 +77,7 @@
 			} ]
 		});
 	}
+	
 	function optFormater(value, row, index) {
 		var id = row.stuId;
 		var name = row.name;
@@ -146,7 +149,7 @@
 				action="/question/addStudentByExcell" enctype="multipart/form-data"
 				method="post">
 			<spring:message code="defaultCourse"/>：	
-			<select  class="text" name="courseId">
+			<select id="courseList" class="text" name="courseId" onchange="ajaxTable(this.options[this.options.selectedIndex].value);">
 							<c:if test="${not empty listCourse}">
 									<c:forEach var ="course" items="${listCourse}">
 										<option value="${course.courseId}">${course.year} - ${course.courseName}</option>

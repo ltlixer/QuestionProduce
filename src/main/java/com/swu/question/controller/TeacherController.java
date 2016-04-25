@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -285,8 +286,75 @@ public class TeacherController {
         }
         
 	}
-
 	
+	@RequestMapping("/ajaxGetTeaCourseStu/{courseId}")
+	public void ajaxGetTeaCourseStu(@PathVariable("courseId") int courseId,ModelMap model, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(request.getParameter("rows"));
+		int rows = Integer.parseInt(request.getParameter("rows"));
+        int page = Integer.parseInt(request.getParameter("page"));
+		Teacher sessionTeacher = (Teacher) session.getAttribute("tea");
+		/*Set<Student> students = teacherService
+				.queryTeacherToStudent(sessionTeacher.getTeaId());
+		
+		List<Student> stulist = new ArrayList<Student>();
+		Iterator<Student> stu = students.iterator();// 先迭代出来
+		while (stu.hasNext()) {// 遍历
+			Student student = (Student) stu.next();
+			stulist.add(student);
+		}
+		*/
+		Course course = courseService.listCourseByCourseId(courseId);
+//		List<Student> stulist = studentService.listStudent();
+		Set<Student> stus =  course.getStudents();
+		List<Student> stulist = new ArrayList<Student>();
+		for(Student s:stus){
+			stulist.add(s);
+		}
+		Collections.sort(stulist, new Comparator<Student>(){  
+	            public int compare(Student o1, Student o2) {  
+	                if(o1.getStuNum().compareTo(o2.getStuNum())>0){  
+	                    return 1;  
+	                }  
+	                return -1;  
+	            }  
+	        });   
+		
+		int paging[] = new int[2];
+	       
+        paging = Paging.paging(rows, page, stulist.size());
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        int i = paging[0];
+        for (; i < paging[1]; i++)
+        {
+        	
+            Student student = stulist.get(i);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("stuId", student.getStuId());
+            map.put("num", student.getStuNum());
+            map.put("name", student.getStuName());
+            map.put("email", student.getStuEmail());
+            map.put("grade", student.getGrade());
+            JSONObject jsonobj = JSONObject.fromObject(map);
+            list.add(jsonobj);
+        }
+        Map<String,Object> oo = new HashMap<String,Object>();
+        oo.put("rows", list);
+        oo.put("total", stulist.size());
+        //封装页面返回json
+        JSONObject jsonobj = JSONObject.fromObject(oo);
+        response.setCharacterEncoding("UTF-8");
+        try
+        {
+            PrintWriter out = response.getWriter();
+            out.print(jsonobj.toString());
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+	}
 	
 	@RequestMapping(value = "/addStudentByExcell", method = RequestMethod.POST)
 	public String addStudentByExcell(ModelMap model,HttpServletRequest request, HttpSession session,@RequestParam MultipartFile file) {
