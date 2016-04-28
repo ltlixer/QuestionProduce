@@ -95,11 +95,13 @@ public class TextServiceImpl implements TextService {
 						return null;
 					}
 					wordBean.close();
+					boolean hasNewWords = false;
 					//获取文章最后一段文字
-					String newWordsSc = list.get(list.size()-1);
-					if(newWordsSc.startsWith("##")){
-						newWordsSc = newWordsSc.substring(2, newWordsSc.length());
-						newWordsSc = newWordsSc.trim();
+					String newWordsSet = "";
+					String lastSc = list.get(list.size()-1);
+					if(lastSc.startsWith("##")){
+						hasNewWords = true;
+						newWordsSet = lastSc.substring(2, lastSc.length()).trim();
 					}
 					if (b) {
 						text.setTeacher(teacher);
@@ -108,12 +110,14 @@ public class TextServiceImpl implements TextService {
 						text.setTextName(message);
 						Course course =courseDAO.selectCourseById(Integer.parseInt(courseId));
 						text.setCourse(course);
-						String[] newWordsList = newWordsSc.split(" ");
-						Set<NewWords> newWords = new HashSet<NewWords>();
-						for(String newWord:newWordsList){
-							newWords.add(new NewWords(newWord,text));
+						if(hasNewWords){
+							String[] newWordsList = newWordsSet.split(" ");
+							Set<NewWords> newWords = new HashSet<NewWords>();
+							for(String newWord:newWordsList){
+								newWords.add(new NewWords(newWord,text));
+							}
+							text.setNewWords(newWords);
 						}
-						text.setNewWords(newWords);
 						boolean f = textDAO.addText(text);
 						if (f) {
 							return "Success";

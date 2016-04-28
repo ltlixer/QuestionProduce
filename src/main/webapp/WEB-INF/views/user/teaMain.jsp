@@ -12,10 +12,10 @@
   </head>
 	<frameset rows="60,*,28" frameborder="no" framespacing="0" >
 	<c:if test="${language=='zh_CN'}">
-  			<frame id="cntop" name="zh_CN" src="<c:url value='/resources/html_zh_CN/teatop.html?s=${tea.teaNum}'/>" scrolling="no"></frame>
+  			<frame id="cntop" name="zh_CN" src="<c:url value='/resources/html_zh_CN/teatop.html?s=${tea.teaName}'/>" scrolling="no"></frame>
   			</c:if>
   			<c:if test="${language=='en'}">
-  			<frame id="entop" name="en" src="<c:url value='/resources/html_en/teatop.html?s=${tea.teaNum}'/>" scrolling="no"></frame>
+  			<frame id="entop" name="en" src="<c:url value='/resources/html_en/teatop.html?s=${tea.teaName}'/>" scrolling="no"></frame>
 	        </c:if>
 	        <frameset id="centerSet" cols="220,10,*" frameborder="no" framespacing="0">
 				<c:if test="${language=='zh_CN'}">
