@@ -18,27 +18,25 @@
    
    <!-- Data Sourse -->
     <bean id="dataSource"
-        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-        p:driverClassName="${jdbc.driverClassName}"
-        p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
-        p:password="${jdbc.password}" />
+        class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass"><value>${jdbc.driverClassName}</value></property>
+        <property name="jdbcUrl"><value>${jdbc.databaseurl}</value></property>
+        <property name="user"><value>${jdbc.username}</value></property>
+        <property name="password"><value>${jdbc.password}</value></property>
+    </bean>
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
-        </property> 
-       <!--  Hibernate 3
-       <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property> -->
+        </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<!-- 添加c3p0连接池 -->
 				<prop key="hibernate.c3p0.acquire_increment">5</prop>
 				<prop key="hibernate.c3p0.idle_test_period">1800</prop>
 				<prop key="hibernate.c3p0.max_size">600</prop>
