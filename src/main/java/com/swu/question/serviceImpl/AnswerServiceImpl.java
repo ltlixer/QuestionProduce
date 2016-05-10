@@ -2,6 +2,7 @@ package com.swu.question.serviceImpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class AnswerServiceImpl implements AnswerService {
 	@Transactional
 	public boolean addAnswers(String[] answers, String[] answerolds,
 			String[] qids, String assId, Student student, String useTime,
-			List<String> list) {
+			Map<String,String> studentCostTime) {
 		// TODO Auto-generated method stub
 		try {
 			int right = 0;
@@ -131,48 +132,52 @@ public class AnswerServiceImpl implements AnswerService {
 				answer.setScoreAssignment(scoreAssignment);
 				answerDAO.addAnswer(answer);
 			}
-
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			// 记录学生做作业的日志
-			if (list.size() == 6) {
-				SimpleDateFormat format = new SimpleDateFormat(
-						"yyyy-MM-dd hh:mm:ss");
-				String factoidStartTime = list.get(0);
-				String factoidEndTime = list.get(1);
-				if(!factoidStartTime.equals("")){
-					Log log = new Log();
-					log.setAssignment(assignment);
-					log.setStartTime(format.parse(factoidStartTime));
-					log.setEndTime(format.parse(factoidEndTime));
-					log.setQuestionType("事实类问题");
-					log.setStuId(student.getStuId());
-					log.setUser(student.getStuName());
-					logDAO.addLog(log);
-				}
-				String deeperStartTime = list.get(2);
-				String deeperEndTime = list.get(3);
-				if(!deeperStartTime.equals("")){
-					Log log = new Log();
-					log.setAssignment(assignment);
-					log.setStartTime(format.parse(deeperStartTime));
-					log.setEndTime(format.parse(deeperEndTime));
-					log.setQuestionType("深层次问题");
-					log.setStuId(student.getStuId());
-					log.setUser(student.getStuName());
-					logDAO.addLog(log);
-				}
-				String originalStartTime = list.get(4);
-				String originalEndTime = list.get(5);
-				if(!originalStartTime.equals("")){
-					Log log = new Log();
-					log.setAssignment(assignment);
-					log.setStartTime(format.parse(originalStartTime));
-					log.setEndTime(format.parse(originalEndTime));
-					log.setQuestionType("原始问题");
-					log.setStuId(student.getStuId());
-					log.setUser(student.getStuName());
-					logDAO.addLog(log);
-				}
-
+			if(!studentCostTime.get("multiplechoiceStartTime").isEmpty()){
+				Log log = new Log();
+				log.setAssignment(assignment);
+				log.setStartTime(format.parse(studentCostTime.get("multiplechoiceStartTime")));
+				log.setEndTime(format.parse(studentCostTime.get("multiplechoiceEndTime")));
+				log.setUseTime(log.getEndTime().getTime()-log.getStartTime().getTime());
+				log.setQuestionType("选择题");
+				log.setStuId(student.getStuId());
+				log.setUser(student.getStuName());
+				logDAO.addLog(log);
+			}
+			if(!studentCostTime.get("factoidStartTime").isEmpty()){
+				Log log = new Log();
+				log.setAssignment(assignment);
+				log.setStartTime(format.parse(studentCostTime.get("factoidStartTime")));
+				log.setEndTime(format.parse(studentCostTime.get("factoidEndTime")));
+				log.setUseTime(log.getEndTime().getTime()-log.getStartTime().getTime());
+				log.setQuestionType("事实类问题");
+				log.setStuId(student.getStuId());
+				log.setUser(student.getStuName());
+				logDAO.addLog(log);
+			}
+			if(!studentCostTime.get("deeperStartTime").isEmpty()){
+				Log log = new Log();
+				log.setAssignment(assignment);
+				log.setStartTime(format.parse(studentCostTime.get("deeperStartTime")));
+				log.setEndTime(format.parse(studentCostTime.get("deeperEndTime")));
+				log.setUseTime(log.getEndTime().getTime()-log.getStartTime().getTime());
+				log.setQuestionType("深层次问题");
+				log.setStuId(student.getStuId());
+				log.setUser(student.getStuName());
+				logDAO.addLog(log);
+			}
+			if(!studentCostTime.get("originalStartTime").isEmpty()){
+				Log log = new Log();
+				log.setAssignment(assignment);
+				log.setStartTime(format.parse(studentCostTime.get("originalStartTime")));
+				log.setEndTime(format.parse(studentCostTime.get("originalEndTime")));
+				log.setUseTime(log.getEndTime().getTime()-log.getStartTime().getTime());
+				log.setQuestionType("原始问题");
+				log.setStuId(student.getStuId());
+				log.setUser(student.getStuName());
+				logDAO.addLog(log);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -214,6 +219,28 @@ public class AnswerServiceImpl implements AnswerService {
 			return "success";
 		}
 		return "error";
+	}
+
+	@Override
+	@Transactional
+	public List<Answer> queryStuAnswerCorrectRate(int assId) {
+		// TODO Auto-generated method stub
+		List<Question> questionList = questionDAO.queryQuestionsByAssID(assId);
+		List<Answer> stuAnswerCorrectRate = new ArrayList<Answer>();
+		for(Question q:questionList){
+			List<Answer> answerList = answerDAO.queryAnswersByQid(q.getqId());
+			Answer stuAnswer = new Answer();
+			int answerSimilaritySum = 0;
+			for(Answer a:answerList){
+				int answerSimilarity = Integer.parseInt(a.getSimilarity().split("%")[0]);
+				answerSimilaritySum += answerSimilarity;
+			}
+			int answerAverage = answerSimilaritySum/answerList.size();
+			stuAnswer.setAsswerId(q.getqId());
+			stuAnswer.setSimilarity(answerAverage+"");
+			stuAnswerCorrectRate.add(stuAnswer);
+		}
+		return stuAnswerCorrectRate;
 	}
 
 }

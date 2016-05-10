@@ -46,6 +46,7 @@ public int countqueryTextByTeas(int teaId);
  * @return
  */
 public List<Text> queryTextByCourseId(String courseId,int pageNow,String findText);
+public List<Text> queryTextByCourseId(int courseId);
 /**
  *  为  queryTextByTeas(teachers,pageNow,findText) 分页做准备   查询做大的数据条数
  * @param teachers

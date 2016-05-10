@@ -19,7 +19,7 @@ public interface AnswerService {
 	 * @param list 存放做作业日志时间
 	 * @return
 	 */
-	public boolean addAnswers(String[] answers,String[] answerolds,String[] qids,String assId,Student student,String useTime,List<String> list);
+	public boolean addAnswers(String[] answers,String[] answerolds,String[] qids,String assId,Student student,String useTime,Map<String,String> studentCostTime);
 	/**
 	 * 
 	 * @param scoreAssId
@@ -39,4 +39,11 @@ public interface AnswerService {
 	public boolean addAnswer(Answer answer);
 	public boolean deleteAnswer(int answerId);
 	public Answer queryAnswerByAnswerID(int answerId);
+	
+	/**
+	 * 获取某次作业每个问题的正确率
+	 * @param assId
+	 * @return
+	 */
+	public List<Answer> queryStuAnswerCorrectRate(int assId);
 }

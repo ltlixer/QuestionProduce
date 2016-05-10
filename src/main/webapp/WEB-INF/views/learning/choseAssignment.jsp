@@ -25,6 +25,35 @@ function select(){
 	 location.href="/question/queryCourse/1";
 	 return false;
 }
+function selectedCourse(courseId){
+	var url = "/question/text/queryTextByCourseId/"+courseId;
+	var textSelect = document.getElementById("textSelect");
+	var assList = document.getElementById("assList");
+	if(typeof(assList) != "undefined" && assList != null){
+		assList.innerHTML = "";
+	}
+	$.ajax({
+         type: "get",
+         dataType: "json",
+         url: url,
+         success: function (msg) {
+             var str = "<label>课文：</label>";
+             str += "<select id='textList' class='text' name='textId' onchange='selectedText(this.options[this.options.selectedIndex].value);'>";
+			 str += "<option value='-1' style='display:none;'>--请选择课文--</option>";
+             for (i in msg) {
+            	 var textId = msg[i].textId;
+            	 var textTitle = msg[i].textTitle;
+                 str += "<option value='"+textId+"'>"+textTitle+"</option>";
+             }
+             str += "</select>";
+             textSelect.innerHTML = str;
+         }
+     });
+}
+function selectedText(textId){
+	var url = "/question/assignment/queryTextUndoneAssignmentByText/"+textId;
+	self.location = url;
+}
 </script>
 </head>
 <body>
@@ -34,35 +63,29 @@ function select(){
 		</div>
 		<h2><spring:message code="queryAss"/></h2>
 		<input id="link" type="hidden" value="${link}">
-		<form action="/question/assignment/queryAssignmentByCourseId">
+		<c:if test="${courseSize=='0'}">
+			<div style="text-align:center;">
+				<font size="4">
+					<spring:message code="courseSelectThenLearn"/>
+					<button  onclick="return select()" class="btnPaleGreen">
+						<spring:message code="toCourseSelect"/>
+					</button>
+				</font>
+			</div>
+		</c:if>
+		<c:if test="${not empty courses}">
+			<font size="4">作业筛选       </font>
+			<label>班级：</label>
+			<select id="courseList" name="course" style="width: 200px"  onchange="selectedCourse(this.options[this.options.selectedIndex].value);">
+				<option value="-1" style="display:none;">--请选择课程--</option>
+				<c:forEach var ="course" items="${courses}">
+					<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
+				</c:forEach>
+			</select>
+			<span id="textSelect"></span>
+		</c:if>
 		
-			<table width="90%">
-			<c:if test="${courseSize=='0'}">
-			<td ></td>
-			<tr><td colspan="4" align="center">
-					<font size="4"><spring:message code="courseSelectThenLearn"/><button  onclick="return select()" class="btnPaleGreen"><spring:message code="toCourseSelect"/></button></font>
-			</td>
-			</tr>
-			</c:if>
-			
-					<tr id="query">
-					<td align="right"></td>
-						<td align="right"><font size="4"><spring:message code="pleaseSelectCourse"/>:</font>
-						<select name="course" style="width: 200px">
-					<c:if test="${not empty courses}">
-						<c:forEach var ="course" items="${courses}">
-							<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
-						</c:forEach>
-					</c:if>
-			</select></td>
-						<td align="right"><spring:message code="pleaseEnterKeyword"/></td>
-						<td>
-						<input type="text" id="findAss" name="findAss" style="width: 200px" value="${findAss}"/><font color="red"><spring:message code="nullable"/></font></td>
-						<td><input type="submit" id="query" style="width: 150px"  class="btnPaleGreen" value="<spring:message code='queryAss'/>"   /></td>
-				</tr>
-				</table>
-		</form>
-				<hr color="#00aaff">
+		<hr color="#00aaff">
 		<div class="div4" id="div4">
 		<center><spring:message code="lookFinishedAss"/>：<a
 				href="/question/assignment/finishedAssignment/1"><spring:message code="look"/>

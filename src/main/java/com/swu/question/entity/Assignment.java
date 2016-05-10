@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "Assignment")
 public class Assignment {
@@ -30,9 +32,11 @@ public class Assignment {
 	@Column(name = "CREATETIME", nullable = false)
 	private Date createTime;
 	
+	@JsonIgnore
 	@ManyToOne(targetEntity = Text.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEXT_ID", referencedColumnName = "textId", nullable = false)
 	private Text text;
+	@JsonIgnore
 	@ManyToOne(targetEntity = Teacher.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEA_ID", referencedColumnName = "teaId", nullable = false)
 	private Teacher teacher;

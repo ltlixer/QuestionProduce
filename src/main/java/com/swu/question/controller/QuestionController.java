@@ -141,4 +141,12 @@ public class QuestionController {
 		List<Question> questionList = multipleChoiceQuestionService.createMultipleChoiceQuestion(textId,path);
 		return questionList;
 	}
+	
+	@ResponseBody // 用于返回JSON数据
+	@RequestMapping("/getQuestionsByAssId/{assId}")
+	public List<Question> getQuestionsByAssId(ModelMap model, @PathVariable("assId") int assId,HttpServletRequest request) {
+		//获得作业中的问题列表
+		List<Question> questionList = questionService.queryQuestionsByassId(assId);
+		return questionList;
+	}
 }

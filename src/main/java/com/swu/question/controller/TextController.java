@@ -2,6 +2,7 @@ package com.swu.question.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +56,13 @@ public class TextController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
+	@ResponseBody
+	@RequestMapping("/queryTextByCourseId/{courseId}")
+	public List<Text> queryTextByCourseId(@PathVariable("courseId") int courseId) {
+		logger.info("queryTextByCourseId page.");
+		List<Text> textList = textService.queryTextByCourseId(courseId);
+		return textList;
+	}
 	// 教师端
 	@RequestMapping("/linkAddText")
 	public ModelAndView linkAddText(ModelMap model, HttpSession session) {
@@ -71,6 +80,7 @@ public class TextController {
 			ModelMap model, HttpSession session, HttpServletRequest request) {
 		logger.info("link linkAddText page.");
 		//课文已发布作业 ，删除课文 返回值，提示不能删除该课文
+
 		String infor ="";
 		if(pageNow==-1){
 			pageNow =1;
@@ -100,9 +110,30 @@ public class TextController {
 		if(!infor.equals("")){
 			model.addAttribute("infor", infor);
 		}
+		List<Course> courseList = courseService.listCourseByTeaId(teacher
+				.getTeaId());
+		model.addAttribute("courses", courseList);
 		return "/learning/listText";
 	}
+	@RequestMapping("/queryTextssByCourseId/{courseId}")
+	public String queryTextssByCourseId(@PathVariable("courseId") int courseId,
+			ModelMap model, HttpSession session, HttpServletRequest request) {
+		logger.info("link linkAddText page.");
 
+		Teacher teacher = (Teacher) request.getSession().getAttribute("tea");
+		List<Text> texts = textService.queryTextByCourseId(courseId);
+		List<QuestionType> questionTypes = questionService.queryQuestionTypes();
+		if(questionTypes.isEmpty()){
+			
+		}
+		model.addAttribute("questionTypes", questionTypes);
+		model.addAttribute("texts", texts);
+		
+		List<Course> courseList = courseService.listCourseByTeaId(teacher
+				.getTeaId());
+		model.addAttribute("courses", courseList);
+		return "/learning/listText";
+	}
 	
 	//学生端
 	@RequestMapping("/stuLinklistText")

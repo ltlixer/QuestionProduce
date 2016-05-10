@@ -131,9 +131,9 @@ public class TextDAOImpl implements TextDAO{
 		
 		@Override
 		public  List<Text> listTextByCourseId(int courseId){
-			String hql = "from Text text where text.course.courseId =:list ";
+			String hql = "from Text text where text.course.courseId =? ";
 			Query q=sessionFactory.getCurrentSession().createQuery(hql);
-			q.setInteger("list", courseId);
+			q.setInteger(0, courseId);
 			@SuppressWarnings("unchecked")
 			List<Text> list=(List<Text>)q.list();
 			return list;

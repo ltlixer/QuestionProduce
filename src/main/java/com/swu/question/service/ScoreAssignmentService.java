@@ -7,6 +7,12 @@ import com.swu.question.entity.ScoreAssignment;
 public interface ScoreAssignmentService {
 
 	/**
+	 * 查询某次作业的学生成绩
+	 * @param assId
+	 * @return
+	 */
+	public List<ScoreAssignment> queryScoreAssignmentByAssId(int assId);
+	/**
 	 * 
 	 * @param saId
 	 * @param evaluate
@@ -46,6 +52,7 @@ public interface ScoreAssignmentService {
 	 * @return
 	 */
 	public int queryScoreAssignmentByStuId(Integer stuId);
+
 	/**
 	 * 
 	 * @param assId

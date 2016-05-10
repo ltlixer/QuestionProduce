@@ -178,6 +178,12 @@ public class TextServiceImpl implements TextService {
 			// TODO Auto-generated method stub
 			return textDAO.listTextByCourseIdDividePage(courseId, pageNow, findText);
 	}
+	@Override
+	@Transactional
+	public List<Text> queryTextByCourseId(int courseId) {
+			// TODO Auto-generated method stub
+			return textDAO.listTextByCourseId(courseId);
+	}
 /**
  * 根据 课文标题查找 指定老师发布的课文
  */

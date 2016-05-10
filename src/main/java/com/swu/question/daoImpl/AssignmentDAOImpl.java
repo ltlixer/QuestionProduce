@@ -1,6 +1,7 @@
 package com.swu.question.daoImpl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.swu.question.dao.AssignmentDAO;
 import com.swu.question.entity.Assignment;
+import com.swu.question.entity.Course;
+import com.swu.question.entity.Student;
 import com.swu.question.util.DivideHibernateUtil;
 
 
@@ -99,10 +102,15 @@ public class AssignmentDAOImpl implements AssignmentDAO {
 	@Override
 	public List<Assignment> listAllAssignment(Integer stuId) {
 		// TODO Auto-generated method stub
+		Query q1 = sessionFactory.getCurrentSession().createQuery(
+				"from Student s where s.stuId = ?");
+		q1.setParameter(0, stuId);
+		Student student = (Student) q1.list().get(0);
+		Set<Course> courses = student.getCourse();
 		Query q = sessionFactory
 				.getCurrentSession()
 				.createQuery(
-						"from Assignment a where a.teacher.student.stuId=? and a.assId not in"
+						"from Assignment a where a.text.course in (select s.course from Student s where s.stuId=?) and a.assId not in"
 								+ "(select sa.saId from ScoreAssignment as sa where sa.student.stuId = ?) order by a.createTime asc");
 		q.setParameter(0, stuId);
 		q.setParameter(1, stuId);

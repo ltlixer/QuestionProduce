@@ -16,9 +16,11 @@ import com.swu.question.dao.AssignmentDAO;
 import com.swu.question.dao.LogDAO;
 import com.swu.question.dao.QuestionDAO;
 import com.swu.question.dao.ScoreAssignmentDAO;
+import com.swu.question.dao.StudentDAO;
 import com.swu.question.dao.TeacherDAO;
 import com.swu.question.dao.TextDAO;
 import com.swu.question.entity.Assignment;
+import com.swu.question.entity.Course;
 import com.swu.question.entity.Distracter;
 import com.swu.question.entity.Log;
 import com.swu.question.entity.Question;
@@ -41,6 +43,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 	private TextDAO textDAO;
 	@Autowired
 	private QuestionDAO questionDAO;
+	@Autowired
+	private StudentDAO studentDao;
 	@Autowired
 	private LogDAO logDAO;
 
@@ -124,7 +128,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 						Object[] distracters = json.toArray();
 						Set<Distracter> distracterSet = new HashSet<Distracter>();
 						for (int i = 0; i < distracters.length; i++) {
-							distracterSet.add(new Distracter(distracters[i].toString(),question));
+							if(""!=distracters[i].toString() && distracters[i].toString()!=null)
+								distracterSet.add(new Distracter(distracters[i].toString(),question));
 						}
 						distracterSet.add(new Distracter(answer,question));
 						question.setDistracter(distracterSet);
@@ -286,6 +291,60 @@ public class AssignmentServiceImpl implements AssignmentService {
 		// TODO Auto-generated method stub
 
 		return assignmentDAO.listAllAssignment(stuId);
+	}
+
+	@Override
+	public List<Assignment> queryAssignmentByTextId(int textId) {
+		// TODO Auto-generated method stub
+		return assignmentDAO.queryAssignmentByTextId(textId);
+	}
+
+	@Override
+	public List<Assignment> listAllUndoneAssignment(int stuId) {
+		// TODO Auto-generated method stub
+		Set<Course> stuCourses = studentDao.listCourse(stuId);
+		List<Assignment> allUndoneAssignment = new ArrayList<Assignment>();
+		for(Course c:stuCourses){
+			List<Assignment> courseAssignment = listAllAssignment(c.getCourseId(), stuId, null);
+			allUndoneAssignment.addAll(courseAssignment);
+		}
+		return allUndoneAssignment;
+	}
+
+	@Override
+	public List<Assignment> queryTextUndoneAssignment(int stuId, int textId) {
+		// TODO Auto-generated method stub
+		// 查询该学生已完成的作业
+		List<ScoreAssignment> finishList = scoreAssignmentDAO
+				.listScoreAssignmentBystuId(stuId);
+		// 所有该作业下的作业
+		List<Assignment> allList = queryAssignmentByTextId(textId);
+		List<Assignment> noFinishList = new ArrayList<Assignment>();
+		
+		// 过滤已做过的作业
+		if (finishList != null && finishList.size() > 0) {
+			if (allList != null && allList.size() > 0) {
+				for (int i = 0; i < allList.size(); i++) {
+					boolean finish = false;
+					for (int j = 0; j < finishList.size(); j++) {
+						int id1 = allList.get(i).getAssId();
+						int id2 = finishList.get(j).getAssignment().getAssId();
+						if (id1==id2) {
+							finish = true;
+							break;
+						}
+					}
+					if (!finish) {
+						noFinishList.add(allList.get(i));
+					}
+				}
+				return noFinishList;
+			} else {
+				return null;
+			}
+		} else {
+			return allList;
+		}
 	}
 
 }

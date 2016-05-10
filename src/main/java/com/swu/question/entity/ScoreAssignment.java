@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "ScoreAssignment")
 public class ScoreAssignment {
@@ -28,11 +30,11 @@ public class ScoreAssignment {
 	@Column(name = "CORRECT")
 	private int correct;
 	// testScore -- Student n:1
+	@JsonIgnore
 	@ManyToOne
-	
 	@JoinColumn(name = "STU_ID", referencedColumnName = "stuId",nullable=false)
 	private Student student;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "ASS_ID", referencedColumnName = "assId",nullable=false)
 	private Assignment assignment;

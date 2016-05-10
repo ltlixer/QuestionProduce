@@ -59,6 +59,12 @@ public int countAssignmentByTeaId(Integer teaId);
  */
 public List<Assignment> listAllAssignment(Integer stuId);
 /**
+ * 查询学生所有未完成作业
+ * @param stuId
+ * @return
+ */
+public List<Assignment> listAllUndoneAssignment(int stuId);
+/**
  * 根据作业题目模糊查询学生作业
  * @param teachers
  * @param stuId
@@ -66,4 +72,17 @@ public List<Assignment> listAllAssignment(Integer stuId);
  * @return
  */
 List<Assignment> listAllAssignment(int courseId, int stuId,String findAss);
+/**
+ * 查询某篇课文下的所有作业
+ * @param textId
+ * @return
+ */
+List<Assignment> queryAssignmentByTextId(int textId);
+/**
+ * 查询某篇课文下的未完成作业
+ * @param stuId
+ * @param textId
+ * @return
+ */
+List<Assignment> queryTextUndoneAssignment(int stuId,int textId);
 }

@@ -22,6 +22,8 @@ public class Log {
 	private Date startTime;
 	@Column(name = "endTime", nullable = false)
 	private Date endTime;
+	@Column(name = "useTime", nullable = false)
+	private long useTime;
 	
 	@ManyToOne
 	@JoinColumn(name="ass_ID",referencedColumnName="assId",nullable=false)
@@ -53,6 +55,12 @@ public class Log {
 		this.endTime = endTime;
 	}
 	
+	public long getUseTime() {
+		return useTime;
+	}
+	public void setUseTime(long useTime) {
+		this.useTime = useTime;
+	}
 	public Assignment getAssignment() {
 		return assignment;
 	}

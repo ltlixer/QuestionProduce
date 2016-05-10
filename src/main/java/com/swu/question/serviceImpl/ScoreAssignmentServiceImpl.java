@@ -19,8 +19,12 @@ public class ScoreAssignmentServiceImpl implements ScoreAssignmentService {
 	private ScoreAssignmentDAO scoreAssignmentDAO;
 	@Autowired
 	private AnswerDAO answerDAO;
-
 	
+	@Override
+	@Transactional
+	public List<ScoreAssignment> queryScoreAssignmentByAssId(int assId){
+		return scoreAssignmentDAO.queryScoreAssignmentByAssId(assId);
+	}
 	@Override
 	@Transactional
 	public void updateScoreAssignment(int saId, String evaluate, int score) {

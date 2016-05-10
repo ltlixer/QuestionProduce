@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.swu.question.HomeController;
 import com.swu.question.entity.Assignment;
@@ -24,6 +25,7 @@ import com.swu.question.entity.Course;
 import com.swu.question.entity.ScoreAssignment;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Teacher;
+import com.swu.question.entity.Text;
 import com.swu.question.service.AssignmentService;
 import com.swu.question.service.CourseService;
 import com.swu.question.service.QuestionService;
@@ -47,6 +49,29 @@ public class AssignmentController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
+	@RequestMapping("/scoreAnalysis")
+	public String scoreAnalysis(ModelMap model, HttpSession session) {
+		logger.info("scoreAnalysis page.");
+
+		Teacher teacher = (Teacher) session.getAttribute("tea");
+		List<Course> courseList = courseService.listCourseByTeaId(teacher
+				.getTeaId());
+		model.addAttribute("listCourse", courseList);
+	
+		return "/learning/scoreAnalysis";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/queryAssignmentByTextId/{textId}")
+	public List<Assignment> queryAssignmentByTextId(@PathVariable("textId") int textId) {
+		logger.info("queryAssignmentByTextId");
+		System.out.println(textId);
+		List<Assignment> assignmentList = assignmentService.queryAssignmentByTextId(textId);
+		for(Assignment a:assignmentList)
+			System.out.println(a.getAssName());
+		return assignmentList;
+	}
+	
 	@RequestMapping("/linkAddAssignment")
 	public String linkAddAssignment(ModelMap model, HttpSession session) {
 		logger.info("link addAssignment page.");
@@ -131,17 +156,44 @@ public class AssignmentController {
 	public String linkqueryAssignmentByCourse(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
 		Student student = (Student) session.getAttribute("stu");
-		 List<Course> courses = studentService.selectStudentToCourses(student.getStuId());
-		 if(courses==null||courses.size()==0){
-			 model.addAttribute("courseSize","0");
-		 }
-		 model.addAttribute("pageNow", "0");
-		 model.addAttribute("sumCount", "0");
-		 model.addAttribute("link","first");
-		 model.addAttribute("courses", courses);
+		// 得到学生所有未完成的作业
+		List<Assignment> assignments = assignmentService.listAllUndoneAssignment(student.getStuId());
+		if(assignments!=null&&assignments.size()>0){
+			model.addAttribute("infor", "have");
+		}else{
+			model.addAttribute("infor", "no");
+		}
+		model.addAttribute("assignments", assignments);
+		//查询课程信息
+		List<Course> courses = studentService.selectStudentToCourses(student.getStuId());
+		if(courses.size()==0){
+			model.addAttribute("courseSize","0");
+		}
+		model.addAttribute("courses", courses);
+		
 		return "/learning/choseAssignment";
 	}
-	
+	//学生端
+	@RequestMapping("/queryTextUndoneAssignmentByText/{textId}")
+	public String queryAssignmentByText(@PathVariable("textId")int textId,ModelMap model, HttpSession session) {
+		Student student = (Student) session.getAttribute("stu");
+		// 得到未完成的作业
+		List<Assignment> assignments = assignmentService.queryTextUndoneAssignment(student.getStuId(), textId);
+		if(assignments!=null&&assignments.size()>0){
+			model.addAttribute("infor", "have");
+		}else{
+			model.addAttribute("infor", "no");
+		}
+		model.addAttribute("assignments", assignments);
+		//查询课程信息
+		List<Course> courses = studentService.selectStudentToCourses(student.getStuId());
+		 if(courses.size()==0){
+			 model.addAttribute("courseSize","0");
+		 }
+		 model.addAttribute("courses", courses);
+		
+		return "/learning/choseAssignment";
+	}
 	//学生端
 	@RequestMapping("/queryAssignmentByCourseId")
 	public String queryAssignmentByCourse(ModelMap model, HttpSession session,

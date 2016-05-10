@@ -110,6 +110,10 @@ function select(){
 	 location.href="/question/queryCourse/1";
 	 return false;
 }
+/* function selectedCourse(courseId){
+	var url = "/question/text/queryTextssByCourseId/"+courseId;
+	self.location = url;
+} */
 </script>
 </head>
 <body>
@@ -124,6 +128,18 @@ function select(){
 		</c:if>
 		</div>
 		<h2><spring:message code="learningResource"/></h2>
+		<%-- <c:if test="${not empty courses}">
+			<font size="4">请选择课文</font>
+			<select id="courseList" name="course" style="width: 200px"  onchange="selectedCourse(this.options[this.options.selectedIndex].value);">
+				<option value="-1" style="display:none;">--请选择课程--</option>
+				<c:forEach var ="course" items="${courses}">
+					<option value="${course.courseId}">${course.year} - ${course.courseName}</option>
+				</c:forEach>
+			</select>
+			<span id="textSelect"></span>
+		</c:if>
+		<hr color="#00aaff"> --%>
+		
 		<c:if test="${user=='stu'}">
 		<input id="link1" type="hidden" value="${link}">
 		<form action="/question/text/queryTextByCourse/1">

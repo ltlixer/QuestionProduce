@@ -1,6 +1,7 @@
 package com.swu.question.controller;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,20 +53,18 @@ public class AnswerController {
 		String[] qids = request.getParameterValues("qids");
 		String assId = request.getParameter("assId");
 		String useTime = request.getParameter("useTime");
-		String factoidStartTime  = request.getParameter("factoidStartTime");
-		String factoidEndTime = request.getParameter("factoidEndTime");
-		String deeperStartTime = request.getParameter("deeperStartTime");
-		String deeperEndTime  = request.getParameter("deeperEndTime");
-		String originalStartTime  = request.getParameter("originalStartTime");
-		String originalEndTime  = request.getParameter("originalEndTime");
-		List<String> list = new ArrayList<String>();
-		list.add(factoidStartTime);
-		list.add(factoidEndTime);
-		list.add(deeperStartTime);
-		list.add(deeperEndTime);
-		list.add(originalStartTime);
-		list.add(originalEndTime);
-		answerService.addAnswers(answers,answerolds,qids,assId,student,useTime,list);
+		
+		Map<String, String> studentCostTime = new HashMap<String, String>();
+		studentCostTime.put("multiplechoiceStartTime", request.getParameter("multiplechoiceStartTime"));
+		studentCostTime.put("multiplechoiceEndTime", request.getParameter("multiplechoiceEndTime"));
+		studentCostTime.put("factoidStartTime", request.getParameter("factoidStartTime"));
+		studentCostTime.put("factoidEndTime", request.getParameter("factoidEndTime"));
+		studentCostTime.put("deeperStartTime", request.getParameter("deeperStartTime"));
+		studentCostTime.put("deeperEndTime", request.getParameter("deeperEndTime"));
+		studentCostTime.put("originalStartTime", request.getParameter("originalStartTime"));
+		studentCostTime.put("originalEndTime", request.getParameter("originalEndTime"));
+		
+		answerService.addAnswers(answers,answerolds,qids,assId,student,useTime,studentCostTime);
 		return "redirect:/assignment/stulinkqueryAssignment";
 	}
 	

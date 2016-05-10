@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "TEXT")
 public class Text {
@@ -32,14 +34,17 @@ public class Text {
 	@Column(name = "CREATETIME",nullable=false)
 	private Date createTime;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "course_ID", referencedColumnName = "courseId",nullable=false)
 	private Course course;
 	
 	// text -- teacher n:1
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "TEA_ID", referencedColumnName = "teaId",nullable=false)
 	private Teacher teacher;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "text")
 	private Set<NewWords> newWords;
 	
