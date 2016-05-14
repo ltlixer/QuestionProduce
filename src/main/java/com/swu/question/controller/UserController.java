@@ -70,14 +70,14 @@ public class UserController {
 					if (tea != null) {
 						session.setAttribute("tea", tea);
 						logger.info(tea.getTeaName()+" Login.");
-						return "/user/teaMain";
+						return "redirect:/main";
 					}
 				}else if("student".equals(role)){
 					Student stu = studentService.studentLogin(userName,password);
 					if (stu != null) {
 						session.setAttribute("stu", stu);
 						logger.info(stu.getStuName()+" Login.");
-						return "/user/stuMain";
+						return "redirect:/main";
 					}
 				}
 			}
