@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 
 <title>My JSP 'userList.jsp' starting page</title>
+<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/main.css' />"
 	rel="stylesheet" type="text/css" media="screen" />
 	<script type="text/javascript"
@@ -45,7 +46,7 @@
 				
 				<table>
 					<tr>
-						<td><b><spring:message code="addCourse"/>:</b><spring:message code="pleaseEnterCourseName"/></td>
+						<td><spring:message code="pleaseEnterCourseName"/></td>
 						<td>
 						<form:input type="text" id="courseName" path="courseName"/></td>
 						<td>
@@ -67,7 +68,7 @@
 			
 			<div class="div4">
 				<form action="" method="post" name="form1">
-					<table>
+					<table class="table table-hover">
 						<tr>
 							<th><spring:message code="courseName"/></th>
 							<th><spring:message code="grade"/></th>

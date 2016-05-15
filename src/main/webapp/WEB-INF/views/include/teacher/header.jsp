@@ -17,7 +17,7 @@
 <script src="<c:url value='/resources/js/responsive-nav.min.js'/>"></script>
 </head>
 <!-- Start: Header -->
-<div class="header">
+<div class="header navbar-fixed-top">
 	<div class="col-lg-2 col-md-2 col-sm-2 nav_class"
 		style="border-right: 1px solid lightgrey">
 		<img src="<c:url value='/resources/images/logonew.png'/>" style="width: 200px; height: 60px">

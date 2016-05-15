@@ -10,8 +10,8 @@
 <TITLE>Answer Page</TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<c:url value='/resources/js/dialog.js'/>"></script>
 	

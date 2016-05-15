@@ -12,7 +12,7 @@
 <title>密码修改-学生</title>
 <head>
 
-
+<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/easylayout.css' />" rel="stylesheet"
 	type="text/css" media="screen" />
 <script type="text/javascript" src="<c:url value='/resources/js/dialog.js'/>"></script> 
@@ -55,20 +55,20 @@
 			<input type="hidden" name="ps" value="${ps}"/>
 			<input type="hidden" name="id" value="${id}"/>
 			<div class="div_table">
-			<table id="password" class="editTab" width="500">
+			<table id="password" class="table" width="500">
 				<tr align="center">
-					<td width="90"><label><spring:message code="oldPassword"/></label></td>
+					<td width="90"><spring:message code="oldPassword"/></td>
 					<td width="200"><input type="password" name="oldpassword"/></td>
 					<td width="110"><font color="red" id="oldpassword"></font></td>
 				</tr>
 				<tr align="center">
-					<td><label><spring:message code="newPassword"/></label></td>
+					<td><spring:message code="newPassword"/></td>
 					<td ><input type="password" name="newPassword" value=""></td>
 					<td><font color="red" id="newPassword"></font></td>
 				</tr>
 				
 				<tr align="center">
-					<td><label><spring:message code="repassword"/></label></td>
+					<td><spring:message code="repassword"/></td>
 					<td ><input type="password" name="renewPassword" value=""></td>
 					<td><font color="red" id="renewPassword"></font></td>
 				</tr>

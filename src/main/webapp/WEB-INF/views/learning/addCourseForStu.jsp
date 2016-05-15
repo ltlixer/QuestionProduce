@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <script type="text/javascript">
 $(function(){
@@ -47,48 +46,41 @@ $(function(){
 	src="<c:url value='/resources/js/selectAll.js' />"></script>
 </head>
 <body>
-	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="courseSelect"/></span>
-		</div>
-		<h2><spring:message code="courseSelect"/></h2>
+	<div class="bodyDiv" style="width:90%;margin:30px auto;">
+		
 		<div class="div4">
-		<center> <a href="/question/checkedCourse"><spring:message code="lookSelectedCourse"/>
-		</a> </center> 
+		
 			<form action="/question/selectCourse" method="post">
-				<table class="editTab" border="1">
+				<table class="table table-hover">
 					<tr>
-						<th colspan="4"><spring:message code="optionaCourses"/></th>
-					</tr>
-					<tr>
-						<th align="center"><font size="4"><b><spring:message code="courseName"/></b></font></th>
-						<th align="center"><font size="4" ><b><spring:message code="grade"/></b></font></th>
-						<th align="center"><font size="4"><b><spring:message code="teacher"/></b></font></th>
-						<th align="center"><input type="checkbox" id="selectAll"
+						<th><font size="4"><b><spring:message code="courseName"/></b></font></th>
+						<th><font size="4" ><b><spring:message code="grade"/></b></font></th>
+						<th><font size="4"><b><spring:message code="teacher"/></b></font></th>
+						<th><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
 					<c:if test="${not empty list}">
 						<c:forEach var="course" items="${list}">
 							<tr>
-								<td align="center">${course.courseName}</td>
-								<td align="center">${course.year}</td>
-								<td align="center">${course.teacher.teaName}</td>
-								<td align="center"><input type="checkbox" name="courseIds"
+								<td>${course.courseName}</td>
+								<td>${course.year}</td>
+								<td>${course.teacher.teaName}</td>
+								<td><input type="checkbox" name="courseIds"
 									value="${course.courseId}"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
 				</table>
-				<p class="operationBtn">
-					<input type="submit" value="<spring:message code='selectCourse'/>" class="btnPaleGreen"
+				<center>
+					<input type="submit" value="<spring:message code='selectCourse'/>" class="btn btn-default"
 						onclick="return add('courseIds')" />&nbsp;&nbsp;
-				</p>
+				<a href="/question/checkedCourse" class="right"><spring:message code="lookSelectedCourse"/></a> 
+				</center>
 			</form>
 		</div>
-
-		<div class="div6" align="center">
+		<div><p></p></div>
+		<div align="right">
 			<table>
-
 				<tr height=20>
 					<td height="20" align="center" valign="middle" nowrap>
 					<span><spring:message code="total"/>:${sumCount} &nbsp;&nbsp;<spring:message code="currentPage" />:${pageNow} </span>&nbsp; <a

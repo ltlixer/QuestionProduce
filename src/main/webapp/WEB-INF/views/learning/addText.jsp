@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 
 <title>My JSP 'userList.jsp' starting page</title>
-<link href="<c:url value='/resources/css/main.css' />"
-	rel="stylesheet" type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <script type="text/javascript">
 $(function(){
@@ -50,12 +50,9 @@ function addText() {
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div1">
-		<img src="<c:url value='/resources/images/icon.png'/>"/>&nbsp;<span><spring:message code="site"/>：<spring:message code="postAss"/>&gt;&gt;<spring:message code="uploadLearningResources"/></span>
-		</div>
 			<div class="div2" align="center">
 			<form:form action="/question/text/uploadText" enctype="multipart/form-data" method="post" commandName="text">
-				<table align="center">
+				<table class="table" style="width:95%;margin:0 auto;">
 					<tr><td colspan="3"><h2><spring:message code="uploadLearningResources"/></h2></td></tr>
 					<tr><td width="30%" align="center"><spring:message code="uploadTeacher"/></td>
 						<td width="40%">${teaName}</td>

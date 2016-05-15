@@ -8,15 +8,6 @@
 <!-- Sidebar -->
 <div class="content_left col-lg-3 col-md-3 col-sm-3">
     <ul class="first_nav tab">
-        <li class="first_li first_li1">
-            <span class="glyphicon glyphicon-align-justify"></span>
-           <span class="lispan1">数据评估</span>
-
-        </li>
-        <ul class="second_nav second_nav1" >
-            <li><a href="/question/evaluate/stuLinklistText" target="mainFrame">数据评估</a></li>
-            <li><a href="/question/evaluate/queryTextListEvaluated/1" target="mainFrame">已评估的数据</a></li>
-        </ul>
         <li class="first_li first_li2">
             <span class="glyphicon glyphicon-leaf"></span>
             <span class="lispan2">基本信息</span>
@@ -34,9 +25,9 @@
         </li>
         <ul class="second_nav second_nav3">
             <li><a href="/question/text/stuLinklistText" target="mainFrame">课 程 学 习</a></li>
-            <li> <a href="/question/assignment/stulinkqueryAssignment" target="mainFrame">开始在线作业</a></li>
-            <li><a href="/question/assignment/queryScoreAssignmentBystuId/1" target="mainFrame">查看作业成绩</a></li>
+            <li><a href="/question/assignment/stulinkqueryAssignment" target="mainFrame">开始在线作业</a></li>
             <li><a href="/question/assignment/finishedAssignment/1" target="mainFrame">完成的作业</a></li>
+            <li><a href="/question/assignment/queryScoreAssignmentBystuId/1" target="mainFrame">查看作业成绩</a></li>
         </ul>
         <li class="first_li first_li4">
             <span class="glyphicon glyphicon-menu-up"></span>

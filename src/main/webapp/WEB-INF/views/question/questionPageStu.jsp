@@ -11,8 +11,8 @@
 <TITLE>Student Register</TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<c:url value='/resources/js/dialog.js'/>"></script>
 <script type="text/javascript"
@@ -301,6 +301,7 @@ $(function() {
 </script>
 </head>
 <body>
+	<p> </p>
 	<c:if test="${MultiplechoiceSize==0}">
 	<div class="div3">
 		<font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/> </label>
@@ -327,7 +328,7 @@ $(function() {
 			<input type="hidden" id="useTime" name="useTime" value="${assTime}">
 			
 			<c:if test="${MultiplechoiceSize>0}">
-				<table border="1" class="editTab" id="MultiplechoiceQuestion" align="center">
+				<table class="table" style="width:95%;margin:0 auto;" id="MultiplechoiceQuestion" align="center">
 				<tr>
 					<th colspan="3" align="left"><spring:message code="selectLabel"/>共${FactoidSize}<spring:message code="qend"/></th>
 				</tr>
@@ -363,7 +364,7 @@ $(function() {
 			</c:if>
 			
 			<c:if test="${FactoidSize>0}">
-				<table border="1" class="editTab" id="FactoidQuestion" align="center">
+				<table class="table" style="width:95%;margin:0 auto;" id="FactoidQuestion" align="center">
 				<tr>
 					<th colspan="3" align="left"><spring:message code="facotiodLabel"/>${FactoidSize}<spring:message code="qend"/></th>
 				</tr>
@@ -394,7 +395,7 @@ $(function() {
 			</c:if>
 			
 			<c:if test="${DeeperSize>0}">
-				<table border="1" class="editTab" id="DeeperQuestion" align="center">
+				<table class="table" style="width:95%;margin:0 auto;" id="DeeperQuestion" align="center">
 				<tr>
 					<th colspan="3" align="left"><spring:message code="deeperLabel"/>${DeeperSize}<spring:message code="qend"/></th>
 				</tr>
@@ -425,7 +426,7 @@ $(function() {
 			
 			</c:if>
 			<c:if test="${OriginalSize>0}">
-				<table border="1" class="editTab" id="OriginalQuestion" align="center">
+				<table class="table" style="width:95%;margin:0 auto;" id="OriginalQuestion" align="center">
 				<tr>
 					<th colspan="3" align="left"><spring:message code="originalLabel"/>${OriginalSize}<spring:message code="qend"/></th>
 				</tr>

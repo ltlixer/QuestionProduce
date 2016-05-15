@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <script type="text/javascript">
@@ -48,50 +48,44 @@
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="scoreManagement"/>&gt;&gt;<spring:message code="markHomework"/></span>
-		</div>
-		<h2><spring:message code="markHomework"/></h2>
+		<h2> </h2>
 		<div class="div4">
 			<p align="center">
 				<label style="color: red" id="errorInfor"></label>
 			</p>
 
 			<form action="/question/assignment/submitCorrect">
-				<table class="editTab" border="3">
+				<table class="table table-hover" style="width:95%;margin:0 auto;">
 					<tr>
-						<th colspan="10" align="center"><spring:message code="needMarkHomework"/></th> 
-					</tr>
-					<tr>
-					<th align="center" width="10%"><spring:message code="textTitle"/></th>
-					<th align="center" width="10%"><spring:message code="courseName"/></th>
-					<th align="center" width="10%"><spring:message code="assTitle"/></th>
-					<th align="center" width="10%"><spring:message code="limited"/></th>
-					<th align="center" width="10%"><spring:message code="actualHours"/></th>
-					<th align="center" width="10%"><spring:message code="stuSubmitTime"/></th>
-					<th align="center" width="10%"><spring:message code="score"/></th>
-					<th align="center" width="10%"><spring:message code="stuName"/></th>
-					<th align="center" width="10%"><spring:message code="markState"/></th>
-					<th align="center" width="10%"><spring:message code="modifyScore"/></th>
+					<th width="10%"><spring:message code="textTitle"/></th>
+					<th width="10%"><spring:message code="courseName"/></th>
+					<th width="10%"><spring:message code="assTitle"/></th>
+					<th width="8%"><spring:message code="limited"/></th>
+					<th width="8%"><spring:message code="actualHours"/></th>
+					<th width="15%"><spring:message code="stuSubmitTime"/></th>
+					<th width="10%"><spring:message code="score"/></th>
+					<th width="10%"><spring:message code="stuName"/></th>
+					<th width="10%"><spring:message code="markState"/></th>
+					<th width="10%"><spring:message code="modifyScore"/></th>
 				</tr>
 				<c:forEach var="correctAssignment" items="${list}">
 					<tr>
-						<td align="center">${correctAssignment.assignment.text.textTitle}</td>
-						<td align="center">${correctAssignment.assignment.text.course.courseName}</td>
-						<td align="center">${correctAssignment.assignment.assName}</td>
-						<td align="center">${correctAssignment.assignment.assTime}<spring:message code="minute"/></td>
-						<td align="center">${correctAssignment.useTime}<spring:message code="minute"/></td>
-						<td align="center">${correctAssignment.createTime}</td>
-						<td align="center"><fmt:formatNumber value="${correctAssignment.score}" pattern="#0.0"/></td>
-						<td align="center">${correctAssignment.student.stuName}</td>
+						<td>${correctAssignment.assignment.text.textTitle}</td>
+						<td>${correctAssignment.assignment.text.course.courseName}</td>
+						<td>${correctAssignment.assignment.assName}</td>
+						<td>${correctAssignment.assignment.assTime}<spring:message code="minute"/></td>
+						<td>${correctAssignment.useTime}<spring:message code="minute"/></td>
+						<td>${correctAssignment.createTime}</td>
+						<td><fmt:formatNumber value="${correctAssignment.score}" pattern="#0.0"/></td>
+						<td>${correctAssignment.student.stuName}</td>
 						 <c:if test="${correctAssignment.correct==1}">
-							<td align="center"><spring:message code="teacherMark"/></td>
+							<td><spring:message code="teacherMark"/></td>
 						</c:if>
 						 <c:if test="${correctAssignment.correct==-1}">
-							<td align="center"><spring:message code="systemMark"/></td>
+							<td><spring:message code="systemMark"/></td>
 						</c:if>
 						
-						<td align="center"><a href="/question/answer/tealinkAnswerPage/${correctAssignment.saId}"><spring:message code="modifyScore"/></a></td>
+						<td><a href="/question/answer/tealinkAnswerPage/${correctAssignment.saId}"><spring:message code="modifyScore"/></a></td>
 					</tr>
 				</c:forEach>
 

@@ -140,7 +140,7 @@
 
 
 	<!-- 用户查询表一览 -->
-	<table id="userSelTable" title="<spring:message code='stuManagementList'/>" width="100%"
+	<table style="width:99%;" id="userSelTable" title="<spring:message code='stuManagementList'/>" width="100%"
 		iconCls="icon-edit"></table>
 	<div id="toolbar">
 		<a href="/question/downloadStudentTem" style="float: right;"><spring:message code='downStudentExcell'/></a>

@@ -10,9 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="<c:url value='/resources/bootstrap3/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
-	<script type="text/javascript" src="<c:url value='/resources/chartjs/Chart.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/chartjs/Chart.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.12.3.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/bootstrap3/js/bootstrap.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/question/js/score-analysis/scoreAnalysis.js' />"></script>
@@ -74,10 +72,7 @@
 </head>
 <body >
 	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="scoreManagement"/>&gt;&gt;学生成绩分析</span>
-		</div>
-		<h2>学生成绩分析</h2>
+		<h2> </h2>
 		<div>
 			<label>课程：</label>
 			<select id="courseList" class="text" name="courseId" onchange="selectedCourse(this.options[this.options.selectedIndex].value);">

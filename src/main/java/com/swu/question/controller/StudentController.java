@@ -190,7 +190,7 @@ public class StudentController {
 		int stuId = Integer.parseInt(request.getParameter("id"));
 		String passwd = request.getParameter("newPassword");
 		if (studentService.studentUpdatePssword(stuId, passwd)) {
-			return "redirect:/linkStuLogin";
+			return "redirect:/login";
 		} else {
 			return "/user/stuChangePasswd";
 		}

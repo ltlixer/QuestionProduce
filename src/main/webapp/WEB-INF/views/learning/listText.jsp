@@ -10,10 +10,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
-	<script type="text/javascript"
-	src="<c:url value='/resources/js/delete.js' />"></script>
+<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<c:url value='/resources/js/delete.js' />"></script>
 <script type="text/javascript">
 $(function(){
 	if($("#link1").val()=="first"){
@@ -118,16 +116,7 @@ function select(){
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div1">
-		<c:if test="${user=='stu'}">
-		<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="onlineAss"/>>><spring:message code="courseStudy"/></span>
-		</c:if>
-			<c:if test="${user=='tea'}">
-		<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="learningResource"/>>><spring:message code="learningResourceQuery"/>
-		</span>
-		</c:if>
-		</div>
-		<h2><spring:message code="learningResource"/></h2>
+		<h2> </h2>
 		<%-- <c:if test="${not empty courses}">
 			<font size="4">请选择课文</font>
 			<select id="courseList" name="course" style="width: 200px"  onchange="selectedCourse(this.options[this.options.selectedIndex].value);">
@@ -171,7 +160,7 @@ function select(){
 				<hr color="#00aaff">
 		</c:if>
 		<div class="div4">
-			<table border="1" class="editTab" id="table">
+			<table class="table table-hover" style="width:90%;margin:30px auto;" id="table">
 			<tr>
 			<c:if test="${user=='stu'}">
 			<th colspan="6"><spring:message code="teachersUploadTextList"/></th>
@@ -190,7 +179,7 @@ function select(){
 							<th width="10%"><spring:message code="lookText"/></th>
 							</c:if>
 							<c:if test="${user=='tea'}">
-							<th width="5%"><spring:message code="viewOriginal"/></th>
+							<th width="6%"><spring:message code="viewOriginal"/></th>
 							<th width="15%" colspan="2"><spring:message code="generateQuestion"/></th>
 							<th width="7%"><spring:message code="delete"/></th>
 							</c:if>
@@ -203,25 +192,25 @@ function select(){
 						<c:if test="${not empty texts}">
 						<c:forEach var="texts" items="${texts}">
 							<tr>
-							<td align="center">${texts.textTitle}</td>
-							<td align="center">${texts.course.year} - ${texts.course.courseName}</td>
-							<td align="center">${texts.teacher.teaName}</td>
-							<td align="center"><fmt:formatDate pattern="yyyy-MM-dd" value="${texts.createTime}" /></td>
+							<td>${texts.textTitle}</td>
+							<td>${texts.course.year} - ${texts.course.courseName}</td>
+							<td>${texts.teacher.teaName}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${texts.createTime}" /></td>
 							<c:if test="${user=='stu'}">
-							<td align="center"><a href="/question/text/lookText/${texts.teacher.teaNum}?textName=${texts.textName}&user=stu"><spring:message code="study"/></a></td>
+							<td><a href="/question/text/lookText/${texts.teacher.teaNum}?textName=${texts.textName}&user=stu"><spring:message code="study"/></a></td>
 							</c:if>
 							<c:if test="${user=='tea'}">
-							<td align="center"><a href="/question/text/lookText/${texts.teacher.teaNum}?textName=${texts.textName}">查看原文</a></td>
-							<td align="left">
+							<td><a href="/question/text/lookText/${texts.teacher.teaNum}?textName=${texts.textName}">查看原文</a></td>
+							<td>
 							<c:forEach var="questionTypes" items="${questionTypes}">
 								<input name="questionTypes${texts.textId}" type="checkbox" value="${questionTypes.questionType}" checked="checked"><font size="1">${questionTypes.questionTypeName}</font><br/>
 							</c:forEach>
-							</td><td align="center">
+							</td><td>
 							<a href="#" onclick='return showLoad(${texts.textId})'><spring:message code="generateQuestion"/></a>
 							<img style="float: right;" id="${texts.textId}" class="loadimg" width="20px" src="<c:url value='/resources/images/loading.gif'/>"></td>
 							<td align="center"><a href="/question/text/deleteText/${texts.textId}" onclick='return deleteItem()'><spring:message code="delete"/></a></td>
 							</c:if>
-							<td align="center"><a href="/question/text/downloadText/${texts.teacher.teaNum}?fileName=${texts.textName}" id="file">
+							<td><a href="/question/text/downloadText/${texts.teacher.teaNum}?fileName=${texts.textName}" id="file">
 							<c:set var="string1" value="${texts.textName}"/>
 							<c:set var="string2" value="${fn:substringAfter(string1, '_')}"/>
 								${string2}</a></td>

@@ -9,7 +9,7 @@
 <TITLE>Teacher Register</TITLE>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
 <link href="<c:url value='/resources/css/easylayout.css' />" rel="stylesheet"
 	type="text/css" media="screen" />
 <script type="text/javascript" src="<c:url value='/resources/js/dialog.js'/>"></script> 
@@ -59,21 +59,21 @@ function close(){
 			<form:input path="stuId" type="hidden"/>
 			<div class="div_table">
 			<br><br>
-			<table class="editTab">
+			<table class="table">
 				<tr align="center">
-					<td><label><spring:message code="stuNum"/></label> </td>
+					<td><spring:message code="stuNum"/></td>
 					<td><form:input class="text" onfocus="this.blur()" name="stuNum" path="stuNum" />
 					</td>
 					<td><font id="fcolor" color="red"><span id="stuNum"></span></font></td>
 				</tr>
 				
 				<tr align="center">
-					<td><label><spring:message code="name"/></label></td>
+					<td><spring:message code="name"/></td>
 					<td><form:input class="text" onfocus="this.blur()" name="stuName" path="stuName" /></td>
 					<td><font color="red"><span id="stuName"></span></font></td>
 				</tr>
 				<tr align="center">
-					<td><label><spring:message code="email"/></label></td>
+					<td><spring:message code="email"/></td>
 					<td><form:input  class="text" name="stuEmail" path="stuEmail" /></td>
 					<td><font color="red"><span id="stuEmail"></span>
 					</font></td>

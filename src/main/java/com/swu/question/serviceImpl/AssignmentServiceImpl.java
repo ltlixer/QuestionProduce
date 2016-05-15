@@ -306,7 +306,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 		List<Assignment> allUndoneAssignment = new ArrayList<Assignment>();
 		for(Course c:stuCourses){
 			List<Assignment> courseAssignment = listAllAssignment(c.getCourseId(), stuId, null);
-			allUndoneAssignment.addAll(courseAssignment);
+			if(courseAssignment!=null)
+				allUndoneAssignment.addAll(courseAssignment);
 		}
 		return allUndoneAssignment;
 	}

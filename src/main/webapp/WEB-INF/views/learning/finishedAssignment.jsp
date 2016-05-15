@@ -9,8 +9,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <script type="text/javascript">
 $(function(){
@@ -46,36 +46,33 @@ $(function(){
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="onlineAss"/>>><spring:message code="finishedAss"/></span>
-		</div>
-		<h2><spring:message code="finishedAss"/></h2>
+		<h2> </h2>
 		<div class="div4">
-			<table border="1" class="editTab">
+			<table class="table table-hover" style="width:95%;margin:0 auto;">
 				<tr>
 					<th colspan="8"><spring:message code="finishedAss"/></th>
 				</tr>
 				
 				<tr>
-					<th align="center" width="15%"><spring:message code="textTitle"/></th>
-					<th align="center" width="10%"><spring:message code="courseName"/></th>
-					<th align="center" width="15%"><spring:message code="assTitle"/></th>
-					<th align="center" width="10%"><spring:message code="limited"/></th>
-					<th align="center" width="15%"><spring:message code="actualHours"/></th>
-					<th align="center" width="15%"><spring:message code="submitTime"/></th>
-					<th align="center" width="10%"><spring:message code="publishTeacher"/></th>
-					<th align="center" width="10%"><spring:message code="state"/></th>
+					<th width="15%"><spring:message code="textTitle"/></th>
+					<th width="10%"><spring:message code="courseName"/></th>
+					<th width="15%"><spring:message code="assTitle"/></th>
+					<th width="10%"><spring:message code="limited"/></th>
+					<th width="15%"><spring:message code="actualHours"/></th>
+					<th width="15%"><spring:message code="submitTime"/></th>
+					<th width="10%"><spring:message code="publishTeacher"/></th>
+					<th width="10%"><spring:message code="state"/></th>
 				</tr>
 				<c:forEach var="finishAssignment" items="${list}">
 					<tr>
-						<td align="center">${finishAssignment.assignment.text.textTitle}</td>
-						<td align="center">${finishAssignment.assignment.text.course.courseName}</td>
-						<td align="center">${finishAssignment.assignment.assName}</td>
-						<td align="center">${finishAssignment.assignment.assTime}<spring:message code="minute"/></td>
-						<td align="center">${finishAssignment.useTime}<spring:message code="minute"/></td>
-						<td align="center">${finishAssignment.createTime}</td>
-						<td align="center">${finishAssignment.assignment.teacher.teaName}</td>
-						<td align="center"><spring:message code="finished"/></td>
+						<td>${finishAssignment.assignment.text.textTitle}</td>
+						<td>${finishAssignment.assignment.text.course.courseName}</td>
+						<td>${finishAssignment.assignment.assName}</td>
+						<td>${finishAssignment.assignment.assTime}<spring:message code="minute"/></td>
+						<td>${finishAssignment.useTime}<spring:message code="minute"/></td>
+						<td>${finishAssignment.createTime}</td>
+						<td>${finishAssignment.assignment.teacher.teaName}</td>
+						<td><spring:message code="finished"/></td>
 					</tr>
 				</c:forEach>
 			</table>	

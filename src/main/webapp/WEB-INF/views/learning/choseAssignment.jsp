@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <title>选择要完成的作业</title>
 <script type="text/javascript">
@@ -58,10 +58,7 @@ function selectedText(textId){
 </head>
 <body>
 	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="onlineAss"/>>><spring:message code="queryAss"/></span>
-		</div>
-		<h2><spring:message code="queryAss"/></h2>
+		<h2> </h2>
 		<input id="link" type="hidden" value="${link}">
 		<c:if test="${courseSize=='0'}">
 			<div style="text-align:center;">
@@ -90,7 +87,7 @@ function selectedText(textId){
 		<center><spring:message code="lookFinishedAss"/>：<a
 				href="/question/assignment/finishedAssignment/1"><spring:message code="look"/>
 			</a></center>
-			<table border="1" class="editTab">
+			<table class="table table-hover" style="width:95%;margin:0 auto;">
 				<tr>
 					<th colspan="7"><spring:message code="newAss"/></th>
 				</tr>
@@ -99,26 +96,26 @@ function selectedText(textId){
 				
 			</tr>
 				<tr>
-					<th align="center" width="15%"><spring:message code="textTitle"/></th>
-					<th align="center" width="15%"><spring:message code="assTitle"/></th>
-					<th align="center" width="15%"><spring:message code="courseName"/></th>
-					<th align="center" width="10%"><spring:message code="limited"/></th>
-					<th align="center" width="15%"><spring:message code="publishTime"/></th>
-					<th align="center" width="15%"><spring:message code="publishTeacher"/></th>
-					<th align="center" width="15%"><spring:message code="clickBegin"/></th>
+					<th width="15%"><spring:message code="textTitle"/></th>
+					<th width="15%"><spring:message code="assTitle"/></th>
+					<th width="15%"><spring:message code="courseName"/></th>
+					<th width="10%"><spring:message code="limited"/></th>
+					<th width="15%"><spring:message code="publishTime"/></th>
+					<th width="15%"><spring:message code="publishTeacher"/></th>
+					<th width="15%"><spring:message code="clickBegin"/></th>
 				</tr>
 					<c:if test="${infor=='no'}">
 					<tr><td colspan="7" align="center"><font color="red" size="4"> <spring:message code="teacherHasNoAss"/></font></td></tr>
 					</c:if>
 				<c:forEach var="ass" items="${assignments}">
 					<tr>
-						<td align="center">${ass.text.textTitle}</td>
-						<td align="center">${ass.assName}</td>
-						<td align="center">${ass.text.course.courseName}</td>
-						<td align="center">${ass.assTime}<spring:message code="minute"/></td>
-						<td align="center">${ass.createTime}</td>
-						<td align="center">${ass.teacher.teaName}</td>
-						<td align="center"><a
+						<td>${ass.text.textTitle}</td>
+						<td>${ass.assName}</td>
+						<td>${ass.text.course.courseName}</td>
+						<td>${ass.assTime}<spring:message code="minute"/></td>
+						<td>${ass.createTime}</td>
+						<td>${ass.teacher.teaName}</td>
+						<td><a
 							href="/question/question/stulinkQuestionPage/${ass.assId}"><spring:message code="beginAss"/>
 						</a></td>
 					</tr>
@@ -129,25 +126,25 @@ function selectedText(textId){
 			<%-- 		<table border="1" class="editTab">
 			<tr><th colspan="8"><h2>已完成的作业</h2></th></tr>
 			<tr>
-					<th align="center" width="8%">作业主题</th>
-					<th align="center" width="30%">作业内容</th>
-					<th align="center" width="30%">答案</th>
-					<th align="center" width="4%">规定时间</th>
-					<th align="center" width="4%">所用时间</th>
-					<th align="center" width="8%">所属课程</th>
-					<th align="center" width="8%">所属教师</th>
-					<th align="center" width="8%">&nbsp;</th>
+					<th width="8%">作业主题</th>
+					<th width="30%">作业内容</th>
+					<th width="30%">答案</th>
+					<th width="4%">规定时间</th>
+					<th width="4%">所用时间</th>
+					<th width="8%">所属课程</th>
+					<th width="8%">所属教师</th>
+					<th width="8%">&nbsp;</th>
 				</tr>
 			<c:forEach var="finishAssignment" items="${finishAssignments}">
 				 <tr>
-							<td align="center">${finishAssignment.assignment.assTitle}</td>
-							<td align="center">${finishAssignment.assignment.question}</td>
-							<td align="center">${finishAssignment.answer}</td>
-							<td align="center">${finishAssignment.assignment.assTime}分钟</td>
-							<td align="center">${finishAssignment.useTime}分钟</td>
-							<td align="center">${finishAssignment.assignment.courseName}</td>
-							<td align="center">${finishAssignment.assignment.teacher.teaName}</td>
-							<td align="center">已完成</td>
+							<td>${finishAssignment.assignment.assTitle}</td>
+							<td>${finishAssignment.assignment.question}</td>
+							<td>${finishAssignment.answer}</td>
+							<td>${finishAssignment.assignment.assTime}分钟</td>
+							<td>${finishAssignment.useTime}分钟</td>
+							<td>${finishAssignment.assignment.courseName}</td>
+							<td>${finishAssignment.assignment.teacher.teaName}</td>
+							<td>已完成</td>
 						</tr>
 				 </c:forEach>
 				 </table> --%>

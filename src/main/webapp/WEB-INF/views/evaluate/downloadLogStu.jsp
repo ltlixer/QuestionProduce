@@ -9,8 +9,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<c:url value='/resources/js/delete.js' />"></script>
 <script type="text/javascript"
@@ -60,23 +60,23 @@
 <body>
 	<div class="bodyDiv">
 		
-		<h2><spring:message code="stulog"/></h2>
+		<h2> </h2>
 		<input id="link1" type="hidden" value="${link}">
 		<form action="/question/evaluate/downlogStu">
 		
-		<table  class="editTab" id="table">
+		<table  class="table table-hover" style="width:95%;margin:0 auto;" id="table">
 					<tr>
-						<th align="center"><spring:message code="courseName"/></th>
-						<th align="center"><spring:message code="className"/></th>
-						<th align="center"><input type="checkbox" id="selectAll"
+						<th><spring:message code="courseName"/></th>
+						<th><spring:message code="className"/></th>
+						<th><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
 					<c:if test="${not empty courses}">
 						<c:forEach var="course" items="${courses}">
 							<tr>
-								<td align="center">${course.year}<spring:message code="ji"/>${course.courseName}</td>
-								<td align="center">${course.teacher.teaName}</td>
-								<td align="center"><input type="checkbox" name="courseIds"
+								<td>${course.year}<spring:message code="ji"/>${course.courseName}</td>
+								<td>${course.teacher.teaName}</td>
+								<td><input type="checkbox" name="courseIds"
 									value="${course.courseId}"></td>
 							</tr>
 						</c:forEach>
@@ -87,7 +87,7 @@
 		</form>
 		<hr color="#00aaff">
 		
-		<table border="1" class="editTab" id="viewLog">
+		<table border="1" class="table table-hover" style="width:95%;margin:0 auto;" id="viewLog">
 				<tr>
 					<th colspan="6"><spring:message code="stuSendAssList"/></th>
 				</tr>
@@ -103,12 +103,12 @@
 					<c:if test="${not empty logs}">
 						<c:forEach var="list" items="${logs}">
 							<tr>
-								<td align="center">${list.assignment.text.course.courseName}</td>
-								<td align="center">${list.assignment.text.textTitle}</td>
-								<td align="center">${list.user}</td>
-								<td align="center">${list.questionType}</td>
-								<td align="center">${list.startTime}</td>
-								<td align="center">${list.endTime}</td>
+								<td>${list.assignment.text.course.courseName}</td>
+								<td>${list.assignment.text.textTitle}</td>
+								<td>${list.user}</td>
+								<td>${list.questionType}</td>
+								<td>${list.startTime}</td>
+								<td>${list.endTime}</td>
 							</tr>
 						</c:forEach>
 					</c:if>

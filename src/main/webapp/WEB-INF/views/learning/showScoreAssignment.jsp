@@ -9,8 +9,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value='/resources/jQuery/jquery-1.7.2.js' />"></script>
 <script type="text/javascript">
 $(function(){
@@ -46,30 +46,27 @@ $(function(){
 </head>
 <body >
 	<div class="bodyDiv">
-		<div class="div1">
-			<img src="<c:url value='/resources/images/icon.png'/>" />&nbsp;<span><spring:message code="site"/>：<spring:message code="scoreManagement"/>&gt;&gt;<spring:message code="homeworkScore"/></span>
-		</div>
-		<h2><spring:message code="homeworkScore"/></h2>
+		<h2> </h2>
 		<div class="div4">
-			<table class="editTab" border="3">
+			<table class="table table-hover" style="width:95%;margin:0 auto;">
 					<tr>
-					<th align="center" width="15%"><spring:message code="textTitle"/></th>
-					<th align="center" width="15%"><spring:message code="courseName"/></th>
-					<th align="center" width="10%"><spring:message code="student"/></th>
-					<th align="center" width="10%"><spring:message code="actualHours"/></th>
-					<th align="center" width="10%"><spring:message code="assScore"/></th>
-					<th align="center" width="30%"><spring:message code="evaluation"/></th>
-					<th align="center" width="10%"><spring:message code="viewDetail"/></th>
+					<th width="15%"><spring:message code="textTitle"/></th>
+					<th width="15%"><spring:message code="courseName"/></th>
+					<th width="10%"><spring:message code="student"/></th>
+					<th width="10%"><spring:message code="actualHours"/></th>
+					<th width="10%"><spring:message code="assScore"/></th>
+					<th width="30%"><spring:message code="evaluation"/></th>
+					<th width="10%"><spring:message code="viewDetail"/></th>
 					</tr>
 					<c:forEach var="list" items="${list}">
 					<tr>
-					<td align="center" >${list.assignment.text.textTitle}</td>
-					<td align="center">${list.assignment.text.course.courseName}</td>
-					<td align="center">${list.student.stuName }</td>
-					<td align="center">${list.useTime }<spring:message code="minute"/></td>
-					<td align="center"><fmt:formatNumber value="${list.score}" pattern="#0.0"/></td>
-					<td align="center">${list.evaluate}</td>
-					<td align="center"><a href="/question/answer/showAnswer/${list.saId}"><spring:message code="look"/></a></td>
+					<td >${list.assignment.text.textTitle}</td>
+					<td>${list.assignment.text.course.courseName}</td>
+					<td>${list.student.stuName }</td>
+					<td>${list.useTime }<spring:message code="minute"/></td>
+					<td><fmt:formatNumber value="${list.score}" pattern="#0.0"/></td>
+					<td>${list.evaluate}</td>
+					<td><a href="/question/answer/showAnswer/${list.saId}"><spring:message code="look"/></a></td>
 					</tr>
 					</c:forEach>
 			</table>

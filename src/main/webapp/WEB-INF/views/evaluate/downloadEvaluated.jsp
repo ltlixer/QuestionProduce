@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"
-	type="text/css" media="screen" />
+<link href="<c:url value='/resources/bootstrap3/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<c:url value='/resources/js/delete.js' />"></script>
 <script type="text/javascript"
@@ -44,23 +43,23 @@
 </head>
 <body>
 	<div class="bodyDiv">
-		<h2><spring:message code="queryevaluated"/></h2>
+		<h2> </h2>
 		<input id="link1" type="hidden" value="${link}">
 		<form action="/question/evaluate/queryEvaluated">
 		
-		<table  class="editTab" id="table">
+		<table  class="table table-hover" style="width:95%;margin:0 auto;" id="table">
 					<tr>
-						<th align="center"><spring:message code="courseName"/></th>
-						<th align="center"><spring:message code="className"/></th>
-						<th align="center"><input type="checkbox" id="selectAll"
+						<th><spring:message code="courseName"/></th>
+						<th><spring:message code="className"/></th>
+						<th><input type="checkbox" id="selectAll"
 							onclick="checkEvent('courseIds','selectAll')" /></th>
 					</tr>
 					<c:if test="${not empty courses}">
 						<c:forEach var="course" items="${courses}">
 							<tr>
-								<td align="center">${course.year}<spring:message code="ji"/>${course.courseName}</td>
-								<td align="center">${course.teacher.teaName}</td>
-								<td align="center"><input type="checkbox" name="courseIds"
+								<td>${course.year}<spring:message code="ji"/>${course.courseName}</td>
+								<td>${course.teacher.teaName}</td>
+								<td><input type="checkbox" name="courseIds"
 									value="${course.courseId}"></td>
 							</tr>
 						</c:forEach>
@@ -74,7 +73,7 @@
 		<div  id="div3" align="center">
 		<form action="/question/evaluate/downloadEvaluated">
 		<input type="hidden" value="${courseIds}" name="courseIds">
-		<table border="1" class="editTab" id="table">
+		<table class="table table-hover" style="width:95%;margin:0 auto;" id="table">
 				<tr>
 					<th colspan="4"><spring:message code="evaluatedlist"/></th>
 				</tr>
@@ -88,10 +87,10 @@
 					<c:if test="${not empty list}">
 						<c:forEach var="list" items="${list}">
 							<tr>
-								<td align="center">${list.courseName}</td>
-								<td align="center">${list.teaName}</td>
-								<td align="center">${list.countText}</td>
-								<td align="center">${list.countEvaluate}</td>
+								<td>${list.courseName}</td>
+								<td>${list.teaName}</td>
+								<td>${list.countText}</td>
+								<td>${list.countEvaluate}</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -104,7 +103,7 @@
 		
 		</div>
 		<div  id="div4">
-			<table border="1" class="editTab" id="table">
+			<table class="table table-hover" style="width:95%;margin:0 auto;" id="table">
 				<tr>
 					<th colspan="6">已评估的材料 <a href="#" onclick="return hiden()">影藏明细</a></th>
 				</tr>
@@ -118,9 +117,9 @@
 					<c:if test="${not empty texts}">
 						<c:forEach var="texts" items="${texts}">
 							<tr>
-								<td align="center">${texts.textTitle}</td>
-								<td align="center">${texts.course.year}<spring:message code="ji"/>${texts.course.courseName}</td>
-								<td align="center">${texts.teacher.teaName}</td>
+								<td>${texts.textTitle}</td>
+								<td>${texts.course.year}<spring:message code="ji"/>${texts.course.courseName}</td>
+								<td>${texts.teacher.teaName}</td>
 							</tr>
 						</c:forEach>
 					</c:if>
