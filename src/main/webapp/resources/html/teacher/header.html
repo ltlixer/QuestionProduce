@@ -1,0 +1,56 @@
+<head>
+<meta charset="UTF-8" />
+
+<link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="../../css/responsive-nav.css" rel="stylesheet" type="text/css">
+<link href="../../css/mycss.css" rel="stylesheet" type="text/css">
+<script src="../../js/jquery-2.2.2.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/responsive-nav.min.js"></script>
+<style>
+.loginoutbtn:hover{
+color:red;
+}
+</style>
+</head>
+<div class="header navbar-fixed-top">
+	<div class="col-lg-2 col-md-2 col-sm-2 nav_class"
+		style="width:240px;border-right: 1px solid lightgrey">
+		<a href="/question/main" target="_parent"><img src="../../images/logonew.png" style="width: 200px; height: 60px"></a>
+	</div>
+	<div class="col-lg-4   col-md-4  col-sm-4 nav_class" style="width:320px;">
+		<span class="glyphicon glyphicon-th-large span_user"
+			style="color: lightgrey; margin-left: 15px;font-size:10px;"></span> <input
+			type="text" class="form-control bk-radius" placeholder="Search"
+			style="width: 200px; margin-left: 50px; margin-top: -18px;height:30px;">
+		<button class="btn btn-default btnclass" type="submit">
+			<span class="glyphicon glyphicon-search"></span>
+		</button>
+	</div>
+	
+	<div style="line-height:60px;">
+		<div class="loginoutbtn" style="text-align: center; margin-bottom: 10px;cursor:pointer;float: right;padding:0 20px;">
+			<span class="glyphicon glyphicon-off"></span>
+			<span style="margin-left: 10px" onclick="window.parent.frames.location.href='/question/exit';">退出</span>
+		</div>
+	</div>
+	<div style="line-height:60px;">
+		<div class="divclass"
+			style="text-align: center; margin-bottom: 10px;float: right;margin-right:20px;">
+			<img src="../../images/webwxgeticon.jpg"
+				style="width: 35px; border-radius: 50%; margin-top: -5px;">
+			<span id="userName" style="margin-left: 10px">老师</span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		//显示用户姓名
+		var url = location.href;
+		if(url.indexOf("teaName=")!=-1){
+			var name = url.substring(url.indexOf("teaName=") + 8, url.length);
+			$("#userName").text(decodeURI(name));
+		}
+		
+	})
+</script>

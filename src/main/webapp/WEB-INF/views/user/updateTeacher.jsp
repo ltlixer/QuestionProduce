@@ -66,7 +66,7 @@ function close(){
 			<table class="editTab">
 				<tr align="center">
 					<td><label>登录账号</label> </td>
-					<td><form:input class="text" onfocus="this.blur()" name="teaNum" path="teaNum" />
+					<td><form:input class="text" onfocus="this.blur()" name="teaNum" path="teaNum" style="cursor: not-allowed;" />
 					</td>
 					<td><font id="fcolor" color="red"><span id="teaNum"></span></font></td>
 				</tr>

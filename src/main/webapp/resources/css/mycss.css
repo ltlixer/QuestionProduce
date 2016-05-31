@@ -1,7 +1,7 @@
 *{
     margin: 0px;
     padding: 0px;
-    font-family: 微软雅黑;
+    font-family:'Titillium Web', sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif, "微软雅黑";
 }
 body{
     width: 100%;
@@ -40,11 +40,11 @@ body{
 }
 .btnclass{
     border: none;
-    margin-left: 212px;
-    margin-top: -33px;
-    font-size: 18px;
-    background: transparent;
-    color: #c8c8c8;
+	margin-left: 210px;
+	margin-top: -29px;
+	font-size: 16px;
+	background: transparent;
+	color: #c8c8c8;
 }
 .btn_icon{
     border: none;
@@ -93,14 +93,13 @@ ul,li{
     margin: 0px;
     padding: 0px;
     list-style-type: none;
-    font-size: 16px;
+    font-size: 14px;
     color: #ffffff;
 }
 .first_nav>li{
-    text-align: center;
-    padding-top: 10px;
-    padding-top: 10px;
-    /*padding-bottom: 15px;*/
+	height:40px;
+	line-height:40px;
+	padding:0 25px;
     transition: all 0.5s linear;
 }
 .first_nav>li:hover{
@@ -120,11 +119,11 @@ ul,li{
 }
 .second_nav>li{
     cursor: pointer;
-    text-align: center;
+    padding: 0 50px;
     margin: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 15px;
+	height:40px;
+	line-height:40px;
+    font-size: 14px;
     background-color: #009999;
     transition: all 0.5s linear;
 }
@@ -135,13 +134,13 @@ ul,li{
     position: fixed;
     color: #ffffff;
     text-align: center;
-    width: 100%;height: 50px;
+    width: 100%;height: 30px;
     background-color: #3BBFB4;
 }
 .footer div{
     width: 100%;
-    height: 50px;
-    padding-top: 13px;
+    height: 30px;
+    line-height:30px;
 }
 .right_nav{
     border: 1px solid #ffffff;
@@ -164,4 +163,60 @@ ul,li{
 }
 .second_nav li a{
 	color:#fff;
+}
+
+.route{
+	font-family: inherit;
+	background: #3BBFB4;
+	box-shadow: 1px 3px 0 1px #cccccc;
+	height: 40px;
+	line-height:40px;
+	padding: 0;
+	z-index: 10;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+}
+.route .breadcrumb {
+	margin:0;
+	padding:0 15px;
+	width: 100%;
+	list-style: none;
+	background-color: transparent;
+	border-radius: 0;
+	font-size: 14px;
+	font-weight: 400;
+}
+.route .breadcrumb > li {
+	display: inline-block;
+}
+.route .breadcrumb li a {
+	text-decoration: none;
+	color: #ffffff;
+}
+.route .breadcrumb li span {
+	margin-right: 5px;
+	font-size: 14px;
+}
+.route .breadcrumb > .active {
+color: #ffffff;
+}
+.pull-right {
+	float: right !important;
+}
+.route h2 {
+	color: #FFF;
+	border-bottom: 4px solid #368ee0;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	display: inline-block;
+	float: left;
+	height: 40px;
+	font-size: 20px;
+	font-size: 2rem;
+	letter-spacing: normal;
+	line-height: 40px;
+	margin: 0 0 0 -1px;
+	padding: 0 22px 0 20px;
+	text-transform: uppercase;
 }
