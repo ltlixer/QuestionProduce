@@ -128,14 +128,14 @@ public class TeacherServiceIpml implements TeacherService {
 		return teacher;
 	}
 
-	/*@Override
-	@Transactional
-	public Set<Student> queryTeacherToStudent(int teaId) {
-		// TODO Auto-generated method stub
-		Teacher teacher = teacherDAO.queryTeacher(teaId).get(0);
-		Set<Student> students = teacher.getStudents();
-		return students;
-	}*/
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public Set<Student> queryTeacherToStudent(int teaId) { //
+	 * TODO Auto-generated method stub Teacher teacher =
+	 * teacherDAO.queryTeacher(teaId).get(0); Set<Student> students =
+	 * teacher.getStudents(); return students; }
+	 */
 
 	@Override
 	@Transactional
@@ -145,20 +145,20 @@ public class TeacherServiceIpml implements TeacherService {
 			// 查询需要的学生
 			Student student = studentDAO.selectStudent(stuId).get(0);
 			List<ScoreAssignment> scoreAssignments = scoreAssignmentDAO.listScoreAssignmentBystuId(stuId);
-			if(null != scoreAssignments){
-				for(ScoreAssignment sa:scoreAssignments){
+			if (null != scoreAssignments) {
+				for (ScoreAssignment sa : scoreAssignments) {
 					List<Answer> answers = answerDAO.queryAnswerByscoreAssId(sa.getSaId());
-					for(Answer a:answers)
+					for (Answer a : answers)
 						answerDAO.deleteAnswer(a.getAsswerId());
 					scoreAssignmentDAO.deleteScoreAssignment(sa.getSaId());
-					//scoreAssignments.remove(sa);
+					// scoreAssignments.remove(sa);
 				}
 			}
-			
+
 			Set<Course> courses = new HashSet<Course>();
-			 studentDAO.updateStudentForSelectCouse(student.getStuId(),courses);
-				studentDAO.deleteStudent(stuId);
-			
+			studentDAO.updateStudentForSelectCouse(student.getStuId(), courses);
+			studentDAO.deleteStudent(stuId);
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -167,19 +167,17 @@ public class TeacherServiceIpml implements TeacherService {
 
 	}
 
-	/*@Override
-	@Transactional
-	public int listTeacher1() {
-		// TODO Auto-generated method stub
-		return teacherDAO.listTeacher1();
-	}
-
-	@Override
-	@Transactional
-	public List<Teacher> listTeacher(int pageNow) {
-		// TODO Auto-generated method stub
-		return teacherDAO.listTeacher(pageNow);
-	}*/
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public int listTeacher1() { // TODO Auto-generated method
+	 * stub return teacherDAO.listTeacher1(); }
+	 * 
+	 * @Override
+	 * 
+	 * @Transactional public List<Teacher> listTeacher(int pageNow) { // TODO
+	 * Auto-generated method stub return teacherDAO.listTeacher(pageNow); }
+	 */
 
 	@Override
 	@Transactional
@@ -190,8 +188,7 @@ public class TeacherServiceIpml implements TeacherService {
 
 	@Override
 	@Transactional
-	public String addStudents(MultipartFile file, String savePath,
-			Teacher teacher,String courseId) {
+	public String addStudents(MultipartFile file, String savePath, Teacher teacher, String courseId) {
 		// TODO Auto-generated method stub
 		try {
 			UploadDownloadFile uploadFile = new UploadDownloadFile();
@@ -202,62 +199,61 @@ public class TeacherServiceIpml implements TeacherService {
 				return "NoFile";
 			} else if (message.equals("error")) {
 				return "upError";
-			}else{
-				 List<Student> list =null;
-				 int count=0;
+			} else {
+				List<Student> list = null;
+				int count = 0;
 				String path = savePath + "\\" + message;
-				if (message.substring(message.indexOf(".") + 1).equals("xlsx")
-						|| message.substring(message.indexOf(".") + 1).equals(
-								"xls")) {
+				if (message.substring(message.lastIndexOf(".") + 1).equals("xlsx")
+						|| message.substring(message.lastIndexOf(".") + 1).equals("xls")) {
 					ExcelBean excellBea = new ExcelBean();
-					list =excellBea.getStudentNumAndGrade(path);
-					 Set<Teacher> teachers = new HashSet<Teacher>();
-						teachers.add(teacher);
-						if(list.size()>0){
-							Course course = courseDAO.selectCourseById(Integer.parseInt(courseId));
-							Set<Course> courses = new HashSet<Course>();
-							courses.add(course);
-							for(int i = 0;i<list.size();i++){
-							 Student stu = list.get(i);
-							 stu.setCourse(courses);
-							/* stu.setTeachers(teachers);*/
-							boolean d= studentDAO.addStudent(stu);
-							if(d){
+					list = excellBea.getStudentNumAndGrade(path);
+					Set<Teacher> teachers = new HashSet<Teacher>();
+					teachers.add(teacher);
+					if (list.size() > 0) {
+						Course course = courseDAO.selectCourseById(Integer.parseInt(courseId));
+						Set<Course> courses = new HashSet<Course>();
+						courses.add(course);
+						for (int i = 0; i < list.size(); i++) {
+							Student stu = list.get(i);
+							System.out.println(stu.getStuName());
+							stu.setCourse(courses);
+							/* stu.setTeachers(teachers); */
+							boolean d = studentDAO.addStudent(stu);
+							if (d) {
 								count++;
-							}else{
+							} else {
 								Student s = studentDAO.getStudentByNum(stu.getStuNum()).get(0);
 								s.getCourse().add(course);
 							}
-						 }
-					 }else{
-						 return "文件中可能不存在【学号】【姓名】【成绩】字段";
-					 }
-				}else{
+						}
+					} else {
+						return "文件中可能不存在【学号】【姓名】【成绩】字段";
+					}
+				} else {
 					return "不是Excell文件";
 				}
-			//删除文件
-			 DeleteFile deleteFile = new DeleteFile();
-			 deleteFile.deleteFile(path); 
-			 if(count==0){
-				 return "该信息已存在";
-			 }
-			 return "成功添加"+count+"条数据";
+				// 删除文件
+				DeleteFile deleteFile = new DeleteFile();
+				deleteFile.deleteFile(path);
+				if (count == 0) {
+					return "该信息已存在";
+				}
+				return "成功添加" + count + "条数据";
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "Error";
 		}
-		//return null;
+		// return null;
 	}
 
 	@Override
-	public String downloadStudentExcel(HttpServletResponse response,
-			String path, String fileName) {
+	public String downloadStudentExcel(HttpServletResponse response, String path, String fileName) {
 		// TODO Auto-generated method stub
 		UploadDownloadFile uploadFile = new UploadDownloadFile();
 		try {
-			String re =  uploadFile.download(response,path, fileName);
-			System.out.println("下载StudentExcelTem："+re);
+			String re = uploadFile.download(response, path, fileName);
+			System.out.println("下载StudentExcelTem：" + re);
 			return re;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

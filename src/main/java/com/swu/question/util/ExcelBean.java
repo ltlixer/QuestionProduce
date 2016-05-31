@@ -205,7 +205,7 @@ public class ExcelBean {
 					col = (char) (col + colum);
 					String cellName = col + "" + row;
 					Variant variant = excellBean.getValue(cellName, sheet);
-					String value = variant.toString();
+					String value = variant.toString().trim();
 					if (value.equals("学号")) {
 						stuidcolum = col;
 						stuidrow = row;

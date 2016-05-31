@@ -174,7 +174,6 @@ ul.nav.navbar-nav {
 	-moz-background-size:cover;
 	-o-background-size:cover;
 	-ms-background-size:cover;
-	min-height:680px;
 }
 .banner-top h1{
 	color:#fff;
@@ -2097,3 +2096,20 @@ h1.b1,h2.b2,h3.b3,h4.b4,h5.b5,h6.b6 {
 }
 }
 /*---- responsive-design -----*/
+
+ul.nav.navbar-nav {
+	height:119px;
+}
+.navbar-default .navbar-nav > li > a{
+	height:119px;
+}
+.navbar-header{
+	height:119px;
+}
+.bnr-btn{
+	margin-top:400px;
+}
+
+.banner-top{
+	margin-top:0;
+}

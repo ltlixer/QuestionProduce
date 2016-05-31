@@ -63,7 +63,7 @@ html[xmlns] .slides {display: block;}
 	position: absolute;
 	left: 0%;
 	margin-left: 5%;
-	top: 70%;
+	top: 500px;
 }
 .flex-control-nav li {margin: 0 6px; display: inline-block; zoom: 1; *display: inline;}
 .flex-control-paging li a {

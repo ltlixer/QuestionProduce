@@ -21,13 +21,15 @@ function showChart(){
  * 显示问题列表
  */
 function showQuestionTable(assId){
+	var questionTable = document.getElementById("questionTable");
+	questionTable.innerHTML="";
 	var url = "/question/question/getQuestionsByAssId/"+assId;
 	$.ajax({
          type: "get",
          dataType: "json",
          url: url,
          success: function (msg) {
-        	var str = "<table><tr>";
+        	var str = "<table class='table table-hover' style='width:95%;margin:0 auto;'><tr>";
     		str += "<th>题号</th>";
     		str += "<th>题干</th>";
     		str += "<th>参考答案</th><tr>";
@@ -36,7 +38,6 @@ function showQuestionTable(assId){
         			+"</td><td>"+msg[i].answer+"</td></tr>";
         	}
         	str += "</table>";
-        	var questionTable = document.getElementById("questionTable");
         	questionTable.innerHTML=str;
          }
      });
@@ -84,8 +85,8 @@ function paintPie(assId){
  			        }
  			    }
  			};
-     		var ctx = document.getElementById("canvas1").getContext("2d");
-     	    window.myLine = new Chart(ctx, config);
+     		var ctx1 = document.getElementById("canvas1").getContext("2d");
+     	    window.myLine1 = new Chart(ctx1, config);
          }
      });
 }
@@ -112,7 +113,9 @@ function paintBar(assId){
  			        labels: questionId,
  			        datasets: [{
  			        	label:"正确率(%)",
+ 			        	backgroundColor: "rgba(91, 129, 205, 0.75)",
  		                data: rate,
+ 		                lineTension: 0,
  		                fill: false
  		            }]
  			    },
@@ -120,12 +123,12 @@ function paintBar(assId){
  			        responsive: true,
  			        title:{
  			            display:true,
- 			            text:'作业每个问题正确率'
+ 			            text:'问题正确率分布图'
  			        }
  			    }
  			};
-     		var ctx = document.getElementById("canvas2").getContext("2d");
-     	    window.myLine = new Chart(ctx, config);
+     		var ctx2 = document.getElementById("canvas2").getContext("2d");
+     		window.myLine2 = new Chart(ctx2, config);
          }
      });
 }
@@ -144,15 +147,17 @@ function paintLine(assId){
          success: function (msg) {
         	 for (i in msg) {
         		 stu[i] = msg[i].user;
-        		 time[i] = msg[i].useTime;
+        		 time[i] = msg[i].useTime/1000;
         	 }
         	 var config = {
- 			    type: 'line',
+ 			    type: 'bar',
  			    data: {
  			        labels: stu,
  			        datasets: [{
- 			        	label:"用时",
+ 			        	label:"用时(秒)",
+ 			        	backgroundColor: "rgba(120, 217, 51 ,0.5)",
  		                data: time,
+ 		                lineTension: 0,
  		                fill: false
  		            }]
  			    },
@@ -160,12 +165,12 @@ function paintLine(assId){
  			        responsive: true,
  			        title:{
  			            display:true,
- 			            text:'学生完成作业时间图'
+ 			            text:'作业时间图'
  			        }
  			    }
  			};
-     		var ctx = document.getElementById("canvas3").getContext("2d");
-     	    window.myLine = new Chart(ctx, config);
+     		var ctx3 = document.getElementById("canvas3").getContext("2d");
+     	    window.myLine3 = new Chart(ctx3, config);
          }
      });
 }

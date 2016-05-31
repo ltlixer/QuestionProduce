@@ -15,7 +15,7 @@ body{
 .d_container{
     width: 100%;
     height: 100%;
-    background:url("../images/bg.jpg") no-repeat;
+    /* background:url("../images/bg.jpg") no-repeat; */
 }
 .d_header{
     text-align: center;
@@ -24,7 +24,10 @@ body{
     color: #ffffff;
     padding-top: 40px;
 }
-
+.d_footer{
+	text-align: center;
+	color: #ffffff;
+}
 .d_content{
     width: 25%;
     margin:30px auto;
@@ -130,4 +133,13 @@ select:focus{
 }
 .true{
     border-bottom: 1px solid seagreen;
+}
+.d_container{
+	height:570px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }

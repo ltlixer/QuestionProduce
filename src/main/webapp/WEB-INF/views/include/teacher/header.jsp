@@ -20,7 +20,7 @@
 <div class="header navbar-fixed-top">
 	<div class="col-lg-2 col-md-2 col-sm-2 nav_class"
 		style="border-right: 1px solid lightgrey">
-		<img src="<c:url value='/resources/images/logonew.png'/>" style="width: 200px; height: 60px">
+		<a href="/question/main"><img src="<c:url value='/resources/images/logonew.png'/>" style="width: 200px; height: 60px"></a>
 	</div>
 	<div class="col-lg-4   col-md-4  col-sm-4 nav_class">
 		<span class="glyphicon glyphicon-th-large span_user"

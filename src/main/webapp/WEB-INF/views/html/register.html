@@ -10,23 +10,24 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body >
+<img style="position:fixed;z-index:-1;" src="images/bg.jpg" height="100%" width="100%" /> 
 <div class="d_container">
     <div class="d_header">
-        <img src="images/logo1.png" style="width:100px;height: auto">
-        <span>中文智能作业管理系统</span>
+        <a href="/question"><img src="images/logo1.png" style="width:100px;height: auto"></a>
+        <span>中文智慧作业管理系统</span>
     </div>
     <div class="d_content" >
         <div class="con_header">
             <p>注册</p>
         </div>
-        <form class="con_form" ng-controller="test">
+        <form action="/question/register" class="con_form" ng-controller="test" method="post">
             <div class="form-group " id="nameid">
-                    <input type="text"  class="form-control"  id="username" >
+                    <input type="text"  class="form-control"  id="username" name="username">
                     <label for="username" class="form_label" id="labelname" >用户名</label>
                     <div style="display: none;width: auto;color: #cc0001;text-align: center;" id="show_name">用户名不能超过20字符！</div>
             </div>
             <div class="form-group" id="pwdid">
-                <input type="password" class="form-control"  id="userpwd" >
+                <input type="password" class="form-control" id="userpwd"  name="password" >
                 <label for="userpwd" class="form_label" id="labelpwd">密码</label>
                 <div style="display: none;width: auto;color: #cc0001;text-align: center;" id="show_pwd">密码不能小于6个字符！</div>
             </div>
@@ -36,22 +37,24 @@
                 <div style="display: none;width: auto;color: #cc0001;text-align: center;" id="show_same">两次密码输入不同！</div>
             </div>
             <div class="form-group" id="truenameid">
-                <input type="name" class="form-control"  id="usertruename" >
+                <input type="name" class="form-control"  id="usertruename" name="name">
                 <label for="usertruename" class="form_label" id="labeltruename">真实姓名</label>
                 <div style="display: none;width: auto;color: #cc0001;text-align: center;" id="show_true">请输入真实姓名！</div>
             </div>
             <div class="form-group" id="eamilid">
-                <input type="email" class="form-control"  id="useremail" >
+                <input type="email" class="form-control"  id="useremail" name="email">
                 <label for="useremail" class="form_label" id="labelemail">电子邮件</label>
                 <div style="display: none;width: auto;color: #cc0001;text-align: center;" id="show_email">请输入正确格式的邮箱！</div>
             </div>
             <div class="form-group">
                 <a class="btn btn-default col-lg-4 col-lg-offset-1" href="login.html">返回登录</a>
-                <a class="btn btn-default col-lg-4 col-lg-offset-3" href="#" id="register">注册</a>
+                <input type="submit" class="btn btn-default col-lg-3 col-lg-offset-1" value="注册" />
             </div>
         </form>
     </div>
-    <div class="d_footer"></div>
+    <div class="d_footer">
+        <p>西南大学 计算机与信息科学学院 教育技术系 &copy;2015 - 2018</p>
+    </div>
 </div>
 
 

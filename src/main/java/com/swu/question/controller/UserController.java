@@ -85,4 +85,32 @@ public class UserController {
 		return "redirect:/html/login.html";
 	}
 	
+	/**
+	 * 教师注册功能
+	 * @param teacher
+	 * @param model
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping("/register")
+	public String teaRegister(ModelMap model,HttpSession session,HttpServletRequest request) {
+		logger.info("Teacher register.");
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		Teacher teacher = new Teacher();
+		teacher.setTeaNum(userName);
+		teacher.setTeaPassword(password);
+		teacher.setTeaName(name);
+		teacher.setTeaEmail(email);
+		teacher.setTeaMajor("语文");
+		boolean t = teacherService.addTeacher(teacher);
+		if (t == true) {
+			return "redirect:/login";
+		} else {
+			return "redirect:/html/register.html";
+		}
+	}
+	
 }

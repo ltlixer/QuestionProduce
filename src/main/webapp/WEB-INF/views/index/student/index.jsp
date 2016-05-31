@@ -19,7 +19,7 @@
                 <span class="span1" style="color: #ffffff;font-size: 15px;margin-top: 10px;margin-left: 10px;"></span>
                 <span class="span2" style="color: #ffffff;font-size: 15px;margin-top: 10px;"></span>
             </div>
-            <iframe name="mainFrame" target="_self"  frameborder="0" height="100%" width="100%" style="padding-top:50px;padding-bottom:60px;" src="<c:url value="/resources/html/right.html" />"></iframe>
+            <iframe name="mainFrame" target="_self"  frameborder="0" height="100%" width="100%" style="padding-top:50px;padding-bottom:60px;" src="<c:url value="/resources/html/right-student.html" />"></iframe>
             
         </div>
     </div>

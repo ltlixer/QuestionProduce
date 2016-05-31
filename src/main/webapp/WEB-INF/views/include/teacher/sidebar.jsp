@@ -27,6 +27,7 @@
         <ul class="second_nav second_nav2">
             <li><a href="/question/text/linkAddText" target="mainFrame">上传课文</a></li>
 			<li><a href="/question/text/queryText/1" target="mainFrame">布置作业</a></li>
+			<li><a href="http://222.198.126.241/pad/teacher/index.html" target="mainFrame">协同写作</a></li>
             <li><a href="/question/assignment/queryAssignment/1" target="mainFrame">管理作业</a></li>
         </ul>
         <li class="first_li first_li3">

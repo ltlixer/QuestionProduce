@@ -20,65 +20,37 @@
 			function() {
 				$("#first").click(
 						function() {
-							var sumPage = $
-							{
-								sumCount
-							}
-							;
+							var sumPage = ${sumCount};
 							this.href = this.href
 									+ "/assignment/queryAssignment/1?sumPage="
 									+ sumPage
 						});
 				$("#end").click(
 						function() {
-							var sumPage = $
-							{
-								sumCount
-							}
-							;
+							var sumPage = ${sumCount};
 							this.href = this.href
 									+ "/assignment/queryAssignment/" + sumPage
 									+ "?sumPage=" + sumPage
 						});
 				$("#forwrad").click(
 						function() {
-							var sumPage = $
-							{
-								sumCount
-							}
-							;
-							var pageNow = $
-							{
-								pageNow
-							}
-							-1;
+							var sumPage = ${sumCount};
+							var pageNow = ${pageNow}-1;
 							this.href = this.href
 									+ "/assignment/queryAssignment/" + pageNow
 									+ "?sumPage=" + sumPage
 						});
 				$("#next").click(
 						function() {
-							var sumPage = $
-							{
-								sumCount
-							}
-							;
-							var pageNow = $
-							{
-								pageNow
-							}
-							+1;
+							var sumPage = ${sumCount};
+							var pageNow = ${pageNow}+1;
 							this.href = this.href
 									+ "/assignment/queryAssignment/" + pageNow
 									+ "?sumPage=" + sumPage
 						});
 				$("#changePage").change(
 						function() {
-							var sumPage = $
-							{
-								sumCount
-							}
-							;
+							var sumPage = ${sumCount};
 							var pageNow = this.value;
 							var link = $("#link");
 							link[0].href = link[0].href

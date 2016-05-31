@@ -91,13 +91,13 @@
 			<div id="questionTable"></div>
 			<ul id="myTab" class="nav nav-tabs" style="display:none;" role="tablist">
 				<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">学生成绩分布图</a></li>
-				<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">作业每个问题正确率</a></li>
-				<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">学生完成作业时间图</a></li>
+				<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">问题正确率分布图</a></li>
+				<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">作业时间图</a></li>
 			</ul>
 			<div id="myTabContent" style="display:none;" class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="home"><canvas id="canvas1"></canvas></div>
-				<div role="tabpanel" class="tab-pane" id="profile"><canvas id="canvas2"></canvas></div>
-				<div role="tabpanel" class="tab-pane" id="messages"><canvas id="canvas3"></canvas></div>
+				<div role="tabpanel" class="tab-pane active" id="home" style="width:700px;margin:0 auto;"><canvas id="canvas1"></canvas><div style="height:80px;"> </div></div>
+				<div role="tabpanel" class="tab-pane" id="profile" style="width:700px;margin:0 auto;"><canvas id="canvas2"></canvas><div style="height:80px;"> </div></div>
+				<div role="tabpanel" class="tab-pane" id="messages" style="width:700px;margin:0 auto;"><canvas id="canvas3"></canvas><div style="height:80px;"> </div></div>
 			</div>
 			
 		</div>
