@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +23,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.swu.question.dto.StudentAnswerAnalysis;
+import com.swu.question.entity.Answer;
 import com.swu.question.entity.Course;
 import com.swu.question.entity.EvaluateResult;
 import com.swu.question.entity.Log;
+import com.swu.question.entity.Question;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Teacher;
 import com.swu.question.entity.Text;
+import com.swu.question.service.AnswerService;
+import com.swu.question.service.AssignmentService;
 import com.swu.question.service.CourseService;
 import com.swu.question.service.EvaluateService;
+import com.swu.question.service.QuestionService;
+import com.swu.question.service.ScoreAssignmentService;
 import com.swu.question.service.StudentService;
 import com.swu.question.service.TextService;
 import com.swu.question.util.DivideHibernateUtil;
@@ -47,6 +55,14 @@ public class EvaluateController {
 	private StudentService studentService;
 	@Autowired
 	private CourseService courseService;
+	@Autowired
+	private QuestionService questionService;
+	@Autowired
+	private ScoreAssignmentService scoreAssignmentService;
+	@Autowired
+	private AnswerService answerService;
+	@Autowired
+	private AssignmentService assignmentService;
 
 	// 学生端
 	@RequestMapping("/stuLinklistText")
@@ -382,6 +398,64 @@ public class EvaluateController {
 		List<Course> courses = courseService.listCourseByTeaId(teacher
 				.getTeaId());
 		model.addAttribute("courses", courses);
+		model.addAttribute("first", "secend");
+		return "/evaluate/downloadLogStu";
+	}
+	/**
+	 * 下载所有学生某次作业的答题记录
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/downloadStuAnswer/{assId}")
+	public String downloadStuAnswer(@PathVariable("assId")int assId,ModelMap model, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
+		String[] courseIds = request.getParameterValues("courseIds");
+		String fileName = "学生答题记录.xlsx";
+		String path = request.getSession().getServletContext()
+				.getRealPath("/resources/evaluate/");
+		evaluateService.downloadStuAnswer(assId, response, path, fileName);
+		return null;
+	}
+	/**
+	 * 查看所有学生某次作业的答题记录
+	 * @return
+	 */
+	@RequestMapping("/viewStuAnswer/{assId}")
+	public String viewStuAnswer(@PathVariable("assId")int assId,ModelMap model, HttpServletRequest request,
+			 HttpSession session){
+		List<StudentAnswerAnalysis> studentAnswerAnalysisList = new ArrayList<StudentAnswerAnalysis>();
+		List<Question> questionList = questionService.queryQuestionsByassId(assId);
+		Set<Student> studentList = assignmentService.getAssignment(assId).getText().getCourse().getStudents();
+		for(Question question:questionList){
+			for(Student student:studentList){
+				StudentAnswerAnalysis studentAnswerAnalysis = new StudentAnswerAnalysis();
+				studentAnswerAnalysis.setQuestionId(question.getqId());
+				studentAnswerAnalysis.setQuestionName(question.getQuestion());
+				studentAnswerAnalysis.setSystemAnswer(question.getAnswer());
+				studentAnswerAnalysis.setQuestionType(question.getQuestionType());
+				studentAnswerAnalysis.setStudentName(student.getStuName());
+				studentAnswerAnalysis.setStudentGrade(student.getGrade()+"");
+				List<Answer> answers = answerService.queryAnswers(question.getqId(), student.getStuId());
+				if(answers!=null&&answers.size()>0){
+					studentAnswerAnalysis.setStudentAnswer(answers.get(0).getAnswer());
+					studentAnswerAnalysis.settORf(answers.get(0).gettOrF());
+				}else{
+					studentAnswerAnalysis.setStudentAnswer("null");
+					studentAnswerAnalysis.settORf("null");
+				}
+				studentAnswerAnalysisList.add(studentAnswerAnalysis);
+			}
+		}
+		model.addAttribute("studentAnswerAnalysisList",studentAnswerAnalysisList);
+		model.addAttribute("assId", assId);
+		Teacher teacher = (Teacher) session.getAttribute("tea");
+		List<Course> courses = courseService.listCourseByTeaId(teacher
+				.getTeaId());
+		model.addAttribute("courses", courses);
+		model.addAttribute("first", "thrid");
 		return "/evaluate/downloadLogStu";
 	}
 	/**

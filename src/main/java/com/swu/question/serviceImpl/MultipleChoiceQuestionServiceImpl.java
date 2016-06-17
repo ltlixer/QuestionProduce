@@ -3,6 +3,7 @@ package com.swu.question.serviceImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -24,6 +25,7 @@ import com.swu.question.service.TextService;
 import com.swu.question.util.Clauses;
 import com.swu.question.util.Distance;
 import com.swu.question.util.WordExcel;
+import com.swu.question.util.yysimilarity.WordSimilarity;
 
 @Service
 @Transactional 
@@ -207,7 +209,7 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 				// bs-->jg比较完成 下面进行py比较
 				if(jg.size()==0){
 					for(int i=0;i<bs.size();i++){
-						if(i<=4){
+						if(i<4){
 							Word word1 =(Word) bs.get(i);
 							temp.add(word1);
 						}
@@ -284,7 +286,7 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 					System.out.println("py_distance.size--->" + py_distance.size());
 				}
 				
-				//如果产生候选项个数小于5时，差的候选项随机产生
+				//如果产生候选项个数小于4时，差的候选项随机产生
 				Random random = new Random();
 				if(temp.size()<4){
 					for(int indexnum=temp.size();indexnum<4;indexnum++){
@@ -305,6 +307,796 @@ public class MultipleChoiceQuestionServiceImpl implements MultipleChoiceQuestion
 				}
 			}
 			Set<Distracter> distracters = new HashSet<Distracter>();
+			for(Word w:temp){
+				Distracter distracter = new Distracter();
+				distracter.setDistracter(w.getWord());
+				distracters.add(distracter);
+			}
+			question.setDistracter(distracters);
+		}
+		return questionList;
+	}
+
+	@Override
+	public List<Question> generateChoiceQuestion1(int textId) {
+		//从文章中获取问题列表
+		List<Question> questionList = getQuestionSentence(textId);
+		List<DistanceAndWord> py_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> py_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_rank = new ArrayList<DistanceAndWord>();
+		
+		List<Word> wordList = wordDao.getWordList();
+		
+		for (Question question : questionList) {
+			List<Word> temp = new ArrayList<Word>();
+			List<Word> bs = new ArrayList<Word>();
+			List<Word> jg = new ArrayList<Word>();
+			List<Word> py = new ArrayList<Word>();
+			List<Word> bh = new ArrayList<Word>();
+			List<Word> yy = new ArrayList<Word>();
+			if (!bs.isEmpty()) {
+				bs.clear();
+			}
+			if (!jg.isEmpty()) {
+				jg.clear();
+			}
+			if (!py.isEmpty()) {
+				py.clear();
+			}
+			if (!bh.isEmpty()) {
+				bh.clear();
+			}
+			if (!yy.isEmpty()) {
+				yy.clear();
+			}
+			if (!py_distance.isEmpty()) {
+				py_distance.clear();
+			}
+			if (!bh_distance.isEmpty()) {
+				bh_distance.clear();
+			}
+			if (!yy_distance.isEmpty()) {
+				yy_distance.clear();
+			}
+			if (!bh_rank.isEmpty()) {
+				bh_rank.clear();
+			}
+			if (!py_rank.isEmpty()) {
+				py_rank.clear();
+			}
+			if (!yy_rank.isEmpty()) {
+				yy_rank.clear();
+			}
+
+			String newWord = question.getAnswer();
+			Word word =null;
+			try {
+				word = wordDao.getWord(newWord.trim());
+			} catch (Exception e1) {
+				System.out.println("---->字库中没有\""+newWord+"\"这个字！");
+			}
+			
+			if(word!=null){ 
+				String word_bh = word.getBh();
+				String word_py = word.getPy();
+				String word_bs = word.getBs();
+				String word_jg = word.getJg();
+				for (Word w : wordList) {
+					if (w.getBs().equals(word_bs) && !(w.getWord().equals(newWord))) {
+						if(w.getHsk().equals(word.getHsk()))
+							bs.add(w);
+						System.out.println("bs:" + bs.size() + "--->" + newWord
+								+ "-->" + w.getWord());
+					}
+				}
+				if (bs.size() == 0) {
+					for (Word w : wordList) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("---部首大小为零---");
+						}
+					}
+				} else if (bs.size() >= 1 && bs.size() <= 4) {
+					for(Word w : bs)
+						jg.add(w);
+					System.out.println("1<=bs.size<=4");
+				} else if (bs.size() > 4) {
+					for (Word w : bs) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("jg.sixe-->" + jg.size()
+									+ "  newWord--->" + newWord + " word-->"
+									+ w.getWord());
+						}
+					}
+					System.out.println("jg大小:" + jg.size());
+				}
+				
+				// bs-->jg比较完成 下面进行py比较
+				if(jg.size()==0){
+					for(int i=0;i<bs.size();i++){
+						if(i<4){
+							Word word1 =(Word) bs.get(i);
+							temp.add(word1);
+						}
+					}
+				}else if (jg.size() >= 1 && jg.size() <= 4) {
+					for(Word w : jg)
+						temp.add(w);
+				} else if (jg.size() > 4) {
+					for (Word w : jg) {
+	
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = Distance.getEditDistance(w.getPy(),
+									word_py);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							py_distance.add(distanceAndWord);
+						}
+					}
+				}
+
+				//py结束 下面比较bh
+				if (py_distance.size() >= 1 && py_distance.size() <= 4) {
+					for (DistanceAndWord daw : py_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (py_distance.size() > 4) {
+					
+					//  1.排序 2.取前16个
+					 
+					Collections.sort(py_distance);
+					py_rank = py_distance;
+	
+					for (int i = 0; i < py_rank.size(); i++) {
+						if (i <= 16) {
+							DistanceAndWord daw = py_rank.get(i);
+							py.add(daw.getWord());
+						} else {
+							break;
+						}
+	
+					}
+					for (Word w : py) {
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = Distance.getEditDistance(w.getBh(),
+									word_bh);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							bh_distance.add(distanceAndWord);
+						}
+					}
+				}
+				
+				if (bh_distance.size() >= 1 && bh_distance.size() <= 4) {
+					for (DistanceAndWord daw : bh_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (bh_distance.size() > 4) {
+					
+					//  1.排序 2.取前8个
+					 
+					Collections.sort(bh_distance);
+					bh_rank = bh_distance;
+	
+					for (int i = 0; i < bh_rank.size(); i++) {
+						if (i <= 8) {
+							DistanceAndWord daw = bh_rank.get(i);
+							bh.add(daw.getWord());
+						} else {
+							break;
+						}
+	
+					}
+					for (Word w : bh) {
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = (int) new WordSimilarity().simWord(w.getWord(), newWord);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							yy_distance.add(distanceAndWord);
+						}
+					}
+				}
+				
+				if (yy_distance.size() >= 1 && yy_distance.size() <= 4) {
+					for (DistanceAndWord daw : yy_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (yy_distance.size() > 4) {
+					
+					// 排序取前四个
+					
+					Collections.sort(yy_distance);
+					yy_rank = yy_distance;
+					for(DistanceAndWord testpy:py_rank)
+						System.out.println("1-yy--->" + newWord + "-->"
+							+ testpy.getWord().getWord()+"->"+testpy.getDistance());
+					for (int i = yy_rank.size()-1; i >=0 ; i--) {
+						if (i < 4) {
+							DistanceAndWord daw = yy_rank.get(i);
+							temp.add(daw.getWord());
+						} else {
+							continue;
+						}
+					}
+					System.out.println("tmpe.size--->" + temp.size());
+					System.out.println("yy_distance.size--->" + py_distance.size());
+				}
+				
+				//如果产生候选项个数小于4时，差的候选项随机产生
+				Random random = new Random();
+				if(temp.size()<4){
+					for(int indexnum=temp.size();indexnum<4;indexnum++){
+						boolean myflags = true;
+						while(myflags){
+							Word randomWord = wordList.get(Math.abs(random.nextInt())%(wordList.size()));
+							boolean myflags1 = true;
+							for(Word w : temp){
+								if(w.getWord().equals(randomWord.getWord()))
+									myflags1 = false;
+							}
+							if(myflags1){
+								temp.add(randomWord);
+								myflags = false;
+							}
+						}
+					}
+				}
+			}
+			Set<Distracter> distracters = new LinkedHashSet<Distracter>();
+			for(Word w:temp){
+				Distracter distracter = new Distracter();
+				distracter.setDistracter(w.getWord());
+				distracters.add(distracter);
+			}
+			question.setDistracter(distracters);
+		}
+		return questionList;
+	}
+	
+	@Override
+	public List<Question> generateChoiceQuestion2(int textId) {
+		//从文章中获取问题列表
+		List<Question> questionList = getQuestionSentence(textId);
+		List<DistanceAndWord> py_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> py_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_rank = new ArrayList<DistanceAndWord>();
+		
+		List<Word> wordList = wordDao.getWordList();
+		
+		for (Question question : questionList) {
+			List<Word> temp = new ArrayList<Word>();
+			List<Word> bs = new ArrayList<Word>();
+			List<Word> jg = new ArrayList<Word>();
+			List<Word> py = new ArrayList<Word>();
+			List<Word> bh = new ArrayList<Word>();
+			List<Word> yy = new ArrayList<Word>();
+			if (!bs.isEmpty()) {
+				bs.clear();
+			}
+			if (!jg.isEmpty()) {
+				jg.clear();
+			}
+			if (!py.isEmpty()) {
+				py.clear();
+			}
+			if (!bh.isEmpty()) {
+				bh.clear();
+			}
+			if (!yy.isEmpty()) {
+				yy.clear();
+			}
+			if (!py_distance.isEmpty()) {
+				py_distance.clear();
+			}
+			if (!bh_distance.isEmpty()) {
+				bh_distance.clear();
+			}
+			if (!yy_distance.isEmpty()) {
+				yy_distance.clear();
+			}
+			if (!bh_rank.isEmpty()) {
+				bh_rank.clear();
+			}
+			if (!py_rank.isEmpty()) {
+				py_rank.clear();
+			}
+			if (!yy_rank.isEmpty()) {
+				yy_rank.clear();
+			}
+
+			String newWord = question.getAnswer();
+			Word word =null;
+			try {
+				word = wordDao.getWord(newWord.trim());
+			} catch (Exception e1) {
+				System.out.println("---->字库中没有\""+newWord+"\"这个字！");
+			}
+			
+			if(word!=null){ 
+				String word_bh = word.getBh();
+				String word_py = word.getPy();
+				String word_bs = word.getBs();
+				String word_jg = word.getJg();
+				for (Word w : wordList) {
+					if (w.getBs().equals(word_bs) && !(w.getWord().equals(newWord))) {
+						if(w.getHsk().equals(word.getHsk()))
+							bs.add(w);
+						System.out.println("bs:" + bs.size() + "--->" + newWord
+								+ "-->" + w.getWord());
+					}
+				}
+				if (bs.size() == 0) {
+					for (Word w : wordList) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("---部首大小为零---");
+						}
+					}
+				} else if (bs.size() >= 1 && bs.size() <= 4) {
+					for(Word w : bs)
+						jg.add(w);
+					System.out.println("1<=bs.size<=4");
+				} else if (bs.size() > 4) {
+					for (Word w : bs) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("jg.sixe-->" + jg.size()
+									+ "  newWord--->" + newWord + " word-->"
+									+ w.getWord());
+						}
+					}
+					System.out.println("jg大小:" + jg.size());
+				}
+				
+				// bs-->jg比较完成 下面进行py比较
+				if(jg.size()==0){
+					for(int i=0;i<bs.size();i++){
+						if(i<4){
+							Word word1 =(Word) bs.get(i);
+							temp.add(word1);
+						}
+					}
+				}else if (jg.size() >= 1 && jg.size() <= 4) {
+					for(Word w : jg)
+						temp.add(w);
+				} else if (jg.size() > 4) {
+					for (Word w : jg) {
+	
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = Distance.getEditDistance(w.getPy(),
+									word_py);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							py_distance.add(distanceAndWord);
+						}
+					}
+				}
+
+				//py
+				if (py_distance.size() >= 1 && py_distance.size() <= 4) {
+					for (DistanceAndWord daw : py_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (py_distance.size() > 4) {
+					
+					//  1.排序 2.取前4个
+					 
+					Collections.sort(py_distance);
+					py_rank = py_distance;
+					for(DistanceAndWord testpy:py_rank)
+						System.out.println("py--->" + newWord + "-->"
+								+ testpy.getWord().getWord()+"->"+testpy.getDistance());
+					for (int i = 0; i < py_rank.size(); i++) {
+						if (i < 4) {
+							DistanceAndWord daw = py_rank.get(i);
+							temp.add(daw.getWord());
+						} else {
+							break;
+						}
+	
+					}
+				}
+				
+				
+				//如果产生候选项个数小于4时，差的候选项随机产生
+				Random random = new Random();
+				if(temp.size()<4){
+					for(int indexnum=temp.size();indexnum<4;indexnum++){
+						boolean myflags = true;
+						while(myflags){
+							Word randomWord = wordList.get(Math.abs(random.nextInt())%(wordList.size()));
+							boolean myflags1 = true;
+							for(Word w : temp){
+								if(w.getWord().equals(randomWord.getWord()))
+									myflags1 = false;
+							}
+							if(myflags1){
+								temp.add(randomWord);
+								myflags = false;
+							}
+						}
+					}
+				}
+			}
+			Set<Distracter> distracters = new LinkedHashSet<Distracter>();
+			for(Word w:temp){
+				Distracter distracter = new Distracter();
+				distracter.setDistracter(w.getWord());
+				distracters.add(distracter);
+			}
+			question.setDistracter(distracters);
+		}
+		return questionList;
+	}
+	
+	@Override
+	public List<Question> generateChoiceQuestion3(int textId) {
+		//从文章中获取问题列表
+		List<Question> questionList = getQuestionSentence(textId);
+		List<DistanceAndWord> py_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> py_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_rank = new ArrayList<DistanceAndWord>();
+		
+		List<Word> wordList = wordDao.getWordList();
+		
+		for (Question question : questionList) {
+			List<Word> temp = new ArrayList<Word>();
+			List<Word> bs = new ArrayList<Word>();
+			List<Word> jg = new ArrayList<Word>();
+			List<Word> py = new ArrayList<Word>();
+			List<Word> bh = new ArrayList<Word>();
+			List<Word> yy = new ArrayList<Word>();
+			if (!bs.isEmpty()) {
+				bs.clear();
+			}
+			if (!jg.isEmpty()) {
+				jg.clear();
+			}
+			if (!py.isEmpty()) {
+				py.clear();
+			}
+			if (!bh.isEmpty()) {
+				bh.clear();
+			}
+			if (!yy.isEmpty()) {
+				yy.clear();
+			}
+			if (!py_distance.isEmpty()) {
+				py_distance.clear();
+			}
+			if (!bh_distance.isEmpty()) {
+				bh_distance.clear();
+			}
+			if (!yy_distance.isEmpty()) {
+				yy_distance.clear();
+			}
+			if (!bh_rank.isEmpty()) {
+				bh_rank.clear();
+			}
+			if (!py_rank.isEmpty()) {
+				py_rank.clear();
+			}
+			if (!yy_rank.isEmpty()) {
+				yy_rank.clear();
+			}
+
+			String newWord = question.getAnswer();
+			Word word =null;
+			try {
+				word = wordDao.getWord(newWord.trim());
+			} catch (Exception e1) {
+				System.out.println("---->字库中没有\""+newWord+"\"这个字！");
+			}
+			
+			if(word!=null){ 
+				String word_bh = word.getBh();
+				String word_py = word.getPy();
+				String word_bs = word.getBs();
+				String word_jg = word.getJg();
+				for (Word w : wordList) {
+					if (w.getBs().equals(word_bs) && !(w.getWord().equals(newWord))) {
+						if(w.getHsk().equals(word.getHsk()))
+							bs.add(w);
+						System.out.println("bs:" + bs.size() + "--->" + newWord
+								+ "-->" + w.getWord());
+					}
+				}
+				if (bs.size() == 0) {
+					for (Word w : wordList) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("---部首大小为零---");
+						}
+					}
+				} else if (bs.size() >= 1 && bs.size() <= 4) {
+					for(Word w : bs)
+						jg.add(w);
+					System.out.println("1<=bs.size<=4");
+				} else if (bs.size() > 4) {
+					for (Word w : bs) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("jg.sixe-->" + jg.size()
+									+ "  newWord--->" + newWord + " word-->"
+									+ w.getWord());
+						}
+					}
+					System.out.println("jg大小:" + jg.size());
+				}
+				
+				// bs-->jg比较完成 下面进行py比较
+				if(jg.size()==0){
+					for(int i=0;i<bs.size();i++){
+						if(i<4){
+							Word word1 =(Word) bs.get(i);
+							temp.add(word1);
+						}
+					}
+				}else if (jg.size() >= 1 && jg.size() <= 4) {
+					for(Word w : jg)
+						temp.add(w);
+				} else if (jg.size() > 4) {
+					for (Word w : jg) {
+	
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = Distance.getEditDistance(w.getBh(),
+									word_bh);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							py_distance.add(distanceAndWord);
+						}
+					}
+				}
+
+				//py
+				if (py_distance.size() >= 1 && py_distance.size() <= 4) {
+					for (DistanceAndWord daw : py_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (py_distance.size() > 4) {
+					
+					//  1.排序 2.取前4个
+					 
+					Collections.sort(py_distance);
+					py_rank = py_distance;
+					for(DistanceAndWord testpy:py_rank)
+						System.out.println("bh--->" + newWord + "-->"
+							+ testpy.getWord().getWord()+"->"+testpy.getDistance());
+					for (int i = 0; i < py_rank.size(); i++) {
+						if (i < 4) {
+							DistanceAndWord daw = py_rank.get(i);
+							temp.add(daw.getWord());
+						} else {
+							break;
+						}
+	
+					}
+				}
+				
+				
+				//如果产生候选项个数小于4时，差的候选项随机产生
+				Random random = new Random();
+				if(temp.size()<4){
+					for(int indexnum=temp.size();indexnum<4;indexnum++){
+						boolean myflags = true;
+						while(myflags){
+							Word randomWord = wordList.get(Math.abs(random.nextInt())%(wordList.size()));
+							boolean myflags1 = true;
+							for(Word w : temp){
+								if(w.getWord().equals(randomWord.getWord()))
+									myflags1 = false;
+							}
+							if(myflags1){
+								temp.add(randomWord);
+								myflags = false;
+							}
+						}
+					}
+				}
+			}
+			Set<Distracter> distracters = new LinkedHashSet<Distracter>();
+			for(Word w:temp){
+				Distracter distracter = new Distracter();
+				distracter.setDistracter(w.getWord());
+				distracters.add(distracter);
+			}
+			question.setDistracter(distracters);
+		}
+		return questionList;
+	}
+	
+	@Override
+	public List<Question> generateChoiceQuestion4(int textId) {
+		//从文章中获取问题列表
+		List<Question> questionList = getQuestionSentence(textId);
+		List<DistanceAndWord> py_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_distance = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> bh_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> py_rank = new ArrayList<DistanceAndWord>();
+		List<DistanceAndWord> yy_rank = new ArrayList<DistanceAndWord>();
+		
+		List<Word> wordList = wordDao.getWordList();
+		
+		for (Question question : questionList) {
+			List<Word> temp = new ArrayList<Word>();
+			List<Word> bs = new ArrayList<Word>();
+			List<Word> jg = new ArrayList<Word>();
+			List<Word> py = new ArrayList<Word>();
+			List<Word> bh = new ArrayList<Word>();
+			List<Word> yy = new ArrayList<Word>();
+			if (!bs.isEmpty()) {
+				bs.clear();
+			}
+			if (!jg.isEmpty()) {
+				jg.clear();
+			}
+			if (!py.isEmpty()) {
+				py.clear();
+			}
+			if (!bh.isEmpty()) {
+				bh.clear();
+			}
+			if (!yy.isEmpty()) {
+				yy.clear();
+			}
+			if (!py_distance.isEmpty()) {
+				py_distance.clear();
+			}
+			if (!bh_distance.isEmpty()) {
+				bh_distance.clear();
+			}
+			if (!yy_distance.isEmpty()) {
+				yy_distance.clear();
+			}
+			if (!bh_rank.isEmpty()) {
+				bh_rank.clear();
+			}
+			if (!py_rank.isEmpty()) {
+				py_rank.clear();
+			}
+			if (!yy_rank.isEmpty()) {
+				yy_rank.clear();
+			}
+
+			String newWord = question.getAnswer();
+			Word word =null;
+			try {
+				word = wordDao.getWord(newWord.trim());
+			} catch (Exception e1) {
+				System.out.println("---->字库中没有\""+newWord+"\"这个字！");
+			}
+			
+			if(word!=null){ 
+				String word_bh = word.getBh();
+				String word_py = word.getPy();
+				String word_bs = word.getBs();
+				String word_jg = word.getJg();
+				for (Word w : wordList) {
+					if (w.getBs().equals(word_bs) && !(w.getWord().equals(newWord))) {
+						if(w.getHsk().equals(word.getHsk()))
+							bs.add(w);
+						System.out.println("bs:" + bs.size() + "--->" + newWord
+								+ "-->" + w.getWord());
+					}
+				}
+				if (bs.size() == 0) {
+					for (Word w : wordList) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("---部首大小为零---");
+						}
+					}
+				} else if (bs.size() >= 1 && bs.size() <= 4) {
+					for(Word w : bs)
+						jg.add(w);
+					System.out.println("1<=bs.size<=4");
+				} else if (bs.size() > 4) {
+					for (Word w : bs) {
+						if (w.getJg().equals(word_jg)
+								&& !(w.getWord().equals(newWord))) {
+							jg.add(w);
+							System.out.println("jg.sixe-->" + jg.size()
+									+ "  newWord--->" + newWord + " word-->"
+									+ w.getWord());
+						}
+					}
+					System.out.println("jg大小:" + jg.size());
+				}
+				
+				// bs-->jg比较完成 下面进行py比较
+				if(jg.size()==0){
+					for(int i=0;i<bs.size();i++){
+						if(i<4){
+							Word word1 =(Word) bs.get(i);
+							temp.add(word1);
+						}
+					}
+				}else if (jg.size() >= 1 && jg.size() <= 4) {
+					for(Word w : jg)
+						temp.add(w);
+				} else if (jg.size() > 4) {
+					for (Word w : jg) {
+	
+						if (!(w.getWord().equals(newWord))) {
+							DistanceAndWord distanceAndWord = new DistanceAndWord();
+							int distance = (int) new WordSimilarity().simWord(w.getWord(), newWord);
+							distanceAndWord.setDistance(distance);
+							distanceAndWord.setWord(w);
+							py_distance.add(distanceAndWord);
+						}
+					}
+				}
+
+				//py
+				if (py_distance.size() >= 1 && py_distance.size() <= 4) {
+					for (DistanceAndWord daw : py_distance) {
+						temp.add(daw.getWord());
+					}
+				} else if (py_distance.size() > 4) {
+					
+					//  1.排序 2.取前4个
+					 
+					Collections.sort(py_distance);
+					py_rank = py_distance;
+					for(DistanceAndWord testpy:py_rank)
+						System.out.println("yy--->" + newWord + "-->"
+							+ testpy.getWord().getWord()+"->"+testpy.getDistance());
+					for (int i = py_rank.size()-1; i >=0; i--) {
+						if (i < 4) {
+							DistanceAndWord daw = py_rank.get(i);
+							temp.add(daw.getWord());
+						} else {
+							continue;
+						}
+	
+					}
+				}
+				
+				
+				//如果产生候选项个数小于4时，差的候选项随机产生
+				Random random = new Random();
+				if(temp.size()<4){
+					for(int indexnum=temp.size();indexnum<4;indexnum++){
+						boolean myflags = true;
+						while(myflags){
+							Word randomWord = wordList.get(Math.abs(random.nextInt())%(wordList.size()));
+							boolean myflags1 = true;
+							for(Word w : temp){
+								if(w.getWord().equals(randomWord.getWord()))
+									myflags1 = false;
+							}
+							if(myflags1){
+								temp.add(randomWord);
+								myflags = false;
+							}
+						}
+					}
+				}
+			}
+			Set<Distracter> distracters = new LinkedHashSet<Distracter>();
 			for(Word w:temp){
 				Distracter distracter = new Distracter();
 				distracter.setDistracter(w.getWord());

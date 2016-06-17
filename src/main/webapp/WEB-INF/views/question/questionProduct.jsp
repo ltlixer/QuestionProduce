@@ -429,9 +429,9 @@
 				</tr>
 			</table>
 			<p align="center">
+				<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 				<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen"
 					style="width: 100px" value="<spring:message code='nextQuestion'/>">
-				<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 				<!-- <input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="上一题"> -->
 			</p>
 			<table border="1" class="editTab" id="deeperShowQuestion">
@@ -448,9 +448,9 @@
 				</tr>
 			</table>
 			<p align="center">
+				<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 				<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen"
 					style="width: 100px" value="<spring:message code='nextQuestion'/>">
-				<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
 			</p>
 			<table border="1" class="editTab" id="originalShowQuestion">
 				<tr>

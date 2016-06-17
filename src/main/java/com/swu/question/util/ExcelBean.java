@@ -9,6 +9,7 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+import com.swu.question.dto.StudentAnswerAnalysis;
 import com.swu.question.entity.Evaluate;
 import com.swu.question.entity.Log;
 import com.swu.question.entity.Student;
@@ -341,7 +342,30 @@ public class ExcelBean {
 		excellBean.closeExcel();
 		return fileName;
 	}
-	
+	public String setStudentAnswerAnalysis(String path,String assName,String filename,List<StudentAnswerAnalysis> list){
+		ExcelBean excellBean = new ExcelBean();
+		excellBean.setVisible(false);//可见
+		excellBean.openExcel(path+"/"+filename,false);//可读写
+		Dispatch sheet = excellBean.getCurrentSheet();
+		int row =2;
+		StudentAnswerAnalysis studentAnswerAnalysis = new StudentAnswerAnalysis();
+		for(int i=0;list!=null&&i<list.size();i++){
+			studentAnswerAnalysis = list.get(i);
+			excellBean.setValue(sheet, "A"+row,studentAnswerAnalysis.getQuestionId()+"");
+			excellBean.setValue(sheet, "B"+row,studentAnswerAnalysis.getQuestionName());
+			excellBean.setValue(sheet, "C"+row,studentAnswerAnalysis.getQuestionType());
+			excellBean.setValue(sheet, "D"+row,studentAnswerAnalysis.getStudentName());
+			excellBean.setValue(sheet, "E"+row,studentAnswerAnalysis.getStudentGrade());
+			excellBean.setValue(sheet, "F"+row,studentAnswerAnalysis.getStudentAnswer());
+			excellBean.setValue(sheet, "G"+row,studentAnswerAnalysis.getSystemAnswer());
+			excellBean.setValue(sheet, "H"+row,studentAnswerAnalysis.gettORf());
+			row++;
+		}
+		String fileName = assName+"-"+filename;
+		excellBean.saveFileAs(path+"/"+fileName);;
+		excellBean.closeExcel();
+		return fileName;
+	}
 	
 
 	

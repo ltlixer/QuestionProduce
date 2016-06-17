@@ -3,6 +3,7 @@ package com.swu.question.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,11 +15,18 @@ import com.swu.question.dao.EvaluateDAO;
 import com.swu.question.dao.LogDAO;
 import com.swu.question.dao.StudentDAO;
 import com.swu.question.dao.TextDAO;
+import com.swu.question.dto.StudentAnswerAnalysis;
+import com.swu.question.entity.Answer;
 import com.swu.question.entity.Evaluate;
 import com.swu.question.entity.Log;
+import com.swu.question.entity.Question;
 import com.swu.question.entity.Student;
 import com.swu.question.entity.Text;
+import com.swu.question.service.AnswerService;
+import com.swu.question.service.AssignmentService;
 import com.swu.question.service.EvaluateService;
+import com.swu.question.service.QuestionService;
+import com.swu.question.service.ScoreAssignmentService;
 import com.swu.question.util.DeleteFile;
 import com.swu.question.util.DivideHibernateUtil;
 import com.swu.question.util.ExcelBean;
@@ -34,7 +42,14 @@ public class EvaluateServiceImpl implements EvaluateService {
 	private TextDAO textDAO;
 	@Autowired
 	private LogDAO logDAO;
-
+	@Autowired
+	private QuestionService questionService;
+	@Autowired
+	private ScoreAssignmentService scoreAssignmentService;
+	@Autowired
+	private AnswerService answerService;
+	@Autowired
+	private AssignmentService assignmentService;
 	@Override
 	@Transactional
 	public boolean addEvaluate(Evaluate evaluate) {
@@ -252,7 +267,50 @@ public class EvaluateServiceImpl implements EvaluateService {
 			return false;
 		}
 
-		
+		@Override
+		@Transactional
+		public boolean downloadStuAnswer(int assId,
+				HttpServletResponse response, String path, String fileName) {
+			// TODO Auto-generated method stub
+			List<StudentAnswerAnalysis> studentAnswerAnalysisList = new ArrayList<StudentAnswerAnalysis>();
+			List<Question> questionList = questionService.queryQuestionsByassId(assId);
+			Set<Student> studentList = assignmentService.getAssignment(assId).getText().getCourse().getStudents();
+			for(Question question:questionList){
+				for(Student student:studentList){
+					StudentAnswerAnalysis studentAnswerAnalysis = new StudentAnswerAnalysis();
+					studentAnswerAnalysis.setQuestionId(question.getqId());
+					studentAnswerAnalysis.setQuestionName(question.getQuestion());
+					studentAnswerAnalysis.setQuestionType(question.getQuestionType());
+					studentAnswerAnalysis.setSystemAnswer(question.getAnswer());
+					studentAnswerAnalysis.setStudentName(student.getStuName());
+					studentAnswerAnalysis.setStudentGrade(student.getGrade()+"");
+					List<Answer> answers = answerService.queryAnswers(question.getqId(), student.getStuId());
+					if(answers!=null&&answers.size()>0){
+						studentAnswerAnalysis.setStudentAnswer(answers.get(0).getAnswer());
+						studentAnswerAnalysis.settORf(answers.get(0).gettOrF());
+					}else{
+						studentAnswerAnalysis.setStudentAnswer("null");
+						studentAnswerAnalysis.settORf("null");
+					}
+					studentAnswerAnalysisList.add(studentAnswerAnalysis);
+				}
+			}
+			String fileNamesave = new ExcelBean().setStudentAnswerAnalysis(path, assId+"-"+assignmentService.getAssignment(assId).getAssName(),fileName, studentAnswerAnalysisList);
+			UploadDownloadFile uploadFile = new UploadDownloadFile();
+			try {
+				String re =  uploadFile.download(response,path, fileNamesave);
+				System.out.println("下载studentAnswerAnalysis："+re);
+				//删除文件
+				DeleteFile deleteFile = new DeleteFile();
+				String filePath = path+"/"+fileNamesave;
+				 deleteFile.deleteFile(filePath);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
 
 		@Override
 		@Transactional

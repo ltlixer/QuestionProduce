@@ -387,8 +387,8 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='nextQuestion'/>">
 					<input type="button" id="factoidLastId" onclick="factoidLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
+					<input type="button" id="factoidNextId" onclick="factoidNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='nextQuestion'/>">
 				</td>
 				</tr>
 			</table>
@@ -418,8 +418,8 @@ $(function() {
 				</c:forEach>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='nextQuestion'/>">
 					<input type="button" id="deeperLastId" onclick="deeperLast()" class="btnGray" style="width: 100px" value="<spring:message code='lastQuestion'/>">
+					<input type="button" id="deeperNextId" onclick="deeperNext()" class="btnPaleGreen" style="width: 100px" value="<spring:message code='nextQuestion'/>">
 				</td>
 				</tr>
 			</table>

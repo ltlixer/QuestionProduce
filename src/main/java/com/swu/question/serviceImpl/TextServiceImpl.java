@@ -111,10 +111,19 @@ public class TextServiceImpl implements TextService {
 						Course course =courseDAO.selectCourseById(Integer.parseInt(courseId));
 						text.setCourse(course);
 						if(hasNewWords){
-							String[] newWordsList = newWordsSet.split(" ");
 							Set<NewWords> newWords = new HashSet<NewWords>();
-							for(String newWord:newWordsList){
-								newWords.add(new NewWords(newWord,text));
+							//用于去除相同的生字
+							Set<String> stringNewWords = new HashSet<String>();
+							//选出所有不重复的非空字符串
+							for(int i=0;i<newWordsSet.length();i++){
+								String charAtIndexOfI = newWordsSet.substring(i, i+1).trim();
+								if(!"".equals(charAtIndexOfI)){
+									stringNewWords.add(charAtIndexOfI);
+								}
+							}
+							//将上面提取出来的生字加入数据库实体
+							for(String a:stringNewWords){
+								newWords.add(new NewWords(a,text));
 							}
 							text.setNewWords(newWords);
 						}

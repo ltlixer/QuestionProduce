@@ -101,4 +101,19 @@ public class WordDAOImpl implements WordDAO {
 		else
 			return null;
 	}
+
+	@Override
+	public List<Word> getWordListByBS(String bs) {
+		// TODO Auto-generated method stub
+		Query q = sessionFactory.getCurrentSession().createQuery("from Word w where w.bs=:bs");
+		q.setParameter("bs", bs);
+		return q.list();
+	}
+	@Override
+	public List<Word> getWordListByJG(String jg) {
+		// TODO Auto-generated method stub
+		Query q = sessionFactory.getCurrentSession().createQuery("from Word w where w.jg=:jg");
+		q.setParameter("jg", jg);
+		return q.list();
+	}
 }

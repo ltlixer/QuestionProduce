@@ -60,7 +60,7 @@ public class AnswerDAOImpl implements AnswerDAO {
 	public List<Answer> queryAnswers(int qid, int stuId) {
 		// TODO Auto-generated method stub
 		Query q = sessionFactory.getCurrentSession().createQuery(
-				"from Answer a where a.question.qId=? and a.student.stuId =?");
+				"from Answer a where a.question.qId=? and a.scoreAssignment.student.stuId =?");
 		q.setParameter(0, qid);
 		q.setParameter(1, stuId);
 		 @SuppressWarnings("unchecked")

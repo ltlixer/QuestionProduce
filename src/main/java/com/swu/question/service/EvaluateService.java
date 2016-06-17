@@ -20,7 +20,16 @@ public interface EvaluateService {
 			String fileName);
 	
 	public boolean deleteEvaluate(int textId,int stuId);
-	
+	/**
+	 * 下载所有学生某次作业的答题记录
+	 * @param courseIds
+	 * @param response
+	 * @param path
+	 * @param fileName
+	 * @return
+	 */
+	public boolean downloadStuAnswer(int assId,HttpServletResponse response, String path,
+			String fileName);
 	/**
 	 * 下载学生做作业日志
 	 * @param courseIds

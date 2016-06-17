@@ -20,4 +20,16 @@ public interface WordDAO {
 	 * @return
 	 */
 	public List<Word> getWordListByFrequency(String grade);
+	
+	/**
+	 * 根据部首获取某一部首的汉字集
+	 * @param bs
+	 * @return
+	 */
+	public List<Word> getWordListByBS(String bs);/**
+	 * 根据结构获取某一结构的汉字集
+	 * @param bs
+	 * @return
+	 */
+	public List<Word> getWordListByJG(String jg);
 }
