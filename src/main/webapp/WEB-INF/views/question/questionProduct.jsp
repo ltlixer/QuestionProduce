@@ -404,8 +404,8 @@
 						onclick="checkEvent('multiplechoice','selectAllMultipleChoice')" /></th>
 					<th width="35%"><spring:message code='sentence'/></th>
 					<th width="35%"><spring:message code='question'/></th>
-					<th width="22%"><spring:message code='refAnswer'/></th>
-					<th width="8%"><spring:message code='questionType'/></th>
+					<th width="22%"><spring:message code='distracter'/></th>
+					<th width="8%"><spring:message code='answer'/></th>
 				</tr>
 			</table>
 			<script src="<c:url value='/resources/question/js/multiple-choice/question-generator.js'/>"></script>

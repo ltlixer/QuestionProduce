@@ -304,7 +304,7 @@ $(function() {
 	<p> </p>
 	<c:if test="${MultiplechoiceSize==0}">
 	<div class="div3">
-		<font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/> </label>
+		<%-- <font size="4"><label><spring:message code="textLabel1"/>${textTitle}<spring:message code="textLabel2"/> </label> --%>
 		</font>
 		<span style="float: right;"><font size="3"><spring:message code="courseName"/>${courseName}</font>&nbsp;&nbsp;</span>
 	</div>
@@ -318,7 +318,7 @@ $(function() {
 	</div>
 	</c:if>
 	<div class="div3">
-		<font size="4"><label><spring:message code="questionLabel1"/>${questionsize}<spring:message code="questionLabel2"/></label></font>
+		<%-- <font size="4"><label><spring:message code="questionLabel1"/>${questionsize}<spring:message code="questionLabel2"/></label></font> --%>
 		<div style="float: right;"><font size="4" color="red"><spring:message code="timeLabel1"/>${assTime}<spring:message code="timeLabel2"/>
 		<spring:message code="timeLabel3"/><label id="timeShow"></label></font>&nbsp;&nbsp;&nbsp;&nbsp;</div>	
 	</div>
@@ -330,7 +330,7 @@ $(function() {
 			<c:if test="${MultiplechoiceSize>0}">
 				<table class="table" style="width:95%;margin:0 auto;" id="MultiplechoiceQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left"><spring:message code="selectLabel"/>共${FactoidSize}<spring:message code="qend"/></th>
+					<th colspan="3" align="left">选择题共${MultiplechoiceSize}小题</th>
 				</tr>
 				<tr>
 					<th width="7%"><spring:message code="qid"/></th>
@@ -341,8 +341,8 @@ $(function() {
 					<c:forEach var="question" items="${MultiplechoiceQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center"><spring:message code="question"/> ${i}.</td>
-						<td>${question.question}</td>
+						<td><spring:message code="question"/> ${i}.</td>
+						<td>${question.question}。</td>
 						<td class="multiplechoiceAnswer">
 							
 							<c:forEach var="distracter" items="${question.distracter}">
@@ -366,7 +366,7 @@ $(function() {
 			<c:if test="${FactoidSize>0}">
 				<table class="table" style="width:95%;margin:0 auto;" id="FactoidQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left"><spring:message code="facotiodLabel"/>${FactoidSize}<spring:message code="qend"/></th>
+					<th colspan="3" align="left">事实类问题共${FactoidSize}小题</th>
 				</tr>
 				<tr>
 					<th width="7%"><spring:message code="qid"/></th>
@@ -377,7 +377,7 @@ $(function() {
 					<c:forEach var="question" items="${FactoidQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center"><spring:message code="question"/> ${i}.</td>
+						<td><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
 							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">
@@ -397,7 +397,7 @@ $(function() {
 			<c:if test="${DeeperSize>0}">
 				<table class="table" style="width:95%;margin:0 auto;" id="DeeperQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left"><spring:message code="deeperLabel"/>${DeeperSize}<spring:message code="qend"/></th>
+					<th colspan="3" align="left">深层次问题共${DeeperSize}小题</th>
 				</tr>
 				<tr>
 					<th width="7%"><spring:message code="qid"/></th>
@@ -408,7 +408,7 @@ $(function() {
 					<c:forEach var="question" items="${DeeperQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center"><spring:message code="question"/> ${i}.</td>
+						<td><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
 							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">
@@ -428,7 +428,7 @@ $(function() {
 			<c:if test="${OriginalSize>0}">
 				<table class="table" style="width:95%;margin:0 auto;" id="OriginalQuestion" align="center">
 				<tr>
-					<th colspan="3" align="left"><spring:message code="originalLabel"/>${OriginalSize}<spring:message code="qend"/></th>
+					<th colspan="3" align="left">手动添加问题共${OriginalSize}小题</th>
 				</tr>
 				<tr>
 					<th width="7%"><spring:message code="qid"/></th>
@@ -439,7 +439,7 @@ $(function() {
 					<c:forEach var="question" items="${OriginalQuestions}">
 					<c:set var="i" value="${i+1}"/>
 					<tr>
-						<td align="center"><spring:message code="question"/> ${i}.</td>
+						<td><spring:message code="question"/> ${i}.</td>
 						<td>${question.question}</td>
 							<td><textarea  name="answers" class="easyui-validatebox" data-options="required:true" missingMessage="<spring:message code='inputAnswer'/>"  style='width: 300px'></textarea>
 							<input type="hidden" name="qids" value="${question.qId}">

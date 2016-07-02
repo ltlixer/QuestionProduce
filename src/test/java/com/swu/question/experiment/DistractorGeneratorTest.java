@@ -42,7 +42,7 @@ public class DistractorGeneratorTest {
 				Set<Distracter> distracters = question.getDistracter();
 				for(Distracter distracter:distracters)
 					writer.write(question.getAnswer()+"-->"+distracter.getDistracter()+"\r\n");
-				//System.out.println(question.getAnswer()+"-->"+distracter.getDistracter());
+//				System.out.println(question.getAnswer()+"-->"+distracter.getDistracter());
 			}
 			List<Question> questionList3 = multipleChoiceQuestionService.generateChoiceQuestion3(357);
 			writer.write("3\r\n");

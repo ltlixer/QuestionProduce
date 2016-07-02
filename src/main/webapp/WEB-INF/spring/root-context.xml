@@ -37,12 +37,11 @@
                 <prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- 添加c3p0连接池 -->
-				<prop key="hibernate.c3p0.acquire_increment">5</prop>
-				<prop key="hibernate.c3p0.idle_test_period">1800</prop>
-				<prop key="hibernate.c3p0.max_size">600</prop>
-				<prop key="hibernate.c3p0.max_statements">50</prop>
-				<prop key="hibernate.c3p0.min_size">5</prop>
-				<prop key="hibernate.c3p0.timeout">1800</prop>
+				<prop key="hibernate.c3p0.acquire_increment">1</prop>
+				<prop key="hibernate.c3p0.idle_test_period">0</prop>
+				<prop key="hibernate.c3p0.timeout">0</prop>
+				<prop key="hibernate.c3p0.validate">true</prop>
+				
             </props>
         </property>
     </bean>
